@@ -22,7 +22,7 @@ namespace Client.Controls.Carousel
 {
     public class ItemSlider : IEnumerator
     {
-        private List<model.Slider> _list = null;
+        private List<model.Slider>  _list = null;
         int position = 0;
         public event Action<model.Slider, int> SetElement = delegate { };
         Timer _nextTimer = null;
