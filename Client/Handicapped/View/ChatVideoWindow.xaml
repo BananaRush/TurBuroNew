@@ -1,0 +1,60 @@
+﻿<Window x:Class="VSHIM.Control.Handicapped.View.ChatVideoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VSHIM.Control.Handicapped.View"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Height="900"
+        Width="1200"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True"
+        Loaded="Window_Loaded">
+    <Border
+        CornerRadius="30"
+        BorderThickness="4"
+        BorderBrush="#4556fc" Loaded="Border_Loaded">
+        <Border.Background>
+            <ImageBrush x:Name="MainImg"/>
+        </Border.Background>
+        <Grid Margin="25">
+            <Border 
+                Visibility="Hidden"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                CornerRadius="20"
+                BorderThickness="2"
+                BorderBrush="#4556fc"
+                Width="170"
+                Height="150">
+                <Border.Background>
+                    <ImageBrush x:Name="imgs" />
+                </Border.Background>
+            </Border>
+            <Border 
+                Margin="0,0,0,0"
+                CornerRadius="10"
+                VerticalAlignment="Bottom"
+                Width="80"
+                Height="80"
+                BorderThickness="2"
+                BorderBrush="#E5E5E5">
+                <Button 
+                Background="Transparent"
+                Style="{StaticResource ButtonNonStyle}">
+                    <Image Margin="12" Source="../Image/phone.png"/>
+                </Button>
+            </Border>
+            <TextBlock
+                Name="OperatorName"
+                FontWeight="Bold"
+                TextAlignment="Center"
+                FontSize="30"
+                Text="123"/>
+        </Grid>
+    </Border>
+</Window>

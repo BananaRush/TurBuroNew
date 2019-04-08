@@ -1,0 +1,785 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EmguCV.3.1.0.1\build\EmguCV.props" Condition="Exists('..\packages\EmguCV.3.1.0.1\build\EmguCV.props')" />
+  <Import Project="..\packages\CefSharp.Wpf.57.0.0\build\CefSharp.Wpf.props" Condition="Exists('..\packages\CefSharp.Wpf.57.0.0\build\CefSharp.Wpf.props')" />
+  <Import Project="..\packages\CefSharp.Common.57.0.0\build\CefSharp.Common.props" Condition="Exists('..\packages\CefSharp.Common.57.0.0\build\CefSharp.Common.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D39FC1AE-927B-4F10-B8E5-75FF529FAF1D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>TourAgency</RootNamespace>
+    <AssemblyName>TourAgency</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxMin, Version=5.0.5007.14579, Culture=neutral, PublicKeyToken=21ef50ce11b5d80f, processorArchitecture=x86">
+      <HintPath>..\packages\AjaxMin.5.0.5007.14585\lib\net40\AjaxMin.dll</HintPath>
+    </Reference>
+    <Reference Include="CefSharp, Version=57.0.0.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\x64\Release\CefSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="CefSharp.BrowserSubprocess, Version=57.0.0.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\x64\Release\CefSharp.BrowserSubprocess.exe</HintPath>
+    </Reference>
+    <Reference Include="CefSharp.BrowserSubprocess.Core, Version=57.0.0.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\x64\Release\CefSharp.BrowserSubprocess.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="CefSharp.Core, Version=57.0.0.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\x64\Release\CefSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="CefSharp.Wpf, Version=57.0.0.0, Culture=neutral, PublicKeyToken=40c4b6fc221f4138, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\x64\Release\CefSharp.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.UI, Version=3.1.0.2282, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <HintPath>..\packages\EmguCV.3.1.0.1\lib\net30\Emgu.CV.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.UI.GL, Version=3.1.0.2282, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <HintPath>..\packages\EmguCV.3.1.0.1\lib\net30\Emgu.CV.UI.GL.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.World, Version=3.1.0.2282, Culture=neutral, PublicKeyToken=7281126722ab4438, processorArchitecture=MSIL">
+      <HintPath>..\packages\EmguCV.3.1.0.1\lib\net30\Emgu.CV.World.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Client.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="MoonPdfLib, Version=0.3.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>MoonPdf\MoonPdfLib.dll</HintPath>
+    </Reference>
+    <Reference Include="MouseKeyboardActivityMonitor, Version=3.0.1.29653, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>MoonPdf\MouseKeyboardActivityMonitor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.1.1.2225.0\lib\net20\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK.GLControl, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.GLControl.1.1.2225.0\lib\net20\OpenTK.GLControl.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleKeyboard, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Keyboard\SimpleKeyboard.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationClient" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="ZedGraph, Version=5.1.5.28844, Culture=neutral, PublicKeyToken=02a83cbd123fcd60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZedGraph.5.1.5\lib\ZedGraph.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Config.cs" />
+    <Compile Include="Controls\CoolKeyBoard.xaml.cs">
+      <DependentUpon>CoolKeyBoard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preloader.xaml.cs">
+      <DependentUpon>Preloader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Testing.xaml.cs">
+      <DependentUpon>Testing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\VideoControl.xaml.cs">
+      <DependentUpon>VideoControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WebControl\BrowserRequestHandler.cs" />
+    <Compile Include="Controls\WebControl\ChromiumBrowser.cs" />
+    <Compile Include="Controls\WebControl\CustomMenuHandler.cs" />
+    <Compile Include="Controls\WebControl\SampleLifeSpanHandler.cs" />
+    <Compile Include="Controls\WebControl\UrlParse.cs" />
+    <Compile Include="Controls\WebControl\WebBrowserConfig.cs" />
+    <Compile Include="Converters\ItemNumberToIsCheckedConverter.cs" />
+    <Compile Include="Converters\KeyBoardLanguageConverter.cs" />
+    <Compile Include="Converters\LanguageConverter.cs" />
+    <Compile Include="Converters\PathToImageConverter.cs" />
+    <Compile Include="Converters\VideoConnectionButtonConverter.cs" />
+    <Compile Include="Converters\WeatherNumbersConverter.cs" />
+    <Compile Include="Exploeer.cs" />
+    <Compile Include="Model\ModelSliderContent.cs" />
+    <Compile Include="Model\SearchModel.cs" />
+    <Compile Include="Pages\InfoPage.xaml.cs">
+      <DependentUpon>InfoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\LicenseConfim.xaml.cs">
+      <DependentUpon>LicenseConfim.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SearchPage.xaml.cs">
+      <DependentUpon>SearchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SectionPage.xaml.cs">
+      <DependentUpon>SectionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\API.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Commands\Command.cs" />
+    <Compile Include="Controls\AccountWindow.xaml.cs">
+      <DependentUpon>AccountWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AlignableWrapPanel.cs" />
+    <Compile Include="Controls\CarouselControl.xaml.cs">
+      <DependentUpon>CarouselControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ImageCarouselItemControl.xaml.cs">
+      <DependentUpon>ImageCarouselItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MessageBox.xaml.cs">
+      <DependentUpon>MessageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\OneMessage.xaml.cs">
+      <DependentUpon>OneMessage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LanguageControl.xaml.cs">
+      <DependentUpon>LanguageControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PdfViewer.xaml.cs">
+      <DependentUpon>PdfViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SwitchButton.xaml.cs">
+      <DependentUpon>SwitchButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TimeControl.xaml.cs">
+      <DependentUpon>TimeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\VideoConnectionControl.xaml.cs">
+      <DependentUpon>VideoConnectionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\BoolToAlignmentConverter.cs" />
+    <Compile Include="Converters\BoolToPointsCollectionConverter.cs" />
+    <Compile Include="Converters\CarouselTypeVisibilityConverter.cs" />
+    <Compile Include="Converters\DateToStringConverter.cs" />
+    <Compile Include="Converters\TextBoxEmptyHelper.cs" />
+    <Compile Include="Controls\WeatherControl.xaml.cs">
+      <DependentUpon>WeatherControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CarouselItemModel.cs" />
+    <Compile Include="Model\CurrencyModel.cs" />
+    <Compile Include="Model\ModelWebApi\FinishedTest.cs" />
+    <Compile Include="Model\ModelWebApi\Response.cs" />
+    <Compile Include="Model\ModelWebApi\Slider.cs" />
+    <Compile Include="Model\ModelWebApi\SliderContentType.cs" />
+    <Compile Include="Model\ModelWebApi\User_Test.cs" />
+    <Compile Include="Model\TimeModel.cs" />
+    <Compile Include="Model\WeatherModel.cs" />
+    <Compile Include="Pages\Chat.xaml.cs">
+      <DependentUpon>Chat.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FotoPage.xaml.cs">
+      <DependentUpon>FotoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Map.xaml.cs">
+      <DependentUpon>Map.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\BehaviorsSetter.cs" />
+    <Compile Include="Utilities\CameraTranslation.cs" />
+    <Compile Include="Utilities\EmotionShareComunication.cs" />
+    <Compile Include="Utilities\LanguageProperty.cs" />
+    <Compile Include="Utilities\NeironStats.cs" />
+    <Compile Include="Utilities\RelayCommand.cs" />
+    <Compile Include="Utilities\Session.cs" />
+    <Compile Include="Utilities\UserInactivity.cs" />
+    <Compile Include="Utilities\WebApi.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="Pages\VideoConnectionPage.xaml.cs">
+      <DependentUpon>VideoConnectionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\CarouselViewModel.cs" />
+    <Compile Include="ViewModel\CurrencyViewModel.cs" />
+    <Compile Include="ViewModel\TimeViewModel.cs" />
+    <Compile Include="ViewModel\WeatherViewModel.cs" />
+    <Compile Include="ViewModel\TestViewModelForChat.cs" />
+    <Compile Include="ViewModel\TestViewModelForMainVindow.cs" />
+    <Compile Include="Converters\HtmlToXamlConverter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\AllNewsListControl.xaml.cs">
+      <DependentUpon>AllNewsListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\BlockControl.xaml.cs">
+      <DependentUpon>BlockControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CurrencyControl.xaml.cs">
+      <DependentUpon>CurrencyControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MainNewsListControl.xaml.cs">
+      <DependentUpon>MainNewsListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SingleNewsControl.xaml.cs">
+      <DependentUpon>SingleNewsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\CuttingTextConverter.cs" />
+    <Compile Include="Converters\DomenImageSourceConverter.cs" />
+    <Compile Include="Converters\MainNewsVisibilityConverter.cs" />
+    <Compile Include="MainSettings.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\NewsModel.cs" />
+    <Compile Include="Pages\FAQPage.xaml.cs">
+      <DependentUpon>FAQPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FirstPage.xaml.cs">
+      <DependentUpon>FirstPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PersonalAccountsPage.xaml.cs">
+      <DependentUpon>PersonalAccountsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\SingleNewsModel.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="OpenTK.dll.config" />
+    <None Include="Resources\laws.pdf" />
+    <Resource Include="Fonts\ALS_Direct_Bold.otf" />
+    <Resource Include="Fonts\ALS_Direct_Italic.otf" />
+    <Resource Include="Fonts\ALS_Direct_Regular.otf" />
+    <Resource Include="Fonts\SPb Fixed\ALS_SPb_fixed.otf" />
+    <Resource Include="Fonts\ALS_SPb_official.ttf" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Resource Include="Resources\Fonts\ALS_Direct_Bold.otf" />
+    <Resource Include="Resources\Fonts\ALS_Direct_Italic.otf" />
+    <Resource Include="Resources\Fonts\ALS_Direct_Regular.otf" />
+    <Resource Include="Resources\Fonts\ALS_SPb_fixed.otf" />
+    <Resource Include="Resources\Fonts\ALS_SPb_official.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\telka_kopia.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\android-character-symbol.png" />
+    <Resource Include="Images\Icons\earth-globe.png" />
+    <Resource Include="Images\Icons\silhouette-on-wheelchair.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Controls\AccountWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\AllNewsListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\BlockControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CarouselControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CoolKeyBoard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\CurrencyControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ImageCarouselItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\LanguageControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MainNewsListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Preloader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SingleNewsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\OneMessage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PdfViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Testing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TimeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SwitchButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\VideoConnectionControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\VideoControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\WeatherControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Chat.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\FAQPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\FirstPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\FotoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\InfoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\LicenseConfim.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Map.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PersonalAccountsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SectionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\VideoConnectionPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\album_cover.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\MainIcons\001-briefcase.png" />
+    <Resource Include="Images\MainIcons\002-info.png" />
+    <Resource Include="Images\MainIcons\003-flip-flops.png" />
+    <Resource Include="Images\MainIcons\004-shopping.png" />
+    <Resource Include="Images\MainIcons\005-take-away.png" />
+    <Resource Include="Images\MainIcons\006-transport.png" />
+    <Resource Include="Images\MainIcons\007-event.png" />
+    <Resource Include="Images\MainIcons\008-subway-sign.png" />
+    <Resource Include="Images\MainIcons\009-bank.png" />
+    <Resource Include="Images\MainIcons\avatar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Logos\CupBig.png" />
+    <Resource Include="Images\Logos\cupSmall.png" />
+    <Resource Include="Images\Logos\SPbBig.png" />
+    <Resource Include="Images\Logos\SPbSmall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\chat.png" />
+    <Resource Include="Images\Icons\magnifying-glass.png" />
+    <Resource Include="Images\Icons\webcam.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\underline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\page_background.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Zastavka_kopia.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\LanguageIcons\chinese-language.png" />
+    <Resource Include="Images\LanguageIcons\english-language.png" />
+    <Resource Include="Images\LanguageIcons\russian-language.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WeatherIcons\sunny-day.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WeatherIcons\White\sunny-day.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WeatherIcons\clear-night.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WeatherIcons\White\clear-night.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WeatherIcons\thunder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WeatherIcons\White\thunder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WeatherIcons\snow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WeatherIcons\White\snow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WeatherIcons\mist.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WeatherIcons\White\mist.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WeatherIcons\few-clouds.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WeatherIcons\White\few-clouds.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WeatherIcons\clouds.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WeatherIcons\White\clouds.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WeatherIcons\thunder-rain.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WeatherIcons\White\thunder-rain.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WeatherIcons\rain.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WeatherIcons\White\rain.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WeatherIcons\broken-clouds.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WeatherIcons\White\broken-clouds.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="HTML\index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Images\Icons\inversion.png" />
+    <Content Include="Scripts\jquery-1.8.0.intellisense.js" />
+    <Content Include="Scripts\jquery-1.8.0.js" />
+    <Content Include="Scripts\jquery-1.8.0.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Video\Chinese\01.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Chinese\02.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Chinese\03.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Chinese\04.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Chinese\05.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Chinese\06.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Chinese\07.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Chinese\08.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Chinese\09.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Chinese\10.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Chinese\11.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Chinese\12.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Chinese\13.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Chinese\14.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Chinese\15.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\English\01.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\English\02.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\English\03.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\English\04.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\English\05.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\English\06.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\English\07.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\English\08.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\English\09.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\English\11.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\English\12.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\English\13.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\English\14.m4v">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Russian\01.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Russian\02.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Russian\03.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Russian\04.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Russian\05.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Russian\06.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Russian\07.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Russian\08.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Russian\09.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Russian\10.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Russian\11.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Russian\12.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Russian\13.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Russian\14.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\Russian\15.m4v">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Images\Icons\ellipse.png" />
+    <Resource Include="Images\CarouselImages\madrid.jpg" />
+    <Resource Include="Images\Icons\party.png" />
+    <Content Include="HTML\VideoConnection.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Images\Icons\play.png" />
+    <Resource Include="Images\Icons\speaker.png" />
+    <Resource Include="Images\Icons\stop.png" />
+    <Content Include="Keyboard\SimpleKeyboard.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Keyboard\System.Windows.Interactivity.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MoonPdf\libmupdf.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MoonPdf\MoonPdfLib.dll" />
+    <Content Include="MoonPdf\MouseKeyboardActivityMonitor.dll" />
+    <Resource Include="Images\carousel-dummy.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="SHDocVw">
+      <Guid>{EAB22AC0-30C1-11CF-A7EB-0000C05BAE0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ModelData\ModelData.csproj">
+      <Project>{40F9D765-771E-4F49-9B31-245E2F6D379A}</Project>
+      <Name>ModelData</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\cef.redist.x64.3.2987.1601\build\cef.redist.x64.targets" Condition="Exists('..\packages\cef.redist.x64.3.2987.1601\build\cef.redist.x64.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\cef.redist.x64.3.2987.1601\build\cef.redist.x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x64.3.2987.1601\build\cef.redist.x64.targets'))" />
+    <Error Condition="!Exists('..\packages\cef.redist.x86.3.2987.1601\build\cef.redist.x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x86.3.2987.1601\build\cef.redist.x86.targets'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.57.0.0\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.57.0.0\build\CefSharp.Common.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.57.0.0\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.57.0.0\build\CefSharp.Common.targets'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Wpf.57.0.0\build\CefSharp.Wpf.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Wpf.57.0.0\build\CefSharp.Wpf.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Wpf.57.0.0\build\CefSharp.Wpf.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Wpf.57.0.0\build\CefSharp.Wpf.targets'))" />
+    <Error Condition="!Exists('..\packages\EmguCV.3.1.0.1\build\EmguCV.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EmguCV.3.1.0.1\build\EmguCV.props'))" />
+    <Error Condition="!Exists('..\packages\EmguCV.3.1.0.1\build\EmguCV.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EmguCV.3.1.0.1\build\EmguCV.targets'))" />
+  </Target>
+  <Import Project="..\packages\cef.redist.x86.3.2987.1601\build\cef.redist.x86.targets" Condition="Exists('..\packages\cef.redist.x86.3.2987.1601\build\cef.redist.x86.targets')" />
+  <Import Project="..\packages\CefSharp.Common.57.0.0\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.57.0.0\build\CefSharp.Common.targets')" />
+  <Import Project="..\packages\CefSharp.Wpf.57.0.0\build\CefSharp.Wpf.targets" Condition="Exists('..\packages\CefSharp.Wpf.57.0.0\build\CefSharp.Wpf.targets')" />
+  <Import Project="..\packages\EmguCV.3.1.0.1\build\EmguCV.targets" Condition="Exists('..\packages\EmguCV.3.1.0.1\build\EmguCV.targets')" />
+</Project>

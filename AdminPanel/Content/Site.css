@@ -1,0 +1,223 @@
+﻿.text-brek {
+    padding: 5px;
+    border: 1px solid black;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 90px;
+    text-align: justify;
+}
+
+#demo {
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.green {
+    background-color: #6fb936;
+}
+
+.thumb {
+    margin-bottom: 30px;
+}
+
+.page-top {
+    margin-top: 85px;
+}
+
+
+img.zoom {
+    width: 100%;
+    height: 200px;
+    border-radius: 5px;
+    object-fit: cover;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+}
+
+
+.transition {
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    transform: scale(1.2);
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-title {
+    color: #000;
+}
+
+.modal-footer {
+    display: none;
+}
+
+.vertical-alignment-helper {
+    display: table;
+    height: 100%;
+    width: 100%;
+    pointer-events: none; 
+}
+
+.vertical-align-center {
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events: none;
+}
+
+.modal-content {
+    width: inherit;
+    max-width: inherit;
+    height: inherit;
+    margin: 0 auto;
+    pointer-events: all;
+}
+
+label.active > a {
+    color:white !important;
+}
+
+/*.main-content-container {
+    padding-top:20px;
+}*/
+
+.resize-drag {
+    width: 100px;
+    height: 100px;
+    background-color: #29e;
+    font-family: Arial;
+    font-size: 30px;
+    color: #FFFFFF;
+    position: absolute;
+    user-select: none;
+    -webkit-transform: translate(0px, 0px);
+    transform: translate(0px, 0px);
+}
+
+
+.resize-container {
+    width: 2160px;
+    height: 3840px;
+    background: rgb(17, 19, 20);
+}
+
+#menu-page-edit {
+    padding-left:5px;
+    width: 294px;
+    display: block;
+    float: left;
+    clear: right;
+}
+
+.thclass {
+    width: 80%;
+}
+
+.NavigationFrame {
+    width: 350px;
+    height: 650px;
+    border: 2px solid #ffd800;
+    background-color: transparent !important;
+}
+
+.Slider {
+    max-height: 1000px;
+    max-width: 1780px;
+    min-height: 1000px;
+    min-width: 1780px;
+    background: url(../Images/Carusel.png) no-repeat !important;
+    background-size: 100% 100%;
+}
+
+.Weather {
+    max-width: 262px;
+    max-height: 139px;
+    min-width: 262px;
+    min-height: 139px;
+    background: url(../Images/WeatherControl.png) no-repeat !important;
+    background-size: 100% 100%;
+}
+
+.Currency {
+    max-width: 508px;
+    max-height: 139px;
+    min-width: 508px;
+    min-height: 139px;
+    background: url(../Images/Currency.png) no-repeat !important;
+    background-size: 100% 100%;
+}
+
+.Time {
+    max-width: 162px;
+    max-height: 139px;
+    min-width: 162px;
+    min-height: 139px;
+    background: url(../Images/Time.png) no-repeat !important;
+    background-size: 100% 100%;
+}
+
+.Language {
+    max-width: 450px;
+    max-height: 139px;
+    min-width: 450px;
+    min-height: 139px;
+    background: url(../Images/LanguageControl.png) no-repeat !important;
+    background-size: 100% 100%;
+}
+
+.Survey {
+    max-width: 887px;
+    min-width: 887px;
+    min-height: 563px;
+    background: url(../Images/Survey.png) no-repeat !important;
+    background-size: 100% 100%;
+    background-size: cover;
+}
+
+.News {
+    max-width: 1150px;
+    min-width: 1150px;
+    min-height: 846px;
+    max-height: 846px;
+    background: url(../Images/Event.png) no-repeat !important;
+    background-size: 100% 100%;
+}
+
+.FeatureModule {
+    max-width: 1742px;
+    min-width: 1742px;
+    min-height: 320px;
+    max-height: 320px;
+    background: url(../Images/FeatureModule.png) no-repeat !important;
+    background-size: 100% 100%;
+}
+
+.Still {
+    max-width: 944px;
+    min-width: 944px;
+    min-height: 440px;
+    max-height: 440px;
+    background: url(../Images/eshe.png) no-repeat !important;
+    background-size: 100% 100%;
+}
+
+.VideoGuide {
+    max-width: 450px;
+    min-width: 450px;
+    min-height: 800px;
+    max-height: 800px;
+    background: url(../Images/VideoGuide.png) no-repeat !important;
+    background-size: 100% 100%;
+}
+
+#wapper {
+    background: url(../Images/page_background.jpg) no-repeat !important;
+    background-size: 100% 100%;
+}

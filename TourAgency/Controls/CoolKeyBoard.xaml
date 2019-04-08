@@ -1,0 +1,287 @@
+﻿<UserControl x:Class="VremenaGoda.Controls.CoolKeyBoard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters="clr-namespace:VremenaGoda.Converters"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:utilities="clr-namespace:TourAgency.Utilities"
+             mc:Ignorable="d"  
+             Focusable="False"
+             Padding="0,.5cm,0,2cm">
+    <UserControl.Resources>
+
+        <converters:KeyBoardLanguageConverter x:Key="BoardLanguageConverter"/>
+        <Style TargetType="StackPanel">
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Orientation" Value="Horizontal"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,0,0.96cm"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Template" Value="{StaticResource KeyBoardButton}"/>
+            <Setter Property="Margin" Value="0,0,0.6cm,0"/>
+            <Setter Property="FontSize" Value="40.13"/>
+            <Setter Property="Height" Value="3.14cm"/>
+            <!--<Setter Property="Command" Value="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=UserControl}, Path=SendKeysCommand}"/>
+            <Setter Property="CommandParameter" Value="{Binding RelativeSource={RelativeSource Self}, Path=Content}"/>-->
+            <Setter Property="Content">
+               <Setter.Value>
+                   <MultiBinding Converter="{StaticResource BoardLanguageConverter}">
+                       <Binding RelativeSource="{RelativeSource FindAncestor,AncestorType=UserControl}" Path="ChoosedCulture"/>
+                       <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                   </MultiBinding>
+               </Setter.Value>
+           </Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=UserControl}, Path=ChoosedCulture}" Value="ru-RU">
+                    <Setter Property="Width" Value="2.61cm"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=UserControl}, Path=ChoosedCulture}" Value="en-EN">
+                    <Setter Property="Width" Value="2.93cm"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid VerticalAlignment="Center" Focusable="False" >
+        <Grid.Background>
+            <SolidColorBrush  Color="Black" Opacity="0.7"></SolidColorBrush>
+        </Grid.Background>
+        <Grid.Effect>
+            <DropShadowEffect Opacity="0.25"
+                              Color="#595959"
+                              BlurRadius="25"
+                              ShadowDepth="0"
+                              RenderingBias="Performance"/>
+        </Grid.Effect>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <Button Tag="q" TouchDown="UIElement_OnTouchDown" />
+            <Button Tag="w" TouchDown="UIElement_OnTouchDown"/>
+            <Button Tag="e" TouchDown="UIElement_OnTouchDown"/>
+            <Button Tag="r" TouchDown="UIElement_OnTouchDown"/>
+            <Button Tag="t" TouchDown="UIElement_OnTouchDown"/>
+            <Button Tag="y" TouchDown="UIElement_OnTouchDown"/>
+            <Button Tag="u" TouchDown="UIElement_OnTouchDown"/>
+            <Button Tag="i" TouchDown="UIElement_OnTouchDown"/>
+            <Button Tag="o" TouchDown="UIElement_OnTouchDown"/>
+            <Button Tag="p" TouchDown="UIElement_OnTouchDown"/>
+            <Button Content="х" TouchDown="UIElement_OnTouchDown">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=UserControl}, Path=ChoosedCulture}" Value="RU-RU">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+            <Button Tag="a" TouchDown="UIElement_OnTouchDown"/>
+            <Button Tag="s" TouchDown="UIElement_OnTouchDown"/>
+            <Button Tag="d" TouchDown="UIElement_OnTouchDown"/>
+            <Button Tag="f" TouchDown="UIElement_OnTouchDown"/>
+            <Button Tag="g" TouchDown="UIElement_OnTouchDown"/>
+            <Button Tag="h" TouchDown="UIElement_OnTouchDown"/>
+            <Button Tag="j" TouchDown="UIElement_OnTouchDown"/>
+            <Button Tag="k" TouchDown="UIElement_OnTouchDown"/>
+            <Button Tag="l" TouchDown="UIElement_OnTouchDown"/>
+            <Button Content="ж" TouchDown="UIElement_OnTouchDown">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor,
+                                AncestorType=UserControl}, 
+                                Path=ChoosedCulture}" 
+                                         Value="RU-RU">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Content="э" TouchDown="UIElement_OnTouchDown">
+               
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=UserControl}, Path=ChoosedCulture}" Value="RU-RU">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+        <StackPanel Grid.Row="2">
+            <Button Tag="@" TouchDown="UIElement_OnTouchDown"/>
+            <Button Tag="z" TouchDown="UIElement_OnTouchDown"/>
+            <Button Tag="x" TouchDown="UIElement_OnTouchDown"/>
+            <Button Tag="c" TouchDown="UIElement_OnTouchDown"/>
+            <Button Tag="v" TouchDown="UIElement_OnTouchDown"/>
+            <Button Tag="b" TouchDown="UIElement_OnTouchDown"/>
+            <Button Tag="n" TouchDown="UIElement_OnTouchDown"/>
+            <Button Tag="m" TouchDown="UIElement_OnTouchDown"/>
+            <Button Content="б" TouchDown="UIElement_OnTouchDown">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=UserControl}, Path=ChoosedCulture}" Value="RU-RU">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Tag="?" TouchDown="UIElement_OnTouchDown"/>
+            <RepeatButton
+                Tag="pic" 
+                TouchDown="DeleteFromTouch">
+                <RepeatButton.Style>
+                    <Style TargetType="RepeatButton">
+                        <Setter Property="Width" Value="2.93cm"></Setter>
+                        <Setter Property="Focusable" Value="False"/>
+                        <Setter Property="Template" Value="{StaticResource KeyBoardButton}"/>
+                        <Setter Property="Margin" Value="0,0,15,0"/>
+                        <Setter Property="FontSize" Value="40.13"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=UserControl}, Path=ChoosedCulture}" Value="ru-RU">
+                                <Setter Property="Width" Value="2.65cm"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=UserControl}, Path=ChoosedCulture}" Value="en-EN">
+                                <Setter Property="Width" Value="2.93cm"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </RepeatButton.Style>
+                <Border Background="Transparent">
+                <Viewbox Height="27">
+                    <Path Data="{StaticResource Delete}">
+                        <Path.Style>
+                            <Style TargetType="Path">
+                                <Setter Property="Fill" Value="#535353"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=RepeatButton}, Path=IsPressed}" Value="True">
+                                        <Setter Property="Fill" Value="White"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Path.Style>
+                    </Path>
+                </Viewbox>
+                </Border>
+            </RepeatButton>
+        </StackPanel>
+        <StackPanel Grid.Row="3" >
+            <Button Width="2.65cm" Height="88" Margin="0,0,0.6cm,0"
+                        PreviewTouchDown="ShiftTouch"
+                          Focusable="False"
+                       >
+                <Button.Template>
+                    <ControlTemplate>
+                        <Border 
+                    x:Name="Border"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="{TemplateBinding Button.Width}"
+                    MinHeight="88">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Background" Value="White"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=IsShift}" Value="True">
+                                            <Setter Property="Background" Value="#959595"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Grid>
+                                <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Margin="-5,0,0,0">
+                                    <Path>
+                                        <Path.Style>
+                                            <Style TargetType="Path">
+                                                <Setter Property="Fill" Value="#535353"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=IsShift}" Value="True">
+                                                        <Setter Property="Fill" Value="White"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Path.Style>
+                                        <Path.Data>
+                                            <PathGeometry Figures="M8,0L2,6 5,6 5,16 11,16 11,6 14,6z"/>
+                                        </Path.Data>
+                                    </Path>
+                                </Viewbox>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Width="2.65cm" Tag="pic" 
+                    TouchDown="UIElement_OnTouchDown" 
+                    DataContext="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=UserControl}}">
+                <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center" Height="30">
+                    <Path Data="{StaticResource WorldWeb}" >
+                        <Path.Style>
+                            <Style TargetType="Path">
+                                <Setter Property="Fill" Value="#535353"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=IsPressed}" Value="True">
+                                        <Setter Property="Fill" Value="White"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Path.Style>
+                    </Path>
+                </Viewbox>
+            </Button>
+            <Button Width="18.42cm" Content=" " TouchDown="UIElement_OnTouchDown"/>
+            <Button Width="2.65cm" Content="," TouchDown="UIElement_OnTouchDown"/>
+            <Button Width="2.65cm" Content="." TouchDown="UIElement_OnTouchDown"/>
+            <Button Width="5.79cm" FontSize="30" TouchDown="UIElement_OnTouchDown">
+           
+                <Button.Style>
+                    <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=UserControl}, Path=ChoosedCulture}" Value="RU-RU">
+                                <Setter Property="Content" Value="ввод"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=UserControl}, Path=ChoosedCulture}" Value="EN-EN">
+                                <Setter Property="Content" Value="enter"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

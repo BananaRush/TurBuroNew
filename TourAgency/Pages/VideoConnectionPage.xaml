@@ -1,0 +1,210 @@
+﻿<Page x:Class="TourAgency.Pages.VideoConnectionPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TourAgency.Pages"
+      xmlns:controls="clr-namespace:TourAgency.Controls"
+      xmlns:utilities="clr-namespace:TourAgency.Utilities"
+      xmlns:system="clr-namespace:System;assembly=mscorlib"
+      mc:Ignorable="d" 
+      Title="VideoConnectionPage"
+      x:Name="Page"
+      >
+    <Viewbox>
+        <Grid Height="1950" Width="2160">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Margin="0,50,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition Height="60"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="190"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Row="1" Style="{StaticResource ButtonBack}" Content="НАЗАД" TouchDown="UIElement_OnTouchDown"/>
+                    <Button Grid.Row="1" Grid.Column="1">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource ButtonFAQ}">
+                                <Setter Property="Content" Value="ВИДЕОЧАТ С КОНСУЛЬТАНТОМ"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=Page, Path=IsCamers}" Value="True">
+                                        <Setter Property="Content" Value="ВЕБ-КАМЕРЫ"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="190"></ColumnDefinition>
+                        <ColumnDefinition ></ColumnDefinition>
+                        <ColumnDefinition Width="190"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="1" Background="#ffffff">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="210" ></RowDefinition>
+                            <RowDefinition Height="1680"></RowDefinition>
+
+                        </Grid.RowDefinitions>
+                        <Grid Height="210" Background="#FFFFB336">
+                            <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" FontSize="60" VerticalAlignment="Center" Margin="100,0,0,0" HorizontalAlignment="Left" FontFamily="{StaticResource MainFont1}" Foreground="#ffffff">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Text"  Value="Видео поддержка"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=Page, Path=IsCamers}" Value="True">
+                                                <Setter Property="Text" Value="Просмотр камер киосков"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                        <Grid Grid.Row="1" x:Name="GridForBrowser">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="142"/>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="142"/>
+                            </Grid.ColumnDefinitions>
+                            <controls:VideoConnectionControl VideoConnectionOnCallEnded="VideoConnectionControl_OnVideoConnectionOnCallEnded"
+                                                         VideoConnectionOnCallStarted="VideoConnectionControl_OnVideoConnectionOnCallStarted"
+                                                         VideoConnectionOnError="VideoConnectionControl_OnVideoConnectionOnError"
+                                                         VideoConnectionLoaded="VideoConnectionControl_OnVideoConnectionLoaded"
+                                                         Grid.Column="1"
+                                                         x:Name="VideoConnectionBlockControl" Margin="0,0,0,100"/>
+                            
+                            <ItemsControl Grid.Column="1" 
+                                          VerticalAlignment="Top" 
+                                          HorizontalAlignment="Left" 
+                                          Background="White"
+                                          Padding="25"
+                                          Panel.ZIndex="10" 
+                                          ItemsSource="{Binding ElementName=Page, Path=AllKiosks}"
+                                          Margin="25,25,0,0">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel HorizontalAlignment="Center"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.Style>
+                                    <Style TargetType="ItemsControl">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=Page, Path=IsCamers}" Value="False">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ItemsControl.Style>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <RadioButton Checked="RadioButtonChecked" GroupName="1" HorizontalAlignment="Left" Background="Transparent" Margin="0,0,0,20" Content="{Binding}">
+                                            <RadioButton.Template>
+                                                <ControlTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Border Width="81" Height="81" BorderBrush="#a5a5a5" BorderThickness="2" Background="Transparent">
+                                                            <Border Background="#ecb244" Height="48" Width="48" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                                <Border.Style>
+                                                                    <Style TargetType="Border">
+                                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                                        <Style.Triggers>
+                                                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=RadioButton},Path=IsChecked}" Value="True">
+                                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                                            </DataTrigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </Border.Style>
+                                                            </Border>
+                                                        </Border>
+                                                        <TextBlock FontSize="40" 
+                                                   HorizontalAlignment="Center" 
+                                                   VerticalAlignment="Center" 
+                                                   Margin="34,0,0,0" 
+                                                           Text="{Binding}"
+                                                   FontFamily="{StaticResource SPbofficial1}"/>
+                                                    </StackPanel>
+                                                </ControlTemplate>
+                                            </RadioButton.Template>
+                                        </RadioButton>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <Grid Column="1"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Top"
+                                  Margin="0,1000,0,0"
+                                  Background="Black"
+                                  MaxWidth="1100"
+                                  Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Page},Path=IsErrorVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}"
+                                           Text="Нет свободных операторов. Пожалуйста, повторите попытку позже."
+                                           FontSize="56"
+                                           Foreground="White"
+                                           TextWrapping="Wrap"
+                                           TextAlignment="Center"
+                                           Margin="30"/>
+                            </Grid>
+                            <Button Grid.Column="1"
+                                    Margin="0,1100,0,0"
+                                    Height="210"
+                                    FontSize="56"
+                                    Width="830"
+                                    TouchDown="TouchCommand"
+                                    >
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#ffb336"/>
+                                        <Setter Property="Foreground" Value="#ffffff"/>
+                                        <Setter Property="FontSize" Value="28"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Background="{TemplateBinding Background}" >
+                                                        <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}"
+                                                                   VerticalAlignment="Center"
+                                                                   HorizontalAlignment="Center"
+                                                                   Foreground="{TemplateBinding Foreground}"
+                                                                   FontSize="{TemplateBinding FontSize}"
+                                                                   Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Page},Path=IsCalling, Converter={StaticResource VideoConnectionButtonConverter}}"
+                                                                   FontFamily="{StaticResource MainFont}">
+                                                            <!--<TextBlock.Style>
+                                                                <Style>
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Page},Path=IsCalling}" Value="True">
+                                                                            <Setter Property="TextBlock.Text" Value="Завершить видеочат"/>
+                                                                        </DataTrigger>
+                                                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Page},Path=IsCalling}" Value="False">
+                                                                            <Setter Property="TextBlock.Text" Value="Начать видеочат"/>
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </TextBlock.Style>-->
+                                                        </TextBlock>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=Page, Path=IsCamers}" Value="True">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Page>
+

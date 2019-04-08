@@ -1,0 +1,112 @@
+﻿<UserControl x:Class="TourAgency.Controls.MainNewsListControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TourAgency.Controls"
+             xmlns:converters="clr-namespace:TourAgency.Converters"
+             xmlns:utilities="clr-namespace:TourAgency.Utilities"
+             mc:Ignorable="d"
+             x:Name="UserControl">
+    <UserControl.Resources>
+        <converters:CuttingTextConverter x:Key="CuttingTextConverter"/>
+        <converters:MainNewsVisibilityConverter x:Key="MainNewsVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Background="#fbfbfb"
+              Row="0"
+              Column="0">
+            <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource LanguageConverter}" Margin="35,20"
+                       FontSize="30"
+                       Text="НОВОСТИ"
+                       FontFamily="{StaticResource MainFont1}" FontWeight="Bold"/>
+        </Grid>
+        <Grid Row="1"
+              Column="0"
+              ColumnSpan="2">
+            <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ItemsControl ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=UserControl}, Path=News.results}"
+                      Background="White"
+                      AlternationCount="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=UserControl}, Path=News.results.Count}"
+                      MinHeight="618">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <Button 
+                        CommandParameter="{Binding id}"
+                        Name="Grid"
+                        Visibility="{TemplateBinding ItemsControl.AlternationIndex, Converter={StaticResource MainNewsVisibilityConverter}}">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Grid Background="{TemplateBinding Button.Background}"
+                                MinHeight="206">
+                                <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" FontSize="50"
+                                   TextAlignment="Left"
+                                   Margin="35,20"
+                                   TextWrapping="Wrap"
+                                   VerticalAlignment="Center"
+                                   FontFamily="{StaticResource MainFont}"
+                                   Text="{Binding title, Converter={StaticResource CuttingTextConverter}}"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <DataTemplate.Triggers>
+                    <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                        <Setter TargetName="Grid"
+                                Property="Background"
+                                Value="#fbfbfb"/>
+                    </Trigger>
+                    <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                        <Setter TargetName="Grid"
+                                Property="Background"
+                                Value="White"/>
+                    </Trigger>
+                    <Trigger Property="ItemsControl.AlternationIndex" Value="2">
+                        <Setter TargetName="Grid"
+                                Property="Background"
+                                Value="#fbfbfb"/>
+                    </Trigger>
+                </DataTemplate.Triggers>
+                </DataTemplate>
+        </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <Button Grid.Row="1" 
+                VerticalAlignment="Top"
+                Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ItemsControl}, Path=ActualWidth}">
+            <Button.Template>
+                <ControlTemplate>
+                    <Grid x:Name="Grid"
+                          Height="120"
+                          Background="White">
+                        <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" FontSize="50"
+                                   TextAlignment="Left"
+                                   TextWrapping="Wrap"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Text="Все новости"
+                                   FontFamily="{StaticResource MainFont}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+    </Grid>
+    </Grid>
+        </Grid>
+</UserControl>

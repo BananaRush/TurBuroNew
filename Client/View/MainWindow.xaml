@@ -1,0 +1,77 @@
+﻿<Window x:Class="Client.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Client"
+        xmlns:ViewM="clr-namespace:Client.ViewModel"
+        xmlns:controls="clr-namespace:Client.Controls"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="MainWindow"
+        WindowState="Maximized"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Height="3840" 
+        Width="2160">
+    <Window.DataContext>
+        <ViewM:MainWindowVM/>
+    </Window.DataContext>
+    <Grid 
+        VerticalAlignment="Stretch" 
+        HorizontalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{Binding OffssetTop}"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid 
+            Grid.Row="0" 
+            Background="Black">
+            <Button 
+                Command="{Binding OffssetTopCMD}"
+                Style="{StaticResource ButtonNan}"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"/>
+            <TextBlock 
+                Margin="150,0,150,0"
+                Text="{Binding LangObject2, Mode=TwoWay}"
+                TextWrapping="Wrap"
+                Foreground="White"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="65"/>
+        </Grid>
+        <ScrollViewer Grid.Row="1">
+            <Grid 
+                Height="3840" 
+                Width="2160">
+                <Grid.Background>
+                    <ImageBrush ImageSource="pack://application:,,,/Image/page_background.jpg"/>
+                </Grid.Background>
+                <xctk:MagnifierManager.Magnifier>
+                    <xctk:Magnifier 
+                            x:Name="MyMagnifier"
+                            Visibility="{Binding VisibilityMagnifier}"
+                            IsManipulationEnabled="False"
+                            Radius="300" 
+                            BorderBrush="Red" 
+                            BorderThickness="2"></xctk:Magnifier>
+                </xctk:MagnifierManager.Magnifier>
+                <ItemsControl 
+                        ItemsSource="{Binding UIElementsList}"
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Stretch">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Window>

@@ -1,0 +1,208 @@
+﻿<UserControl x:Class="Client.Controls.StillControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Controls.Still"
+             Height="440"
+             mc:Ignorable="d">
+    <UserControl.DataContext>
+        <local:StillControlVM/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="150"></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel  Visibility="{Binding IsVisibility, Converter={StaticResource BooleanToVisibilityConverter}}" Orientation="Horizontal" Grid.Row="0">
+            <Button Command="{Binding VideoCommand}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Margin" Value="0,0,20,0"></Setter>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="#48b2cb" Padding="20,45">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="1"
+                                   VerticalAlignment="Center"
+                                   FontFamily="Fonts/#ALS Direct" 
+                                   Text="ПОИСК"
+                                   Margin="20,0" 
+                                   Foreground="White"
+                                   FontSize="29">
+
+                                            </TextBlock>
+                                        </Grid>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Command="{Binding VideoCommand}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Margin" Value="0,0,20,0"></Setter>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="#48b2cb" Padding="20,45">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="1"
+                                   VerticalAlignment="Center"
+                                   FontFamily="Fonts/#ALS Direct" 
+                                   Text="СЕЛФИ"
+                                   Margin="20,0" 
+                                   Foreground="White"
+                                   FontSize="29">
+
+                                            </TextBlock>
+                                        </Grid>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Command="{Binding VideoCommand}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="#48b2cb" Padding="20,45">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="1"
+                                   VerticalAlignment="Center"
+                                   FontFamily="Fonts/#ALS Direct" 
+                                   Text="КАМЕРЫ"
+                                   Margin="20,0" 
+                                   Foreground="White"
+                                   FontSize="29">
+
+                                            </TextBlock>
+                                        </Grid>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+        <StackPanel Visibility="{Binding IsVisibility, Converter={StaticResource BooleanToVisibilityConverter}}" Orientation="Horizontal" Grid.Row="2">
+            <Button Command="{Binding VideoCommand}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Margin" Value="0,0,20,0"></Setter>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="#48b2cb" Padding="20,45">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="1"
+                                   VerticalAlignment="Center"
+                                   FontFamily="Fonts/#ALS Direct" 
+                                   Text="ВИДЕОЧАТ С КОНСУЛЬТАНТОМ"
+                                   Margin="20,0" 
+                                   Foreground="White"
+                                   FontSize="29">
+
+                                            </TextBlock>
+                                        </Grid>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Command="{Binding VideoCommand}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="#48b2cb" Padding="20,45">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="1"
+                                   VerticalAlignment="Center"
+                                   FontFamily="Fonts/#ALS Direct" 
+                                   Text="ЧАТ С КОНСУЛЬТАНТОМ"
+                                   Margin="20,0" 
+                                   Foreground="White"
+                                   FontSize="29">
+
+                                            </TextBlock>
+                                        </Grid>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+        <ToggleButton 
+            IsChecked="{Binding IsVisibility, Mode=TwoWay}"
+            Grid.Row="4" 
+            Content="ЕЩЕ" 
+            Command="{Binding Button_Click}"
+            x:Name="MoreButton" Background="White" 
+            Height="100"
+            HorizontalAlignment="Left">
+            <ToggleButton.Style>
+                <Style TargetType="ToggleButton">
+                        <Setter Property="Background" Value="#fbfbfb"/>
+                        <Setter Property="Foreground" Value="#000000"/>
+                        <Setter Property="FontSize" Value="28"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                            <ControlTemplate TargetType="ToggleButton">
+                                    <Border Background="{TemplateBinding Background}" >
+                                        <TextBlock 
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    Text="{TemplateBinding Content}"
+                                    FontSize="{TemplateBinding FontSize}"
+                                    FontFamily="{StaticResource MainFont}"
+                                    Margin="30,0"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+            </ToggleButton.Style>
+        </ToggleButton>
+    </Grid>
+</UserControl>

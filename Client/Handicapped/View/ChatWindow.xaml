@@ -1,0 +1,116 @@
+﻿<Window x:Class="VSHIM.Control.Handicapped.View.ChatWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VSHIM.Control.Handicapped.View"
+        xmlns:convert="clr-namespace:VSHIM.Control.Handicapped.Convert"
+        mc:Ignorable="d"
+        Height="650"
+        Width="750"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        Topmost="True"
+        Background="Transparent">
+    <Window.Resources>
+        <convert:CharItemConvert x:Key="CharItemConvert"/>
+        <convert:ChatColorConvert x:Key="ChatColorConvert"/>
+        <convert:ConvertVisiblyName x:Key="ConvertVisiblyName"/>
+    </Window.Resources>
+    <Border
+        Background="White"
+        CornerRadius="30"
+        BorderThickness="4"
+        BorderBrush="#4556fc">
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="15"></RowDefinition>
+                <RowDefinition Height="120"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0">
+                <TextBlock 
+                    Foreground="#4556fc"
+                    FontWeight="Bold"
+                    FontSize="30"
+                    VerticalAlignment="Center"
+                    TextAlignment="Center"
+                    Text="Чат с оператором"/>
+            </Border>
+            <Grid Grid.Row="1" Name="rootgrid">
+                <ScrollViewer x:Name="view_scrol" Height="{Binding ElementName=rootgrid, Path=Height}">
+                    <ItemsControl ItemsSource="{Binding Path=MsgChat}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border
+                                    HorizontalAlignment="{Binding Path=MsgType, Converter={StaticResource CharItemConvert}}"
+                                    CornerRadius="15"                
+                                    MinHeight="50"
+                                    Margin="0,10,5,0"
+                                    MaxWidth="325"
+                                    MinWidth="120"
+                                    Background="{Binding Path=MsgType, Converter={StaticResource ChatColorConvert}}">
+                                    <Grid Margin="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock 
+                                            Grid.Row="0"
+                                            Text="{Binding Path=Msg}"
+                                            TextWrapping="Wrap" 
+                                            FontFamily="Arial Narrow"
+                                            FontWeight="Thin"
+                                            FontSize="30"/>
+                                        <TextBlock   
+                                            Margin="5"
+                                            FontSize="14"
+                                            Grid.Row="1" Visibility="{Binding Path=MsgType, StringFormat={}{0}, Converter={StaticResource ConvertVisiblyName}}"
+                                            Text="{Binding Path=Name}"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+            <Grid Grid.Row="2"/>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="140"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Border 
+                    Margin="10, 0, 0, 10"
+                    CornerRadius="15"
+                    Grid.Column="0"
+                    BorderBrush="#4556fc"
+                    BorderThickness="2">
+                    <RichTextBox
+                        Margin="10"
+                        FontSize="30"
+                        Panel.ZIndex="99"
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Stretch"
+                        Name="msg_text"/>
+                </Border>
+                <Border 
+                    Margin="15,10,15,20" 
+                    BorderThickness="2"
+                    CornerRadius="10"
+                    BorderBrush="#4556fc"
+                    Grid.Column="1">
+                    <Button 
+                        Background="Transparent"
+                        Style="{StaticResource ButtonNonStyle}"
+                        Click="Send_Click">
+                        <Image Width="52" Height="52" Source="../Image/send.png"/>
+                    </Button>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

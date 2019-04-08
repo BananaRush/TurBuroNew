@@ -1,0 +1,248 @@
+﻿@using StorageAPI.Models;
+@model Tuple<IEnumerable<StorageAPI.Models.News>, StorageAPI.Models.News>
+
+@{ 
+    long? Id = 0;
+    string Text = string.Empty;
+    string IconUri = string.Empty;
+    string Content = string.Empty;
+    string AdvertisingImageUri = string.Empty;
+    NewsContentType ContentType = NewsContentType.Page;
+
+    if (Model.Item2 != null)
+    {
+        Id = Model.Item2.Id;
+        Text = Model.Item2.Text;
+        IconUri = Model.Item2.IconUri;
+        //Content = Model.Item2.Content;
+        AdvertisingImageUri = Model.Item2.AdvertisingImageUri;
+        ContentType = Model.Item2.ContentType;
+    }
+}
+
+<div class="page-header row no-gutters">
+    <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+
+    </div>
+</div>
+
+<div class="card card-small mb-4">
+    <div class="card-header border-bottom">
+        <h6 class="m-0">Редактор пунктов меню</h6>
+    </div>
+    @using (Html.BeginForm("AddButton", "Editor", FormMethod.Post))
+    {
+    <input type="text" name="model.Id" value="@Id" hidden/>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item p-0 px-3 pt-3">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 mb-12">
+                    <strong class="text-muted d-block my-2">Пункты меню</strong>
+                    <div class="btn-group mb-3">
+                        @foreach (var item in Model.Item1)
+                        {
+                            string actv = string.Empty;
+                            if (Model.Item2 != null && item.Id == Id)
+                            {
+                                actv = "active";
+                            }
+
+                            <label class="btn btn-white @actv">
+                                <a href="/Home/MenuEditor?id=@item.Id">
+                                    @item.Text
+                                </a>
+                            </label>
+                        }
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li class="list-group-item p-0 px-3 pt-3">
+            <div class="row">
+                <div class="col-sm-7 col-md-7 mb-7">
+                    <strong class="text-muted d-block my-2">Наименование пункта</strong>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="inputAddress" name="model.Text" placeholder="Наименование" value="@Text">
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <li class="list-group-item p-3">
+            <!-- Small Buttons -->
+            <strong class="text-muted d-block my-2">Тип пункта</strong>
+
+            <div class="row col-sm-12 col-md-12 mb-12">
+                <div class="custom-control custom-radio mb-1" style="margin-right:20px;">
+                    @if (ContentType == NewsContentType.Page)
+                    {
+                        <input type="radio" id="formsRadioDefault1" name="model.ContentType" value="Page" class="custom-control-input" checked>
+                    }
+                    else
+                    {
+                        <input type="radio" id="formsRadioDefault1" name="model.ContentType" value="Page" class="custom-control-input">
+                    }
+                    <label class="custom-control-label" for="formsRadioDefault1">Текстовая информация</label>
+                </div>
+
+                @*<div class="custom-control custom-radio mb-1" style="margin-right:20px;">
+                    @if (ContentType == NewsContentType.Presentation)
+                    {
+                        <input type="radio" id="formsRadioDefault2" name="model.ContentType" value="Presentation" class="custom-control-input" checked>
+                    }
+                    else
+                    {
+                        <input type="radio" id="formsRadioDefault2" name="model.ContentType" value="Presentation" class="custom-control-input">
+                    }
+                    <label class="custom-control-label" for="formsRadioDefault2">Презентации</label>
+                </div>*@
+
+                <div class="custom-control custom-radio mb-1" style="margin-right:20px;">
+                    @if (ContentType == NewsContentType.Uri)
+                    {
+                        <input type="radio" id="formsRadioDefault3" name="model.ContentType" value="Uri" class="custom-control-input" checked>
+                    }
+                    else
+                    {
+                        <input type="radio" id="formsRadioDefault3" name="model.ContentType" value="Uri" class="custom-control-input">
+                    }
+                    <label class="custom-control-label" for="formsRadioDefault3">Браузерная ссылка</label>
+                </div>
+
+                <div class="custom-control custom-radio mb-1" style="margin-right:20px;">
+                    @if (ContentType == NewsContentType.Image)
+                    {
+                        <input type="radio" id="formsRadioDefault4" name="model.ContentType" value="Image" class="custom-control-input" checked>
+                    }
+                    else
+                    {
+                        <input type="radio" id="formsRadioDefault4" name="model.ContentType" value="Image" class="custom-control-input">
+                    }
+                    <label class="custom-control-label" for="formsRadioDefault4">Изображение</label>
+                </div>
+
+                <div class="custom-control custom-radio mb-1" style="margin-right:20px;">
+                    @if (ContentType == NewsContentType.Video)
+                    {
+                        <input type="radio" id="formsRadioDefault5" name="model.ContentType" value="Video" class="custom-control-input" checked>
+                    }
+                    else
+                    {
+                        <input type="radio" id="formsRadioDefault5" name="model.ContentType" value="Video" class="custom-control-input">
+                    }
+                    <label class="custom-control-label" for="formsRadioDefault5">Видео ссылка</label>
+                </div>
+
+                <div class="custom-control custom-radio mb-1" style="margin-right:20px;">
+                    @if (ContentType == NewsContentType.Section)
+                    {
+                        <input type="radio" id="formsRadioDefault6" name="model.ContentType" value="Section" class="custom-control-input" checked>
+                    }
+                    else
+                    {
+                        <input type="radio" id="formsRadioDefault6" name="model.ContentType" value="Section" class="custom-control-input">
+                    }
+                    <label class="custom-control-label" for="formsRadioDefault6">Секции</label>
+                </div>
+
+                <div class="custom-control custom-radio mb-1" style="margin-right:20px;">
+                    @if (ContentType == NewsContentType.NewLents)
+                    {
+                        <input type="radio" id="formsRadioDefault7" name="model.ContentType" value="NewLents" class="custom-control-input" checked>
+                    }
+                    else
+                    {
+                        <input type="radio" id="formsRadioDefault7" name="model.ContentType" value="NewLents" class="custom-control-input">
+                    }
+                    <label class="custom-control-label" for="formsRadioDefault7">Новостная лента</label>
+                </div>
+            </div>
+        </li>
+
+        @*<li class="list-group-item p-3">
+            <strong class="text-muted d-block my-2">Информация закрепленная за пунктом меню</strong>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                    <div class="card card-small card-post h-100">
+                        <div class="card-post__image" style="background-image: url('http://visit-spb.com/images/cms/thumbs/a5b0aeaa3fa7d6e58d75710c18673bd7ec6d5f6d/osen_piter_180_auto.jpg');"></div>
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a class="text-fiord-blue" href="#">Школьные туры</a>
+                            </h5>
+                            <p class="card-text">Туры в Санкт-Петербург для школьников – это хорошая возможность познакомить детей с достопримечательностями и историей...</p>
+                        </div>
+                        <div class="card-footer text-muted border-top py-3">
+                            <span class="d-inline-block">
+                                Категория
+                                <a class="text-fiord-blue" href="#">Туры</a>
+                                <button type="button" class="mb-2 btn btn-success mr-2" style="margin-left:45px;">Изменить</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                    <div class="card card-small card-post h-100">
+                        <div class="card-post__image" style="background-image: url('http://visit-spb.com/images/cms/thumbs/a5b0aeaa3fa7d6e58d75710c18673bd7ec6d5f6d/osen_piter_180_auto.jpg');"></div>
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a class="text-fiord-blue" href="#">Школьные туры</a>
+                            </h5>
+                            <p class="card-text">Туры в Санкт-Петербург для школьников – это хорошая возможность познакомить детей с достопримечательностями и историей...</p>
+                        </div>
+                        <div class="card-footer text-muted border-top py-3">
+                            <span class="d-inline-block">
+                                Категория
+                                <a class="text-fiord-blue" href="#">Туры</a>
+                                <button type="button" class="mb-2 btn btn-success mr-2" style="margin-left:45px;">Изменить</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                    <div class="card card-small card-post h-100">
+                        <div class="card-post__image" style="background-image: url('http://visit-spb.com/images/cms/thumbs/a5b0aeaa3fa7d6e58d75710c18673bd7ec6d5f6d/osen_piter_180_auto.jpg');"></div>
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a class="text-fiord-blue" href="#">Школьные туры</a>
+                            </h5>
+                            <p class="card-text">Туры в Санкт-Петербург для школьников – это хорошая возможность познакомить детей с достопримечательностями и историей...</p>
+                        </div>
+                        <div class="card-footer text-muted border-top py-3">
+                            <span class="d-inline-block">
+                                Категория
+                                <a class="text-fiord-blue" href="#">Туры</a>
+                                <button type="button" class="mb-2 btn btn-success mr-2" style="margin-left:45px;">Изменить</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                    <div class="card card-small card-post h-100">
+                        <div class="card-post__image" style="background-image: url('http://visit-spb.com/images/cms/thumbs/a5b0aeaa3fa7d6e58d75710c18673bd7ec6d5f6d/osen_piter_180_auto.jpg');"></div>
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a class="text-fiord-blue" href="#">Школьные туры</a>
+                            </h5>
+                            <p class="card-text">Туры в Санкт-Петербург для школьников – это хорошая возможность познакомить детей с достопримечательностями и историей...</p>
+                        </div>
+                        <div class="card-footer text-muted border-top py-3">
+                            <span class="d-inline-block">
+                                Категория
+                                <a class="text-fiord-blue" href="#">Туры</a>
+                                <button type="button" class="mb-2 btn btn-success mr-2" style="margin-left:45px;">Изменить</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>*@
+        <li class="list-group-item p-3">
+            <strong class="text-muted d-block my-2">Управление</strong>
+            <button type="submit" class="mb-2 btn btn-primary mr-2" name="action" value="Save">Сохранить</button>
+            <button type="submit" class="mb-2 btn btn-success mr-2" name="action" value="Add">Дабавить пункт меню</button>
+            <button type="submit" class="mb-2 btn btn-danger mr-2" name="action" value="Delete">Удалить пункт меню</button>
+        </li>
+    </ul>
+    }
+</div>

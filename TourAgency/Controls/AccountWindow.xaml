@@ -1,0 +1,199 @@
+﻿<UserControl x:Class="TourAgency.Controls.AccountWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TourAgency.Controls"
+             xmlns:utilities="clr-namespace:TourAgency.Utilities"
+             mc:Ignorable="d" 
+             d:DesignHeight="3840" d:DesignWidth="2160"
+             Name="AccountControl" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid Background="#9a000000" Name="MainGrid">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Background="White">
+            <Grid Name="Authorization" Margin="230,110,240,180" Height="1400" Width="1080" Visibility="Visible">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="360"/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" Text="Личный кабинет" Style="{StaticResource AccountHeader}"></TextBlock>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Background="Transparent" VerticalAlignment="Center" TouchDown="RegistrationButton_Click" HorizontalAlignment="Left">
+                        <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" FontFamily="{StaticResource MainFont1}" Text="Регистрация" Style="{StaticResource AccountHeader}" FontSize="64"></TextBlock>
+                    </Button>
+                    <Button Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent">
+                        <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" FontFamily="{StaticResource MainFont1}" Text="Вход" Foreground="#00b3cd" Style="{StaticResource AccountHeader}" FontSize="64"></TextBlock>
+                    </Button>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="200"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" Text="Логин" Style="{StaticResource AccountHeader}" VerticalAlignment="Bottom" Margin="0,0,0,10" HorizontalAlignment="Left" FontSize="40"></TextBlock>
+                    <TextBox x:Name="TextBoxLoginAuth" TouchDown="TextBoxLoginAuth_OnTouchDown" TextWrapping="Wrap" AcceptsReturn="True" Grid.Row="1" FontFamily="{StaticResource MainFont}" FontSize="64" VerticalContentAlignment="Center" BorderBrush="#f9f9f9" Background="#f9f9f9"></TextBox>
+                </Grid>
+                <Grid Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="200"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" Text="Пароль" Style="{StaticResource AccountHeader}" VerticalAlignment="Bottom" Margin="0,0,0,10" HorizontalAlignment="Left" FontSize="40"></TextBlock>
+                    <PasswordBox x:Name="PasswordBoxPassAuth" TouchDown="TextBoxLoginAuth_OnTouchDown" Grid.Row="1" FontFamily="{StaticResource MainFont}" FontSize="64" VerticalContentAlignment="Center" BorderBrush="#f9f9f9" Background="#f9f9f9"></PasswordBox>
+                </Grid>
+                <Grid Grid.Row="4">
+                    <Button Width="700" Height="170" VerticalAlignment="Bottom" Background="#ffb336" Command="{Binding AuthCommand}">
+                        <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" Style="{StaticResource AccountHeader}" Foreground="White" VerticalAlignment="Center" FontFamily="{StaticResource MainFont1}" Margin="0,0,0,10" FontSize="56" Text="Войти"></TextBlock>
+                    </Button>
+                </Grid>
+            </Grid>
+            <Grid Name="Registration" Margin="230,110,240,180" Height="1990" Width="1080" Visibility="Collapsed" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="380"/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" Text="Личный кабинет" Style="{StaticResource AccountHeader}"></TextBlock>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" FontFamily="{StaticResource MainFont1}" Foreground="#00b3cd" Text="Регистрация" Style="{StaticResource AccountHeader}" FontSize="64"></TextBlock>
+                    </Button>
+                    <Button Grid.Column="1" TouchDown="AuthButton_Click" HorizontalAlignment="Right" VerticalAlignment="Center" Background="Transparent">
+                        <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" FontFamily="{StaticResource MainFont1}" Text="Вход" Style="{StaticResource AccountHeader}" FontSize="64"></TextBlock>
+                    </Button>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="200"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" Text="Имя" Style="{StaticResource AccountHeader}" VerticalAlignment="Bottom" Margin="0,0,0,10" HorizontalAlignment="Left" FontSize="40"></TextBlock>
+                    <TextBox TextWrapping="Wrap" 
+                             AcceptsReturn="True" 
+                             Grid.Row="1" 
+                             FontFamily="{StaticResource MainFont}" 
+                             FontSize="64" 
+                             VerticalContentAlignment="Center" 
+                             x:Name="TextBoxName"
+                             BorderBrush="#f9f9f9" 
+                             Background="#f9f9f9"/>
+                </Grid>
+                <Grid Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="200"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" 
+                               Text="Логин" Style="{StaticResource AccountHeader}" 
+                               VerticalAlignment="Bottom" Margin="0,0,0,10" 
+                               HorizontalAlignment="Left" 
+                               FontSize="40"/>
+                    <TextBox TextWrapping="Wrap" 
+                             AcceptsReturn="True" 
+                             Grid.Row="1" 
+                             x:Name="TextBoxLogin"
+                             FontFamily="{StaticResource MainFont}" 
+                             FontSize="64" 
+                             VerticalContentAlignment="Center" 
+                             BorderBrush="#f9f9f9" 
+                             Background="#f9f9f9"/>
+                </Grid>
+                <Grid Grid.Row="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="200"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" Text="Пароль" Style="{StaticResource AccountHeader}" VerticalAlignment="Bottom" Margin="0,0,0,10" HorizontalAlignment="Left" FontSize="40"></TextBlock>
+                    <PasswordBox Grid.Row="1" 
+                                 x:Name="PasswordBoxOne"
+                                 FontFamily="{StaticResource MainFont}" 
+                                 FontSize="64" 
+                                 VerticalContentAlignment="Center" 
+                                 BorderBrush="#f9f9f9" 
+                                 Background="#f9f9f9"/>
+                </Grid>
+                <Grid Grid.Row="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="200"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" Text="Повторите пароль" Style="{StaticResource AccountHeader}" VerticalAlignment="Bottom" Margin="0,0,0,10" HorizontalAlignment="Left" FontSize="40"></TextBlock>
+                    <PasswordBox  Grid.Row="1" 
+                                  FontFamily="{StaticResource MainFont}" 
+                                  FontSize="64" 
+                                  x:Name="PasswordBoxTwo"
+                                  VerticalContentAlignment="Center" 
+                                  BorderBrush="#f9f9f9" 
+                                  Background="#f9f9f9"/>
+                </Grid>
+                <Grid Grid.Row="6" Margin="0,48,0,0">
+                    <StackPanel VerticalAlignment="Bottom" >
+                        <CheckBox HorizontalAlignment="Left" Background="Transparent" Margin="0,0,0,56" IsChecked="{Binding 
+                            RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl},
+                            Path=Checked, Mode=TwoWay}">
+                            <CheckBox.Template>
+                                <ControlTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                    <Border Width="81" Height="81" BorderBrush="#a5a5a5" BorderThickness="2" Background="Transparent">
+                                        <Border Background="#ecb244" Height="48" Width="48" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=CheckBox},Path=IsChecked}" Value="True">
+                                                            <Setter Property="Visibility" Value="Visible"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                        </Border>
+                                    </Border>
+                                        <TextBlock FontSize="40" 
+                                                   HorizontalAlignment="Center" 
+                                                   VerticalAlignment="Center" 
+                                                   Margin="34,0,0,0" 
+                                                   FontFamily="{StaticResource SPbofficial1}">
+                                            <Run Text="я согласен с"/>
+                                            <Hyperlink TouchDown="ContentElement_OnTouchDown" Foreground="#00b3cd" TextDecorations="{x:Null}">
+                                                условиями обработки данных
+                                            </Hyperlink>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </CheckBox.Template>
+                        </CheckBox>
+                    <Button Width="700" Height="170" Background="#ffb336" Command="{Binding RegistrationCommand}" CommandParameter="{Binding ElementName=Registration}">
+                        <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" Style="{StaticResource AccountHeader}" Foreground="White" VerticalAlignment="Center" FontFamily="{StaticResource MainFont1}" Margin="0,0,0,10" FontSize="50" Text="Зарегистрироваться"></TextBlock>
+                    </Button>
+                    </StackPanel>
+
+                </Grid>
+            </Grid>
+
+            <Button TouchDown="Button_Click" Width="170" Height="170" Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Line X1="0" Y1="0" X2="75" Y2="75" Stroke="Black" StrokeThickness="3"></Line>
+                    <Line X1="75" Y1="0" X2="0" Y2="75" Stroke="Black" StrokeThickness="3"></Line>
+                </Grid>
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>

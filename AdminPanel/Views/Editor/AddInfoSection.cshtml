@@ -1,0 +1,161 @@
+﻿@using ModelData.Models.Database
+@using ModelData.Model.Database
+@model Tuple<Information, List<Section>, int>
+
+@{
+    int Id = 0;
+    int? IdBtn = 0;
+    string Title = string.Empty;
+    string Info = string.Empty;
+    bool IsPublick = false;
+    string datatime = string.Empty;
+    string status = "Опубликовать";
+
+    if (Model != null)
+    {
+        if (Model.Item1 != null)
+        {
+            Id = Model.Item1.Id;
+            Title = Model.Item1.Title;
+            Info = Model.Item1.Info;
+            IsPublick = Model.Item1.IsPublick;
+            datatime = Model.Item1.DateTime.ToLongDateString();
+        }
+
+        IdBtn = Model.Item3;
+    }
+}
+<script type="text/javascript" src="~/Scripts/ckeditor/ckeditor.js"></script>
+<script>
+    function SendForm() {
+        $('form[name=bb-post]').submit();
+    }
+
+    function SendFormPublick() {
+        $('form[name=pb-post]').submit();
+    }
+</script>
+
+@helper BuildMenus(List<Section> data, int index)
+{
+    foreach (var item in data)
+    {
+        string txt = string.Empty;
+        if (item.Children.Count != 0)
+        {
+            txt = "disabled";
+        }
+
+        if (Model.Item1 != null && item.Id == Model.Item1.SectionsId)
+        {
+            txt = "selected";
+        }
+
+        <option value="@item.Id" @txt>
+            @for (int idx = 0; idx < index; idx++)
+            {
+                Write("---");
+            }
+
+            @item.Header
+        </option>
+        index++;
+        @BuildMenus(item.Children, index);
+        index--;
+    }
+}
+
+<div class="page-header row no-gutters">
+    <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+        <span class="text-uppercase page-subtitle">Редактор текста</span>
+        <h3 class="page-title">Добавление информации</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-9 col-md-12">
+        @using (Html.BeginForm("InfoPublicSection", "Editor", FormMethod.Post, new { name = "pb-post" }))
+        {
+            <input name="Id" value="@Id" hidden />
+        }
+
+        @using (Html.BeginForm("AddInfoSection", "Editor", FormMethod.Post, new { name = "bb-post" }))
+        {
+            <div class="card card-small mb-3">
+                <div class="card-body">
+                    <input name="model.Id" value="@Id" hidden />
+                    <input name="model.ButtonId" value="@IdBtn" hidden />
+
+                    <input class="form-control form-control-lg mb-3" type="text" name="model.Title" placeholder="Укажите заголовок" value="@Title">
+                    <textarea id="description" name="model.Info" rows="16" required="required">@Info</textarea>
+
+                    <script>
+                        CKEDITOR.replace('model.Info', {
+                            filebrowserWindowWidth: 1200,
+                            filebrowserWindowHeight: 800
+                        });
+                    </script> 
+                </div>
+            </div>
+
+            <div class="card card-small mb-3">
+                <div class="card-body">
+                    <div class="form-group col-md-12">
+                        <strong class="text-muted d-block my-2">Категория</strong>
+                        <select id="inputState" class="form-control" name="model.SectionsId">
+                            @if (Model != null && Model.Item2 != null)
+                            {
+                                @BuildMenus(Model.Item2, 0);
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="col-lg-3 col-md-12">
+        <!-- Post Overview -->
+        <div class="card card-small mb-3">
+            <div class="card-header border-bottom">
+                <h6 class="m-0">Опции</h6>
+            </div>
+            <div class="card-body p-0">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item p-3">
+                        <span class="d-flex mb-2">
+                            <i class="material-icons mr-1">flag</i>
+                            <strong class="mr-1">Дата:</strong> @datatime
+                        </span>
+                        <span class="d-flex mb-2">
+                            <i class="material-icons mr-1">visibility</i>
+                            <strong class="mr-1">Видимость:</strong>
+                            @if (IsPublick)
+                            {
+                                <strong class="text-success">Да</strong>
+                            }
+                            else
+                            {
+                                <strong class="text-success">Нет</strong>
+                            }
+                        </span>
+                    </li>
+                    <li class="list-group-item d-flex px-3">
+                        <button type="submit" class="btn btn-sm btn-outline-accent" onclick="SendForm()">
+                            <i class="material-icons">save</i> Сохранить
+                        </button>
+
+                        <a class="btn btn-sm btn-accent ml-auto" href="/Editor/InfoPublicSection?id=@Id&IdBtn=@Model.Item3&flagEdit=false" @*onclick="SendFormPublick()"*@>
+
+                            @if (IsPublick)
+                            {
+                                status = "Снять с публикации";
+                            }
+
+                            <i class="material-icons">file_copy</i> @status
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

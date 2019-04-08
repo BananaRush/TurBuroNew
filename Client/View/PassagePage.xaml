@@ -1,0 +1,106 @@
+﻿<Page x:Class="Client.View.PassagePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Client.View"
+      xmlns:controls="clr-namespace:Client.Controls"
+      mc:Ignorable="d" 
+      xmlns:ViewM="clr-namespace:Client.ViewModel"
+      Title="PassagePage">
+    <Page.DataContext>
+        <ViewM:PassagePageVM/>
+    </Page.DataContext>
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </Page.Resources>
+    <Grid>
+        <controls:PageShallControl Background="White">
+        <ScrollViewer 
+            VerticalScrollBarVisibility="Hidden"
+            HorizontalScrollBarVisibility="Hidden">
+            <ItemsControl ItemsSource="{Binding PassageList, IsAsync=True}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <Grid Margin="10">
+                                <TextBlock
+                                    FontSize="35"
+                                    FontFamily="{StaticResource MainFont}" 
+                                    Text="{Binding Path=Title}"/>
+                            </Grid>
+                            <Grid>
+                                <ItemsControl AlternationCount="5" ItemsSource="{Binding Path=ImageLists,IsAsync=True}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <UniformGrid Columns="5"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Button 
+                                                    Height="200"
+                                                    x:Uid="test"
+                                                    Style="{StaticResource ButtonNan}"
+                                                    Command="{Binding DataContext.GetImage, RelativeSource={RelativeSource FindAncestor, AncestorType=Page}}"
+                                                    CommandParameter="{Binding}">
+                                                    <Image 
+                                                        VerticalAlignment="Stretch"
+                                                        HorizontalAlignment="Stretch"
+                                                        Stretch="Fill" 
+                                                        Source="{Binding Path=ImgUrl}"/>
+                                                </Button>
+                                                <DataTemplate.Triggers>
+                                                    <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                                        <Setter Property="Margin" Value="0,19,13,0" x:Uid="test"/>
+                                                    </Trigger>
+                                                    <Trigger Property="ItemsControl.AlternationIndex" Value="2">
+                                                        <Setter Property="Margin" Value="13,19,0,0" x:Uid="test"/>
+                                                    </Trigger>
+                                                    <Trigger Property="ItemsControl.AlternationIndex" Value="2">
+                                                        <Setter Property="Margin" Value="13,19,0,0" x:Uid="test"/>
+                                                    </Trigger>
+                                                    <Trigger Property="ItemsControl.AlternationIndex" Value="3">
+                                                        <Setter Property="Margin" Value="13,19,0,0" x:Uid="test"/>
+                                                    </Trigger>
+                                                    <Trigger Property="ItemsControl.AlternationIndex" Value="4">
+                                                        <Setter Property="Margin" Value="13,19,0,0" x:Uid="test"/>
+                                                    </Trigger>
+                                                </DataTemplate.Triggers>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Grid>
+                            <Button 
+                                Margin="0,15,0,0"
+                                Visibility="{Binding Path=IsLoadImage, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                Command="{Binding DataContext.AddImage, RelativeSource={RelativeSource FindAncestor, AncestorType=Page}}"
+                                CommandParameter="{Binding Path=Id}"
+                                VerticalAlignment="Bottom" 
+                                HorizontalAlignment="Left" 
+                                Width="130" 
+                                Height="50">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <Grid Background="#ffb336">
+                                        <TextBlock 
+                                           FontSize="40"
+                                           Foreground="White"
+                                           TextAlignment="Left"
+                                           TextWrapping="Wrap"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Text="Ещё"
+                                           FontFamily="{StaticResource MainFont}"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        </controls:PageShallControl>
+    </Grid>
+</Page>

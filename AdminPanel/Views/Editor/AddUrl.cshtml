@@ -1,0 +1,82 @@
+﻿@using ModelData.Model.Database
+@model Tuple<UrlInfo, int?>
+@{ 
+    int Id = 0;
+    int? IdBtn = 0;
+    string Title = string.Empty;
+    string URL = string.Empty;
+
+    if(Model != null)
+    {
+        if(Model.Item1 != null)
+        {
+            Id = Model.Item1.Id;
+            Title = Model.Item1.Name;
+            URL = Model.Item1.Url;
+        }
+
+        IdBtn = Model.Item2;
+    }
+}
+
+<div class="col-lg-8 col-md-12">
+    <div class="card card-small mb-3">
+        <div class="card-body">
+            @using (Html.BeginForm("SetUrl", "Editor", FormMethod.Post, new { name = "bb-post" }))
+            {
+                <input name="model.Id" value="@Id" hidden />
+                <input name="model.ButtonId" value="@IdBtn" hidden />
+                <div class="form-group">
+                    <label for="title">Укажите заголовок</label>
+                    <input class="form-control form-control-lg mb-3" type="text" name="model.Name" value="@Title" placeholder="Заголовок" required>
+                </div>
+                <div class="form-group">
+                    <label for="title">Укажите веб адрес</label>
+                    <input class="form-control form-control-lg mb-3" type="text" name="model.Url" value="@URL" placeholder="http://test.ru" required>
+                </div>
+                <div id="url__list" class="option">
+                    @for (int i = 0; Model != null && Model.Item1 != null && i < Model.Item1.UrlListInfos.Count; i++)
+                    {
+                        int index = i + 1;
+                        <div class="input-group mb-3 items col-md-6">
+                            <strong class="text-muted d-block my-2">Домен @index</strong>
+                            <input type="text" style="height:37.45px;" name="model.UrlListInfos[@i].Url" class="form-control" value="@Model.Item1.UrlListInfos[i].Url" required>
+                            <div class="input-group-append">
+                                <button class="btn btn-danger" type="button" onclick="DeleteUrl(this);">Удалить</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="mb-2 btn btn-success mr-2" onclick="AddUrl(this);">Добавить домен</button>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script>
+    function AddUrl(item) {
+        let list = $("#url__list");
+        let cout = list.children().length;
+        list.append('<div class="input-group mb-3 items col-md-6">' +
+            '<strong class= "text-muted d-block my-2">Домен ' + (cout + 1) + '</strong >' +
+            '<input type="text" style="height:37.45px;" name="model.UrlListInfos[' + cout + '].Url" class="form-control" required>' +
+            '<div class="input-group-append">' +
+            '<button class="btn btn-danger" type="button" onclick="DeleteUrl(this);">Удалить</button>' +
+            '</div>' +
+            '</div>');
+    }
+
+    function DeleteUrl(item) {
+        let mainPaenet = $(item).closest(".option");
+        let subParmet = $(item).closest(".items");
+        subParmet.remove();
+        mainPaenet.children().each(function (key, value) {
+            $(value).find(".text-muted").last().text("Домен " + (key + 1));
+            let elm = $(value).find("input").last();
+            elm.attr("name", elm.attr("name").replace(/[0-9]+/g, `${key}`));
+        });
+    }
+
+</script>

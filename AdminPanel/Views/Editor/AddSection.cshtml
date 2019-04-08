@@ -1,0 +1,133 @@
+﻿@using ModelData.Models.Database
+@model Tuple<List<Section>, int?>
+
+@{ 
+    int IdBtn = 0;
+
+    if(Model != null)
+    {
+        if(Model.Item2.HasValue)
+        {
+            IdBtn = Model.Item2.Value;
+        }
+    }
+}
+
+<div class="form-group">
+    <ul class="nav nav-tabs">
+        <li><a href="/Editor/ListSectionInfo/@IdBtn">Информация</a></li>
+        <li class="active"><a href="/Editor/AddSection/@IdBtn">Секции</a></li>
+    </ul>
+</div>
+
+<div class="naf-info col-xs-12">
+    <div class="row">
+        <div class="col-xs-1">
+            <button data-toggle="modal" data-target=".loadImage" class="btn btn-primary">Создать секцию</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade loadImage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Добавить секцию</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @using (Html.BeginForm("SetSection", "Editor", FormMethod.Post, new { name = "pb-post" }))
+                    {
+                        <input type="text" name="IdBtn" value="@IdBtn" hidden />
+                        <input id="IdSection" type="text" name="Id" value="0" hidden />
+                        <div class="form-group">
+                            <label>Укажите имя секции</label>
+                            <input type="text" name="Name" class="form-control" required>
+                        </div>
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary">Создать секцию</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade editsection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Редактирование секции</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @using (Html.BeginForm("SetEditSection", "Editor", FormMethod.Post, new { name = "pb-post" }))
+                    {
+                        <input type="text" name="IdBtn" value="@IdBtn" hidden />
+                        <input id="IdSectionEdit" type="text" name="Id" value="0" hidden />
+                        <div class="form-group">
+                            <label>Укажите имя секции</label>
+                            <input id="SectionPlan" type="text" name="Name" value="" class="form-control" required>
+                        </div>
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary">Сохранить</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-11">
+    <ul>
+        @helper BuildMenu(List<Section> data, int index)
+        {
+            if (Model != null && Model.Item1 != null)
+            {
+                foreach (var item in data)
+                {
+                    <li class="list-group-item node-treeview1 node-selected" data-nodeid="0" style="color:undefined;background-color:undefined;">
+                        @for (int idx = 0; idx < index; idx++)
+                        {
+                            //Итем сдвига меню
+                            <span style="margin-left:18px;"></span>
+                        }
+
+                        <label id="label_@item.Id" style="color: #428bca; font-size:18px; margin-top:6px;">@item.Header</label>
+                        <div style="float: right;">
+                            @if (item.Visibly == true)
+                            {
+                                <a disabled="true" class="btn btn-primary"></a>
+                                <button data-toggle="modal" data-target=".loadImage" onclick="AddSection(@item.Id);" class="btn btn-primary">Создать</button>
+                            }
+                            else
+                            {
+                                <button data-toggle="modal" data-target=".loadImage" onclick="AddSection(@item.Id);" class="btn btn-primary">Создать</button>
+                            }
+                            
+                            <button data-toggle="modal" data-target=".editsection" onclick="EditSection(@item.Id);" class="btn btn-warning">Изменить</button>
+                            <a href="/Editor/DeleteSection?IdBtn=@Model.Item2.Value&Id=@item.Id" class="btn btn-danger" onclick="return DeleteAlretMessage();">Удалить</a>
+                        </div>
+                    </li>
+                    index++;
+                    @BuildMenu(item.Children, index);
+                    index--;
+                }
+            }
+        }
+    </ul>
+
+    <div id="treeview1" class="treeview">
+        <ul class="list-group">
+            @BuildMenu(Model.Item1, 0)
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,468 @@
+﻿<UserControl x:Class="VSHIM.Control.Handicapped.View.OffsetContentControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VSHIM.Control.Handicapped.View"
+             xmlns:viewM1="clr-namespace:VSHIM.Control.Handicapped.Model"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+             xmlns:databinding="clr-namespace:VSHIM.Converters"
+             xmlns:databinding1="clr-namespace:VSHIM.Control.Handicapped.Convert"
+             mc:Ignorable="d"
+             x:Name="UserControl">
+    <UserControl.Resources>
+        <databinding:ScrolBarVisibly x:Key="ScrolBarVisibly"></databinding:ScrolBarVisibly>
+        <databinding1:MarginConvert x:Key="MarginConvert"></databinding1:MarginConvert>
+        <databinding:ConvertVisiblyBool x:Key="ConvertVisiblyBool"></databinding:ConvertVisiblyBool>
+        <databinding1:ConvertIntBool x:Key="ConvertIntBool"></databinding1:ConvertIntBool>
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <viewM1:OffsetContentControl/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Loaded" >
+                    <i:InvokeCommandAction Command="{Binding LoadControl}" CommandParameter="{Binding ElementName=MyMagnifier}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Name="PanelClickNormal" Height="{Binding PanelClickNormal, Mode=OneWay}"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <xctk:MagnifierManager.Magnifier>
+                <xctk:Magnifier x:Name="MyMagnifier" Visibility="Hidden" IsManipulationEnabled="False" Radius="300" BorderBrush="Red" BorderThickness="2"></xctk:Magnifier>
+            </xctk:MagnifierManager.Magnifier>
+        
+            <Grid KeyboardNavigation.TabNavigation="None" Grid.Row="0">
+                <Button Command="{Binding SetModeNormal}" Background="#1c1c1c" Style="{StaticResource ButtonNonStyle}">
+                    <Label TextElement.Foreground="#e3e3e3" TextElement.FontSize="24" TextElement.FontWeight="Regular" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                        <Label.Effect>
+                            <DropShadowEffect BlurRadius="3" Opacity="0.69" Direction="634" RenderingBias="Quality" ShadowDepth="0"/>
+                        </Label.Effect> Коснитесь экрана для отображения контента во всю высоту
+                    </Label>
+                </Button>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid>
+                    <ScrollViewer Name="MainContent" Style="{StaticResource ScrollViewerStyle}"
+                                  HorizontalScrollBarVisibility="Disabled"
+                                  VerticalScrollBarVisibility="{Binding ElementName=PanelClickNormal, Path=Height, Converter={StaticResource ScrolBarVisibly}}"/>
+                    <Grid Name="InvalidPanel" Visibility="{Binding IsModulEnabel, Converter={StaticResource ConvertVisiblyBool}, Mode=OneWay}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="{Binding ElementName=MainContent, Path=VerticalScrollBarVisibility, Converter={StaticResource MarginConvert}}">
+                        <Grid Background="Black" Opacity="0.6"/>
+                        <DockPanel>
+                            <Grid DockPanel.Dock="Left" HorizontalAlignment="Left" Margin="18,0,0,0" KeyboardNavigation.TabNavigation="None" Focusable="False">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Button Width="{Binding NavWidth, Mode=OneWay}" Height="{Binding NavHeight, Mode=OneWay}" Focusable="False" Style="{StaticResource HandicappedButtonNavStyle}" KeyboardNavigation.TabNavigation="None" Command="{Binding NavBack}" Grid.Column="0">
+                                    <Viewbox Margin="18,0,18,0">
+                                        <Path Fill="Black" 
+                                              Data="M467.333,50.482H44.667C20.037,50.482,0,70.519,0,95.148v321.703
+			                                        c0,24.629,20.037,44.667,44.667,44.667h422.667c24.629,0,44.667-20.037,44.667-44.667V95.148
+			                                        C512,70.519,491.964,50.482,467.333,50.482z M96.594,391.328c-14.582,0-26.403-11.821-26.403-26.403s11.821-26.403,26.403-26.403
+			                                        c14.582,0,26.403,11.821,26.403,26.403S111.177,391.328,96.594,391.328z M96.594,246.095c-14.582,0-26.403-11.821-26.403-26.403
+			                                        s11.821-26.403,26.403-26.403c14.582,0,26.403,11.821,26.403,26.403S111.177,246.095,96.594,246.095z M96.594,173.478
+			                                        c-14.582,0-26.403-11.821-26.403-26.403s11.821-26.403,26.403-26.403c14.582,0,26.403,11.821,26.403,26.403
+			                                        S111.177,173.478,96.594,173.478z M202.865,173.478c-14.582,0-26.403-11.821-26.403-26.403s11.821-26.403,26.403-26.403
+			                                        c14.582,0,26.403,11.821,26.403,26.403S217.448,173.478,202.865,173.478z M309.135,391.328c-14.582,0-26.403-11.821-26.403-26.403
+			                                        s11.821-26.403,26.403-26.403c14.582,0,26.403,11.821,26.403,26.403S323.719,391.328,309.135,391.328z M309.135,246.095
+			                                        c-14.582,0-26.403-11.821-26.403-26.403s11.821-26.403,26.403-26.403c14.582,0,26.403,11.821,26.403,26.403
+			                                        S323.719,246.095,309.135,246.095z M309.135,173.478c-14.582,0-26.403-11.821-26.403-26.403s11.821-26.403,26.403-26.403
+			                                        c14.582,0,26.403,11.821,26.403,26.403S323.719,173.478,309.135,173.478z M415.406,391.328c-14.582,0-26.403-11.821-26.403-26.403
+			                                        s11.821-26.403,26.403-26.403c14.582,0,26.403,11.821,26.403,26.403S429.989,391.328,415.406,391.328z M415.406,318.711
+			                                        c-14.582,0-26.403-11.821-26.403-26.403s11.821-26.403,26.403-26.403c14.582,0,26.403,11.821,26.403,26.403
+			                                        S429.989,318.711,415.406,318.711z M415.406,246.095c-14.582,0-26.403-11.821-26.403-26.403s11.821-26.403,26.403-26.403
+			                                        c14.582,0,26.403,11.821,26.403,26.403S429.989,246.095,415.406,246.095z" Stretch="Fill">
+                                        </Path>
+                                    </Viewbox>
+                                </Button>
+                                <Button Width="{Binding NavWidth , Mode=OneWay}" Height="{Binding NavHeight, Mode=OneWay}" Focusable="False" Style="{StaticResource HandicappedButtonNavStyle}" KeyboardNavigation.TabNavigation="None" Command="{Binding NavNext}" Grid.Column="1">
+                                    <Viewbox Margin="18,0,18,0">
+                                        <Path Fill="Black" Data="M467.333,50.482H44.667C20.037,50.482,0,70.519,0,95.148v321.703
+			                                                c0,24.629,20.037,44.667,44.667,44.667h422.667c24.629,0,44.667-20.037,44.667-44.667V95.148
+			                                                C512,70.519,491.964,50.482,467.333,50.482z M96.594,391.328c-14.582,0-26.403-11.821-26.403-26.403s11.821-26.403,26.403-26.403
+			                                                c14.582,0,26.403,11.821,26.403,26.403S111.177,391.328,96.594,391.328z M96.594,246.095c-14.582,0-26.403-11.821-26.403-26.403
+			                                                s11.821-26.403,26.403-26.403c14.582,0,26.403,11.821,26.403,26.403S111.177,246.095,96.594,246.095z M96.594,173.478
+			                                                c-14.582,0-26.403-11.821-26.403-26.403s11.821-26.403,26.403-26.403c14.582,0,26.403,11.821,26.403,26.403
+			                                                S111.177,173.478,96.594,173.478z M202.865,173.478c-14.582,0-26.403-11.821-26.403-26.403s11.821-26.403,26.403-26.403
+			                                                c14.582,0,26.403,11.821,26.403,26.403S217.448,173.478,202.865,173.478z M309.135,391.328c-14.582,0-26.403-11.821-26.403-26.403
+			                                                s11.821-26.403,26.403-26.403c14.582,0,26.403,11.821,26.403,26.403S323.719,391.328,309.135,391.328z M309.135,246.095
+			                                                c-14.582,0-26.403-11.821-26.403-26.403s11.821-26.403,26.403-26.403c14.582,0,26.403,11.821,26.403,26.403
+			                                                S323.719,246.095,309.135,246.095z M309.135,173.478c-14.582,0-26.403-11.821-26.403-26.403s11.821-26.403,26.403-26.403
+			                                                c14.582,0,26.403,11.821,26.403,26.403S323.719,173.478,309.135,173.478z M415.406,391.328c-14.582,0-26.403-11.821-26.403-26.403
+			                                                s11.821-26.403,26.403-26.403c14.582,0,26.403,11.821,26.403,26.403S429.989,391.328,415.406,391.328z M415.406,318.711
+			                                                c-14.582,0-26.403-11.821-26.403-26.403s11.821-26.403,26.403-26.403c14.582,0,26.403,11.821,26.403,26.403
+			                                                S429.989,318.711,415.406,318.711z M415.406,246.095c-14.582,0-26.403-11.821-26.403-26.403s11.821-26.403,26.403-26.403
+			                                                c14.582,0,26.403,11.821,26.403,26.403S429.989,246.095,415.406,246.095z" Stretch="Fill"></Path>
+                                    </Viewbox>
+                                </Button>
+                                <Button Width="{Binding NavWidth, Mode=OneWay}" Height="{Binding NavHeight, Mode=OneWay}" Focusable="False" Style="{StaticResource HandicappedButtonNavStyle}" KeyboardNavigation.TabNavigation="None" Command="{Binding PlaySound}" Grid.Column="2">
+                                    <Viewbox Margin="18,0,18,0">
+                                        <Path Fill="Black" Data="M467.333,50.482H44.667C20.037,50.482,0,70.519,0,95.148v321.703
+			                                                c0,24.629,20.037,44.667,44.667,44.667h422.667c24.629,0,44.667-20.037,44.667-44.667V95.148
+			                                                C512,70.519,491.964,50.482,467.333,50.482z M96.594,391.328c-14.582,0-26.403-11.821-26.403-26.403s11.821-26.403,26.403-26.403
+			                                                c14.582,0,26.403,11.821,26.403,26.403S111.177,391.328,96.594,391.328z M96.594,246.095c-14.582,0-26.403-11.821-26.403-26.403
+			                                                s11.821-26.403,26.403-26.403c14.582,0,26.403,11.821,26.403,26.403S111.177,246.095,96.594,246.095z M96.594,173.478
+			                                                c-14.582,0-26.403-11.821-26.403-26.403s11.821-26.403,26.403-26.403c14.582,0,26.403,11.821,26.403,26.403
+			                                                S111.177,173.478,96.594,173.478z M202.865,173.478c-14.582,0-26.403-11.821-26.403-26.403s11.821-26.403,26.403-26.403
+			                                                c14.582,0,26.403,11.821,26.403,26.403S217.448,173.478,202.865,173.478z M309.135,391.328c-14.582,0-26.403-11.821-26.403-26.403
+			                                                s11.821-26.403,26.403-26.403c14.582,0,26.403,11.821,26.403,26.403S323.719,391.328,309.135,391.328z M309.135,246.095
+			                                                c-14.582,0-26.403-11.821-26.403-26.403s11.821-26.403,26.403-26.403c14.582,0,26.403,11.821,26.403,26.403
+			                                                S323.719,246.095,309.135,246.095z M309.135,173.478c-14.582,0-26.403-11.821-26.403-26.403s11.821-26.403,26.403-26.403
+			                                                c14.582,0,26.403,11.821,26.403,26.403S323.719,173.478,309.135,173.478z M415.406,391.328c-14.582,0-26.403-11.821-26.403-26.403
+			                                                s11.821-26.403,26.403-26.403c14.582,0,26.403,11.821,26.403,26.403S429.989,391.328,415.406,391.328z M415.406,318.711
+			                                                c-14.582,0-26.403-11.821-26.403-26.403s11.821-26.403,26.403-26.403c14.582,0,26.403,11.821,26.403,26.403
+			                                                S429.989,318.711,415.406,318.711z M415.406,246.095c-14.582,0-26.403-11.821-26.403-26.403s11.821-26.403,26.403-26.403
+			                                                c14.582,0,26.403,11.821,26.403,26.403S429.989,246.095,415.406,246.095z" Stretch="Fill"></Path>
+                                    </Viewbox>
+                                </Button>
+                            </Grid>
+
+                            <Grid DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="0,0,20,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="5"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ToggleButton 
+                                    IsEnabled="{Binding IsOperator}"
+                                    Grid.Column="0"
+                                    Focusable="False"
+                                    Style="{StaticResource ToggleButtonStyle}"
+                                    Width="{Binding HandWidth, Mode=OneWay}"
+                                    Height="{Binding HandHeight, Mode=OneWay}"
+                                    KeyboardNavigation.TabNavigation="None"
+                                    Command="{Binding GetChat}"
+                                    IsChecked="{Binding IsChat, Mode=OneWay}">
+                                    <Viewbox Margin="15">
+                                        <Path Style="{StaticResource ToggleButtonPathStyle}" Data="M60.313,29.152C60.313,13.052,47.261,0,31.16,0S2.008,13.052,2.008,29.152c0,16.1,13.052,29.152,29.152,29.152 
+                                              c3.138,0,6.154-0.509,8.986-1.427C44.345,63.385,56.105,64,60.398,64c1,0,1.594-0.033,1.594-0.033  
+                                              c-8.737-4.934-10.678-11.012-11.112-13.388C56.666,45.251,60.313,37.637,60.313,29.152z M17.454,33.819  
+                                              c-2.577,0-4.666-2.089-4.666-4.666c0-2.577,2.089-4.666,4.666-4.666c2.577,0,4.666,2.089,4.666,4.666 
+                                              C22.12,31.73,20.031,33.819,17.454,33.819z M31.16,33.819c-2.577,0-4.666-2.089-4.666-4.666c0-2.577,2.089-4.666,4.666-4.666  
+                                              c2.577,0,4.666,2.089,4.666,4.666C35.827,31.73,33.737,33.819,31.16,33.819z M44.869,33.819c-2.577,0-4.666-2.089-4.666-4.666 
+                                              c0-2.577,2.089-4.666,4.666-4.666c2.577,0,4.666,2.089,4.666,4.666C49.535,31.73,47.446,33.819,44.869,33.819z" Stretch="Fill">
+                                        </Path>
+                                    </Viewbox>
+                                </ToggleButton>
+                                <ToggleButton 
+                                    IsEnabled="{Binding IsOperator}"
+                                    Grid.Column="2"
+                                    Focusable="False"
+                                    Style="{StaticResource ToggleButtonStyle}"
+                                    Width="{Binding HandWidth, Mode=OneWay}"
+                                    Height="{Binding HandHeight, Mode=OneWay}"
+                                    KeyboardNavigation.TabNavigation="None" 
+                                    Command="{Binding GetVideoChat}"
+                                    IsChecked="{Binding IsVideoConf, Mode=OneWay}">
+                                    <Viewbox Margin="15">
+                                        <Path Style="{StaticResource ToggleButtonPathStyle}"
+                                              Data="M459,0H51C22.95,0,0,22.95,0,51v459l102-102h357c28.05,0,51-22.95,51-51V51C510,22.95,487.05,0,459,0z M408,306l-102-81.6
+			                                  V306H102V102h204v81.6L408,102V306z" Stretch="Fill"></Path>
+                                    </Viewbox>
+                                </ToggleButton>
+                                <ToggleButton 
+                                    IsEnabled="{Binding IsOperator}"
+                                    Grid.Column="4"
+                                    Focusable="False" 
+                                    Style="{StaticResource ToggleButtonStyle}"
+                                    Width="{Binding HandWidth, Mode=OneWay}"
+                                    Height="{Binding HandHeight, Mode=OneWay}"
+                                    KeyboardNavigation.TabNavigation="None" 
+                                    Command="{Binding GetHelp }"
+                                    IsChecked="{Binding IsHelp, Mode=OneWay}">
+                                    <Viewbox Margin="15">
+                                        <Path Style="{StaticResource ToggleButtonPathStyle}"
+                                              Data="M224.274,240.756c-41.43-8.485-72.646-45.149-72.646-89.127c0-33.302,18.094-62.1,44.778-77.959
+			                                        c8.499,18.316,25.856,37.031,49.753,50.848c31.332,18.078,64.558,22.535,86.119,13.903c0.653,4.354,1.307,8.679,1.307,13.208
+			                                        c0,43.978-31.162,80.643-72.619,89.127c58.222-8.9,102.941-58.74,102.941-119.452C363.908,54.315,309.598,0,242.606,0
+			                                        c-66.961,0-121.302,54.315-121.302,121.304C121.304,182.016,166.08,231.855,224.274,240.756z
+                                                    M333.586,272.93h-15.163c0,41.878-33.943,75.817-75.816,75.817c-41.875,0-75.812-33.939-75.812-75.817h-15.166
+			                                        c-50.227,0-90.978,40.726-90.978,90.976v90.98c0,16.764,13.565,30.326,30.327,30.326h303.258
+			                                        c16.759,0,30.326-13.562,30.326-30.326v-90.98C424.562,313.656,383.869,272.93,333.586,272.93z" Stretch="Fill"></Path>
+                                    </Viewbox>
+                                </ToggleButton>
+                                <ToggleButton 
+                                    Grid.Column="6" 
+                                    IsChecked="{Binding IsSelectBtnInvert, Mode=OneWay}"
+                                    Name="BtnColorInversion"
+                                    Style="{StaticResource ToggleButtonStyle}"
+                                    Width="{Binding HandWidth, Mode=OneWay}"
+                                    Height="{Binding HandHeight, Mode=OneWay}"
+                                    Focusable="False" 
+                                    KeyboardNavigation.TabNavigation="None"
+                                    Command="{Binding ColorInversion}"
+                                    CommandParameter="{x:Null}">
+                                    <Viewbox Margin="15">
+                                        <Path Style="{StaticResource ToggleButtonPathStyle}" Data="M32.001,0c-17.645,0-32,14.355-32,31.999c0,17.646,14.355,32.001,32,32.001S64,49.645,64,31.999   C64,14.355,49.646,0,32.001,0z M4.001,31.999C4.001,16.561,16.563,4,32.001,4v56C16.563,60,4.001,47.438,4.001,31.999z" Stretch="Fill"></Path>
+                                    </Viewbox>
+                                </ToggleButton>
+                                <ToggleButton
+                                    Grid.Column="8" 
+                                    IsChecked="{Binding IsMagnifier, Mode=OneWay}"
+                                    Name="BtnMagnifier" 
+                                    Style="{StaticResource ToggleButtonStyle}"
+                                    Width="{Binding HandWidth, Mode=OneWay}"
+                                    Height="{Binding HandHeight, Mode=OneWay}"
+                                    Focusable="False"
+                                    KeyboardNavigation.TabNavigation="None"
+                                    Command="{Binding Magnifier}">
+                                    <Viewbox Margin="15">
+                                        <Path Style="{StaticResource ToggleButtonPathStyle}" Data="M464.524,412.846l-97.929-97.925c23.6-34.068,35.406-72.04,35.406-113.917c0-27.218-5.284-53.249-15.852-78.087
+			                                        c-10.561-24.842-24.838-46.254-42.825-64.241c-17.987-17.987-39.396-32.264-64.233-42.826
+			                                        C254.246,5.285,228.217,0.003,200.999,0.003c-27.216,0-53.247,5.282-78.085,15.847C98.072,26.412,76.66,40.689,58.673,58.676
+			                                        c-17.989,17.987-32.264,39.403-42.827,64.241C5.282,147.758,0,173.786,0,201.004c0,27.216,5.282,53.238,15.846,78.083
+			                                        c10.562,24.838,24.838,46.247,42.827,64.241c17.987,17.986,39.403,32.257,64.241,42.825
+			                                        c24.841,10.563,50.869,15.844,78.085,15.844c41.879,0,79.852-11.807,113.922-35.405l97.929,97.641
+			                                        c6.852,7.231,15.406,10.849,25.693,10.849c10.089,0,18.699-3.566,25.838-10.705c7.139-7.138,10.704-15.748,10.704-25.837
+			                                        S471.567,419.889,464.524,412.846z M291.363,291.358c-25.029,25.033-55.148,37.549-90.364,37.549
+			                                        c-35.21,0-65.329-12.519-90.36-37.549c-25.031-25.029-37.546-55.144-37.546-90.36c0-35.21,12.518-65.334,37.546-90.36
+			                                        c25.026-25.032,55.15-37.546,90.36-37.546c35.212,0,65.331,12.519,90.364,37.546c25.033,25.026,37.548,55.15,37.548,90.36
+			                                        C328.911,236.214,316.392,266.329,291.363,291.358z M283.232,182.728h-63.954v-63.953c0-2.475-0.905-4.615-2.712-6.424c-1.809-1.809-3.951-2.712-6.423-2.712H191.87
+			                                        c-2.474,0-4.615,0.903-6.423,2.712c-1.807,1.809-2.712,3.949-2.712,6.424v63.953h-63.954c-2.474,0-4.615,0.905-6.423,2.712
+			                                        c-1.809,1.809-2.712,3.949-2.712,6.424v18.271c0,2.475,0.903,4.617,2.712,6.424c1.809,1.809,3.946,2.713,6.423,2.713h63.954
+			                                        v63.954c0,2.478,0.905,4.616,2.712,6.427c1.809,1.804,3.949,2.707,6.423,2.707h18.272c2.473,0,4.615-0.903,6.423-2.707
+			                                        c1.807-1.811,2.712-3.949,2.712-6.427v-63.954h63.954c2.478,0,4.612-0.905,6.427-2.713c1.804-1.807,2.703-3.949,2.703-6.424
+			                                        v-18.271c0-2.475-0.899-4.615-2.703-6.424C287.851,183.633,285.709,182.728,283.232,182.728z" Stretch="Fill"></Path>
+                                    </Viewbox>
+                                </ToggleButton>
+                                <ToggleButton 
+                                    Grid.Column="10"
+                                    IsChecked="{Binding IsSelectBtnTextZoom, Mode=OneWay}"
+                                    Name="BtnTextZoom"
+                                    Style="{StaticResource ToggleButtonStyle}"
+                                    Width="{Binding HandWidth, Mode=OneWay}"
+                                    Height="{Binding HandHeight, Mode=OneWay}"
+                                    Focusable="False"
+                                    KeyboardNavigation.TabNavigation="None"
+                                    Command="{Binding TextZoom}"
+                                    CommandParameter="{x:Null}">
+                                    <Viewbox Margin="5">
+                                        <Path Style="{StaticResource ToggleButtonPathStyle}" Data="M59,28h-3c-0.064,0-0.12,0.025-0.181,0.036C54.911,22.9,50.512,19,45.072,19c-5.344,0-9.802,3.761-10.842,8.764
+	                                                c-1.339-1.155-2.729-1.753-4.153-1.764c-0.013,0-0.026,0-0.039,0c-1.445,0-2.87,0.604-4.257,1.785
+	                                                C24.777,22.771,20.424,19,15.072,19C9.294,19,4.555,23.4,4.05,29.01C4.033,29.009,4.018,29,4,29H1c-0.553,0-1,0.448-1,1s0.447,1,1,1
+	                                                h3c0.018,0,0.033-0.009,0.05-0.01C4.555,36.6,9.294,41,15.072,41c5.979,0,10.699-4.711,10.908-10.598
+	                                                C27.371,28.814,28.735,28,30.038,28c0.008,0,0.017,0,0.024,0c1.289,0.01,2.62,0.821,3.958,2.395C34.231,36.286,39.092,41,45.072,41
+	                                                C51.188,41,56,36.075,56,30h3c0.553,0,1-0.448,1-1S59.553,28,59,28z" Stretch="Fill"></Path>
+                                    </Viewbox>
+                                </ToggleButton>
+                                <ToggleButton
+                                    Grid.Column="12" 
+                                    Name="BtnOffsetContent"
+                                    Focusable="False" 
+                                    IsChecked="{Binding PanelClickNormal, Converter={StaticResource ConvertIntBool}}"
+                                    Style="{StaticResource ToggleButtonStyle}"
+                                    Width="{Binding HandWidth, Mode=OneWay}"
+                                    Height="{Binding HandHeight, Mode=OneWay}" 
+                                    KeyboardNavigation.TabNavigation="None" 
+                                    Command="{Binding OffsetContent}">
+                                    <Viewbox Margin="15">
+                                        <Path Style="{StaticResource ToggleButtonPathStyle}" Data="M441.48,429.237l-64.939-127.672c-4.847-9.553-14.645-15.566-25.363-15.566h-83.173v-18.966h71.582
+		                                            c7.148,0,13.156-3.736,17.037-9.118c2.522-3.506,4.316-7.579,4.316-12.236c0-11.789-9.549-21.351-21.353-21.351h-43.125h-28.457
+		                                            V160c0-17.692-13.118-42.704-42.689-42.704c-23.584,0-42.703,19.122-42.703,42.704v139.372c0,24.058,19.503,43.561,43.562,43.561
+		                                            h78.265h29.284l57.024,112.117c5.011,9.875,15.011,15.573,25.389,15.573c4.35,0,8.761-0.994,12.883-3.104
+		                                            C443.054,460.401,448.628,443.251,441.48,429.237z M300.233,371.688c-12.883,44.732-54.121,77.583-102.946,77.583c-59.126,0-107.209-48.085-107.209-107.193
+		                                            c0-43.754,26.396-81.413,64.066-98.054V198.58c-61.69,18.581-106.764,75.847-106.764,143.498
+		                                            c0,82.649,67.247,149.897,149.906,149.897c60.238,0,112.159-35.801,135.966-87.169l-16.926-33.255
+		                                            C311.575,371.59,306.071,371.64,300.233,371.688z M225.315,96.963c26.748,0,48.479-21.706,48.479-48.481C273.794,21.699,252.063,0,225.315,0
+		                                            c-26.779,0-48.492,21.699-48.492,48.482C176.823,75.257,198.536,96.963,225.315,96.963z" Stretch="Fill">
+                                        </Path>
+                                    </Viewbox>
+                                </ToggleButton>
+                                <ToggleButton 
+                                    Grid.Column="14" 
+                                    Name="BtnVoice"
+                                    Focusable="False"
+                                    Style="{StaticResource ToggleButtonStyle}"
+                                    Width="{Binding HandWidth, Mode=OneWay}"
+                                    Height="{Binding HandHeight, Mode=OneWay}"
+                                    KeyboardNavigation.TabNavigation="None"
+                                    Command="{Binding Voice}" 
+                                    IsChecked="{Binding IsVoice, Mode=OneWay}">
+                                    <Viewbox Margin="15">
+                                        <Path Style="{StaticResource ToggleButtonPathStyle}" Data="M246.504,35.833C224.202,12.726,195.257,0,165,0C101.589,0,50,51.589,50,115c0,8.284,6.716,15,15,15
+		                                        c8.284,0,15-6.716,15-15c0-46.869,38.131-85,85-85c48.649,0,85,44.876,85,85c0,44.866-48.145,116.704-66.779,140.712
+		                                        C168.75,273.793,149.653,294.946,142.31,300H105c-8.284,0-15,6.716-15,15s6.716,15,15,15h39.998c0.001,0,0.001,0,0.003,0
+		                                        c8.385,0,17.229-4.777,39.898-29.965c11.41-12.679,21.394-25.141,21.814-25.665c0.042-0.053,0.085-0.107,0.127-0.161
+		                                        C209.828,270.368,280,179.407,280,115C280,86.744,267.791,57.889,246.504,35.833z M125,220c-8.284,0-15,6.716-15,15s6.716,15,15,15c24.813,0,45-20.186,45-45
+		                                        c0-19.555-12.542-36.227-30-42.42V115c0-13.785,11.215-25,25-25c13.785,0,25,11.215,25,25c0,8.284,6.716,15,15,15
+		                                        c8.284,0,15-6.716,15-15c0-30.327-24.673-55-55-55c-30.327,0-55,24.673-55,55v60c0,8.284,6.716,15,15,15c8.271,0,15,6.729,15,15
+		                                        S133.271,220,125,220z" Stretch="Fill"></Path>
+                                    </Viewbox>
+                                </ToggleButton>
+                                <Grid>
+                                    <Popup Name="test" Placement="Top" PlacementTarget="{Binding ElementName=BtnTextZoom}"
+                                       IsOpen="{Binding IsTextZoom, Mode=OneWay}"
+                                       AllowsTransparency="True" StaysOpen="False">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Closed" >
+                                                <i:InvokeCommandAction Command="{Binding PopUpCloseTextZoom}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <Border Background="Transparent"
+                                            Width="{Binding ElementName=BtnTextZoom, Path=Width}"
+                                            CornerRadius="4"
+                                            BorderThickness="1">
+                                            <StackPanel>
+                                                <RadioButton IsChecked="{Binding IsRadioButton, Mode=OneWay}" Style="{StaticResource RadioButtonNavStyle}" Width="{Binding HandWidth, Mode=OneWay}" Height="{Binding HandHeight, Mode=OneWay}" Command="{Binding SetTextZoom}" CommandParameter="100">
+                                                    <TextBlock TextAlignment="Center" FontSize="32" Text="100%"></TextBlock>
+                                                </RadioButton>
+                                                <RadioButton IsChecked="{Binding IsRadioButton, Mode=OneWay}" Style="{StaticResource RadioButtonNavStyle}" Width="{Binding HandWidth, Mode=OneWay}" Height="{Binding HandHeight, Mode=OneWay}" Command="{Binding SetTextZoom}" CommandParameter="60">
+                                                    <TextBlock TextAlignment="Center" FontSize="32" Text="60%"></TextBlock>
+                                                </RadioButton>
+                                                <RadioButton IsChecked="{Binding IsRadioButton, Mode=OneWay}" Style="{StaticResource RadioButtonNavStyle}" Width="{Binding HandWidth, Mode=OneWay}" Height="{Binding HandHeight, Mode=OneWay}" Command="{Binding SetTextZoom}" CommandParameter="35">
+                                                    <TextBlock TextAlignment="Center" FontSize="32" Text="35%"></TextBlock>
+                                                </RadioButton>
+                                            </StackPanel>
+                                        </Border>
+                                    </Popup>
+
+                                    <Popup Placement="Top" PlacementTarget="{Binding ElementName=BtnColorInversion}"
+                                       Name="ColorPopup"
+                                       IsOpen="{Binding IsInfersion, Mode=OneWay}"
+                                       StaysOpen="False"
+                                       AllowsTransparency="True">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Closed" >
+                                                <i:InvokeCommandAction Command="{Binding PopUpCloseInvert}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <Border Background="White"
+                                            CornerRadius="4"
+                                            BorderThickness="1">
+                                            <ItemsControl AlternationCount="3" ItemsSource="{Binding ListColorInversion}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <UniformGrid Columns="3"/>
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <ToggleButton Style="{StaticResource ToggleButtonNonStyle}" Margin="5" BorderBrush="Black" BorderThickness="1" Padding="5" Height="{Binding ElementName=BtnColorInversion, Path=Height}"
+                                                                      Width="{Binding ElementName=BtnColorInversion, Path=Width}"
+                                                                      Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=DataContext.SetColorInversion}" 
+                                                                      CommandParameter="{Binding ColorInversion}">
+                                                            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding Color}"/>
+                                                        </ToggleButton>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </Border>
+                                    </Popup>
+
+                                    <Popup Placement="Top" PlacementTarget="{Binding ElementName=BtnVoice}"
+                                       IsOpen="{Binding IsVoice, Mode=OneWay}"
+                                       StaysOpen="False"
+                                       AllowsTransparency="True">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Closed" >
+                                                <i:InvokeCommandAction Command="{Binding PopUpCloseVoice}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <Border Background="Transparent"
+                                            Width="{Binding ElementName=BtnTextZoom, Path=Width}"
+                                            CornerRadius="4"
+                                            BorderThickness="1">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition></RowDefinition>
+                                                    <RowDefinition Height="4"></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                    <RowDefinition Height="4"></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <ToggleButton Margin="0" Grid.Row="0" IsChecked="{Binding IsSelectVoiceSound, Mode=OneWay}" Style="{StaticResource ToglButtonNavStyle}" Command="{Binding SetVoice}" CommandParameter="Speaker">
+                                                    <Viewbox Margin="15">
+                                                        <Path Style="{StaticResource ToggleButtonPathStyle}" Data="M34.437,7.413c-0.979-0.561-2.143-0.553-3.115,0.019c-0.063,0.037-0.121,0.081-0.174,0.131L17.906,19.891
+		                                                    C17.756,19.963,17.593,20,17.427,20H9.104C7.392,20,6,21.393,6,23.104v12.793C6,37.607,7.392,39,9.104,39h8.324
+		                                                    c0.166,0,0.329,0.037,0.479,0.109l13.242,12.328c0.053,0.05,0.112,0.094,0.174,0.131c0.492,0.289,1.033,0.434,1.574,0.434
+		                                                    c0.529,0,1.058-0.138,1.541-0.415C35.416,51.027,36,50.021,36,48.894V10.106C36,8.979,35.416,7.973,34.437,7.413z M34,48.894
+		                                                    c0,0.577-0.389,0.862-0.556,0.958c-0.158,0.09-0.562,0.262-1.025,0.037l-13.244-12.33c-0.054-0.051-0.113-0.095-0.176-0.131
+		                                                    C18.522,37.147,17.979,37,17.427,37H9.104C8.495,37,8,36.505,8,35.896V23.104C8,22.495,8.495,22,9.104,22h8.324
+		                                                    c0.551,0,1.095-0.147,1.572-0.428c0.063-0.036,0.122-0.08,0.176-0.131l13.244-12.33c0.465-0.226,0.868-0.053,1.025,0.037
+		                                                    C33.611,9.244,34,9.529,34,10.106V48.894z M43.248,17.293c-0.391-0.391-1.023-0.391-1.414,0s-0.391,1.023,0,1.414c6.238,6.238,6.238,16.39,0,22.628
+		                                                    c-0.391,0.391-0.391,1.023,0,1.414c0.195,0.195,0.451,0.293,0.707,0.293s0.512-0.098,0.707-0.293
+		                                                    C50.266,35.73,50.266,24.312,43.248,17.293z M39.707,20.293c-0.391-0.391-1.023-0.391-1.414,0s-0.391,1.023,0,1.414c4.297,4.297,4.297,11.289,0,15.586
+		                                                    c-0.391,0.391-0.391,1.023,0,1.414C38.488,38.902,38.744,39,39,39s0.512-0.098,0.707-0.293
+		                                                    C44.784,33.63,44.784,25.37,39.707,20.293z M46.183,12.293c-0.391-0.391-1.023-0.391-1.414,0s-0.391,1.023,0,1.414c4.356,4.355,6.755,10.142,6.755,16.293
+		                                                    s-2.399,11.938-6.755,16.293c-0.391,0.391-0.391,1.023,0,1.414C44.964,47.902,45.22,48,45.476,48s0.512-0.098,0.707-0.293
+		                                                    c4.734-4.733,7.341-11.021,7.341-17.707S50.917,17.026,46.183,12.293z" Stretch="Fill"></Path>
+                                                    </Viewbox>
+                                                </ToggleButton>
+                                                <ToggleButton Margin="0" Grid.Row="2" Padding="5" IsChecked="{Binding IsSelectVoiceSpeaker, Mode=OneWay}" Style="{StaticResource ToglButtonNavStyle}" Command="{Binding SetVoice}" CommandParameter="Apparatus">
+                                                    <Viewbox Margin="15">
+                                                        <Path Style="{StaticResource ToggleButtonPathStyle}" Data="M220.186,11.507c-24.135-12.1-90.134-31.851-181.498,45.864c-5.258,4.473-5.895,12.362-1.422,17.621
+	                                                                    c4.474,5.259,12.362,5.896,17.621,1.422c79.985-68.037,134.409-52.427,154.096-42.558c22.337,11.198,36.5,32.037,35.241,51.855
+	                                                                    c-1.347,21.196-19.205,40.923-46.867,53.679c9.384-19.448,7.104-35.79-6.899-49.793c-8.34-8.339-17.732-12.568-27.917-12.568
+	                                                                    c-26.982,0-56.61,29.663-90.916,64.01l-4.092,4.095c-23.279,23.28-42.008,48.425-52.736,70.803
+	                                                                    c-11.477,23.941-12.472,42.452-2.801,52.122c4.407,4.407,10.593,6.641,18.388,6.641c25.73,0,66.763-24.406,104.537-62.178
+	                                                                    l4.086-4.083c12.293-12.279,23.688-23.672,33.387-34.487c56.274-12.683,94.238-46.641,96.78-86.655
+	                                                                    C271.059,57.598,251.373,27.141,220.186,11.507z M99.811,190.849l-43.307,43.305c-1.464,1.464-3.384,2.197-5.303,2.197
+	                                                                    c-1.92,0-3.839-0.732-5.303-2.197c-2.929-2.929-2.929-7.678,0-10.606l43.307-43.305c2.929-2.929,7.678-2.929,10.606,0
+	                                                                    C102.74,183.172,102.74,187.921,99.811,190.849z M148.616,154.488c-1.465,1.464-3.384,2.197-5.304,2.197
+	                                                                    c-1.919,0-3.838-0.732-5.303-2.196l-12.445-12.444c-2.929-2.929-2.929-7.678-0.001-10.607c2.93-2.929,7.677-2.929,10.607,0
+	                                                                    l12.445,12.444C151.544,146.81,151.545,151.559,148.616,154.488z" Stretch="Fill"></Path>
+                                                    </Viewbox>
+                                                </ToggleButton>
+                                            </Grid>
+                                        </Border>
+                                    </Popup>
+                                </Grid>
+                            </Grid>
+                            <Grid Visibility="{Binding IsChecked, ElementName=BtnOffsetContent, Converter={StaticResource ConvertVisiblyBool}}" DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="0,0,15,0" KeyboardNavigation.TabNavigation="None" Focusable="False">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Button Width="{Binding HandWidth, Mode=OneWay}" Height="{Binding HandHeight, Mode=OneWay}"  Focusable="False" Style="{StaticResource HandicappedButtonNavStyle}" KeyboardNavigation.TabNavigation="None" Command="{Binding OffsetAdd}" Grid.Column="0">
+                                    <Viewbox Margin="15">
+                                        <Path Fill="Black" Data="M378.528,214.688l-21.088-24c-5.824-6.624-15.904-7.264-22.56-1.472L272,244.32V16c0-8.832-7.168-16-16-16h-32
+			                                                    c-8.832,0-16,7.168-16,16v228.32l-62.88-55.104c-6.624-5.792-16.704-5.152-22.56,1.472l-21.088,23.968
+			                                                    c-5.856,6.656-5.184,16.8,1.472,22.624l126.528,110.752c6.048,5.28,15.04,5.28,21.088,0L377.056,237.28
+			                                                    C383.712,231.456,384.384,221.312,378.528,214.688z M416,416H64c-8.832,0-16,7.168-16,16v32c0,8.832,7.168,16,16,16h352c8.832,0,16-7.168,16-16v-32
+			                                                    C432,423.168,424.832,416,416,416z" Stretch="Fill"></Path>
+                                    </Viewbox>
+                                </Button>
+                                <Button Width="{Binding HandWidth, Mode=OneWay}" Height="{Binding HandHeight, Mode=OneWay}" Focusable="False" Style="{StaticResource HandicappedButtonNavStyle}" KeyboardNavigation.TabNavigation="None" Command="{Binding OffsetSub}" Grid.Column="1">
+                                    <Viewbox Margin="15" RenderTransformOrigin="0.5,0.5">
+                                        <Viewbox.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform Angle="180"/>
+                                                <TranslateTransform/>
+                                            </TransformGroup>
+                                        </Viewbox.RenderTransform>
+                                        <Path Fill="Black" Data="M378.528,214.688l-21.088-24c-5.824-6.624-15.904-7.264-22.56-1.472L272,244.32V16c0-8.832-7.168-16-16-16h-32
+			                                                    c-8.832,0-16,7.168-16,16v228.32l-62.88-55.104c-6.624-5.792-16.704-5.152-22.56,1.472l-21.088,23.968
+			                                                    c-5.856,6.656-5.184,16.8,1.472,22.624l126.528,110.752c6.048,5.28,15.04,5.28,21.088,0L377.056,237.28
+			                                                    C383.712,231.456,384.384,221.312,378.528,214.688z M416,416H64c-8.832,0-16,7.168-16,16v32c0,8.832,7.168,16,16,16h352c8.832,0,16-7.168,16-16v-32
+			                                                    C432,423.168,424.832,416,416,416z" Stretch="Fill"></Path>
+                                    </Viewbox>
+                                </Button>
+                            </Grid>
+                        </DockPanel>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

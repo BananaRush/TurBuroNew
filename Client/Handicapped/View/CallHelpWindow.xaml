@@ -1,0 +1,50 @@
+﻿<Window x:Class="VSHIM.Control.Handicapped.View.CallHelpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VSHIM.Control.Handicapped.View"
+        xmlns:Hand="clr-namespace:VSHIM.Control.Handicapped"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Height="250"
+        Width="550"
+        AllowsTransparency="True"
+        Background="Transparent" 
+        Loaded="Window_Loaded"
+        Topmost="True">
+    <Border 
+        Background="White"
+        CornerRadius="30"
+        BorderThickness="4"
+        BorderBrush="#4556fc">
+        <Grid Margin="30">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock 
+                Grid.Row="0"
+                Name="text_help"
+                TextAlignment="Center"
+                Focusable="True"
+                Text="Оператор ожидает вызова для помощи" 
+                VerticalAlignment="Center"
+                FontFamily="/VSHIM;component/Fonts/#PF Din Text Pro" 
+                FontSize="20" 
+                FontWeight="Regular" 
+                Foreground="#4556fc"/>
+            <Hand:HandButton 
+                x:Name="btn"
+                Grid.Row="1"
+                Background="#4556fc"
+                TextBlock.Foreground="White"
+                Content="Вызвать оператора"
+                Command="{Binding Call}"
+                CommandParameter="{Binding ElementName=btn}"
+                Style="{StaticResource ButtonStyleHelp}"/>
+        </Grid>
+    </Border>
+</Window>

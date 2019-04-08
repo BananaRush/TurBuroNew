@@ -1,0 +1,778 @@
+﻿<Application x:Class="TourAgency.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:TourAgency"
+             xmlns:converters="clr-namespace:TourAgency.Converters"
+             xmlns:utilities="clr-namespace:TourAgency.Utilities"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <converters:VideoConnectionButtonConverter x:Key="VideoConnectionButtonConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <converters:WeatherNumbersConverter x:Key="WeatherConverter"/>
+        <converters:PathToImageConverter x:Key="ImageConverter"/>
+        <converters:LanguageConverter x:Key="LanguageConverter"/>
+        <converters:BoolToAlignmentConverter x:Key="boolToAign"></converters:BoolToAlignmentConverter>
+        <converters:BoolToPointsCollectionConverter x:Key="BoolToPoints"></converters:BoolToPointsCollectionConverter>
+        <converters:DateToStringConverter x:Key="DateToString"></converters:DateToStringConverter>
+        <converters:ItemNumberToIsCheckedConverter x:Key="ItemNumberToIsChecked"/>
+        <converters:CarouselTypeVisibilityConverter x:Key="CarouselVisibilityConverter"/>
+        <converters:TextBoxEmptyHelper x:Key="PlaceHolder"></converters:TextBoxEmptyHelper>
+        <FontFamily x:Key="MainFont">Fonts/#ALS Direct</FontFamily>
+        <FontFamily x:Key="SPbFixed">Fonts/SPb Fixed/#ALS SPb</FontFamily>
+        <FontFamily x:Key="SPbofficial">Fonts/#ALS SPb</FontFamily>
+        <FontFamily x:Key="MainFont1">../Fonts/#ALS Direct</FontFamily>
+        <FontFamily x:Key="SPbFixed1">../Fonts/SPb Fixed/#ALS SPb</FontFamily>
+        <FontFamily x:Key="SPbofficial1">../Fonts/#ALS SPb</FontFamily>
+        <DataTemplate x:Key="MainTopButtonsTemplate">
+            <Button Background="#ffffff"
+                    Margin="4"
+                    Command="{Binding NavigateCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" 
+                    CommandParameter="{Binding Item3}"
+                    AutomationProperties.Name="{Binding ElementName=TextBlock, Path=Text}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewTouchDown">
+                            <i:InvokeCommandAction
+                                Command="{Binding NavigateCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" CommandParameter="{Binding Item3}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="White">
+                            <ContentPresenter/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Image  Margin="35,0,25,0" Height="45" Source="{Binding Item2, Converter={StaticResource ImageConverter}}"/>
+                    <TextBlock x:Name="TextBlock" Grid.Column="1" utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" VerticalAlignment="Center" FontFamily="Fonts/#ALS SPb" Text="{Binding Item1}" Margin="5,18,30,18" Foreground="#000000" FontSize="46"/>
+                </Grid>
+            </Button>
+        </DataTemplate>
+        <Storyboard x:Key="DisplayAndRiseOpacity">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.5" From="0" To="1"></DoubleAnimation>
+          
+        </Storyboard>
+        <Storyboard x:Key="LowerOpacityAndCollapse">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.5" From="1" To="0"></DoubleAnimation>
+            
+        </Storyboard>
+        <Style x:Key="SplashImage" TargetType="Image">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Visibility}" Value="{x:Static Visibility.Visible}">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard Storyboard="{StaticResource DisplayAndRiseOpacity }"/>
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <BeginStoryboard Storyboard="{StaticResource LowerOpacityAndCollapse}"/>
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+             
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="MaskListBox"
+         TargetType="ListBox">
+            <Setter Property="SnapsToDevicePixels"
+            Value="true" />
+            <Setter Property="OverridesDefaultStyle"
+            Value="true" />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+            Value="Auto" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+            Value="Hidden" />
+            <Setter Property="ScrollViewer.CanContentScroll"
+            Value="False" />
+            <Setter Property="MinWidth"
+            Value="120" />
+            <Setter Property="MinHeight"
+            Value="95" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBox">
+                        <Border Name="Border"
+                  BorderThickness="0"
+                  CornerRadius="2">
+                            <Border.Background>
+                                <SolidColorBrush Color="{DynamicResource ControlLightColor}" />
+                            </Border.Background>
+                            <Border.BorderBrush>
+                                <SolidColorBrush Color="{DynamicResource BorderMediumColor}" />
+                            </Border.BorderBrush>
+                            <ScrollViewer Margin="0"
+                          Focusable="false">
+                                <StackPanel Margin="2"
+                          IsItemsHost="True" Orientation="Horizontal" />
+                            </ScrollViewer>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled"
+                     Value="false">
+                                <Setter TargetName="Border"
+                      Property="Background">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="{DynamicResource DisabledControlLightColor}" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="Border"
+                      Property="BorderBrush">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="{DynamicResource DisabledBorderLightColor}" />
+                                    </Setter.Value>
+
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsGrouping"
+                     Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll"
+                      Value="false" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Color x:Key="WindowColor">#FFE8EDF9</Color>
+        <Color x:Key="ContentAreaColorLight">#FFC5CBF9</Color>
+        <Color x:Key="ContentAreaColorDark">#FF7381F9</Color>
+
+        <Color x:Key="DisabledControlLightColor">#00000000</Color>
+        <Color x:Key="DisabledControlDarkColor">#FFC5CBF9</Color>
+        <Color x:Key="DisabledForegroundColor">#FF888888</Color>
+
+        <Color x:Key="SelectedBackgroundColor">Transparent</Color>
+        <Color x:Key="SelectedUnfocusedColor">Transparent</Color>
+
+        <Color x:Key="ControlLightColor">Transparent</Color>
+        <Color x:Key="ControlMediumColor">#FF7381F9</Color>
+        <Color x:Key="ControlDarkColor">#FF211AA9</Color>
+
+        <Color x:Key="ControlMouseOverColor">#FF3843C4</Color>
+        <Color x:Key="ControlPressedColor">#FF211AA9</Color>
+
+
+        <Color x:Key="GlyphColor">#FF444444</Color>
+        <Color x:Key="GlyphMouseOver">sc#1, 0.004391443, 0.002428215, 0.242281124</Color>
+
+        <!--Border colors-->
+        <Color x:Key="BorderLightColor">#FFCCCCCC</Color>
+        <Color x:Key="BorderMediumColor">#FF888888</Color>
+        <Color x:Key="BorderDarkColor">#FF444444</Color>
+
+        <Color x:Key="PressedBorderLightColor">#FF888888</Color>
+        <Color x:Key="PressedBorderDarkColor">#FF444444</Color>
+
+        <Color x:Key="DisabledBorderLightColor">#FFAAAAAA</Color>
+        <Color x:Key="DisabledBorderDarkColor">#FF888888</Color>
+
+        <Color x:Key="DefaultBorderBrushDarkColor">Black</Color>
+
+        <!--Control-specific resources.-->
+        <Color x:Key="HeaderTopColor">#FFC5CBF9</Color>
+        <Color x:Key="DatagridCurrentCellBorderColor">Black</Color>
+        <Color x:Key="SliderTrackDarkColor">#FFC5CBF9</Color>
+
+        <Color x:Key="NavButtonFrameColor">#FF3843C4</Color>
+
+        <LinearGradientBrush x:Key="MenuPopupBrush"
+                       EndPoint="0.5,1"
+                       StartPoint="0.5,0">
+            <GradientStop Color="{DynamicResource ControlLightColor}"
+                  Offset="0" />
+            <GradientStop Color="{DynamicResource ControlMediumColor}"
+                  Offset="0.5" />
+            <GradientStop Color="{DynamicResource ControlLightColor}"
+                  Offset="1" />
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="ProgressBarIndicatorAnimatedFill"
+                       StartPoint="0,0"
+                       EndPoint="1,0">
+            <LinearGradientBrush.GradientStops>
+                <GradientStopCollection>
+                    <GradientStop Color="#000000FF"
+                      Offset="0" />
+                    <GradientStop Color="#600000FF"
+                      Offset="0.4" />
+                    <GradientStop Color="#600000FF"
+                      Offset="0.6" />
+                    <GradientStop Color="#000000FF"
+                      Offset="1" />
+                </GradientStopCollection>
+            </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+        <Style x:Key="{x:Type ListBoxItem}"
+         TargetType="ListBoxItem">
+            <Setter Property="SnapsToDevicePixels"
+            Value="true" />
+            <Setter Property="OverridesDefaultStyle"
+            Value="true" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border x:Name="Border"
+                  Padding="2"
+                  SnapsToDevicePixels="true">
+                            <Border.Background>
+                                <SolidColorBrush Color="Transparent" />
+                            </Border.Background>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="SelectionStates">
+                                    <VisualState x:Name="Unselected" />
+                                    <VisualState x:Name="Selected">
+                                        <Storyboard>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                  Storyboard.TargetProperty="(Panel.Background).
+                      (SolidColorBrush.Color)">
+                                                <EasingColorKeyFrame KeyTime="0"
+                                           Value="{StaticResource SelectedBackgroundColor}" />
+                                            </ColorAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="SelectedUnfocused">
+                                        <Storyboard>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                                                  Storyboard.TargetProperty="(Panel.Background).
+                      (SolidColorBrush.Color)">
+                                                <EasingColorKeyFrame KeyTime="0"
+                                           Value="{StaticResource SelectedUnfocusedColor}" />
+                                            </ColorAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonFAQ" TargetType="Button">
+            <Setter Property="Background" Value="#fbfbfb"/>
+            <Setter Property="Foreground" Value="#000000"/>
+            <Setter Property="FontSize" Value="28"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" >
+                            <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       Text="{TemplateBinding Content}"
+                                       FontSize="{TemplateBinding FontSize}"
+                                       FontFamily="{StaticResource MainFont}"
+                                       Margin="30,0"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style BasedOn="{StaticResource ButtonFAQ }" x:Key="ButtonBack" TargetType="Button" >
+            <Setter Property="Background" Value="#ffb336"/>
+            <Setter Property="Foreground" Value="#ffffff"/>
+        </Style>
+        <Style x:Key="{x:Type Button}" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter Content="{TemplateBinding Content}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+      
+        <Style x:Key="{x:Type TextBlock}" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource MainFont}"/>
+
+        </Style>
+        <Style x:Key="SPb" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#000000"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="114"/>
+            <Setter Property="Margin" Value="40,0"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="{StaticResource SPbofficial}"/>
+
+        </Style>
+        <Style x:Key="SPbInfo" TargetType="TextBlock" BasedOn="{StaticResource SPb}">
+            <Setter Property="Margin" Value="40,0"/>
+            <Setter Property="FontSize" Value="116"/>
+            <Setter Property="Foreground" Value="#00adcb"/>
+
+        </Style>
+        <ControlTemplate x:Key="InvalidTemplate" TargetType="Button">
+            <Border Background="#48b2cb" Padding="30,50">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="Images/Icons/silhouette-on-wheelchair.png" Margin="20,0"></Image>
+                    <TextBlock  utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" Grid.Column="1" VerticalAlignment="Center" FontFamily="Fonts/#ALS Direct" Text="ОГРАНИЧЕННЫЙ ДОСТУП" Margin="20,0" Foreground="White" FontSize="29"></TextBlock>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="WorldTemplate" TargetType="Button">
+            <Border Background="#48b2cb" Padding="30,50">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="Images/Icons/earth-globe.png" Margin="20,0"></Image>
+                    <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" Grid.Column="1" VerticalAlignment="Center" FontFamily="Fonts/#ALS Direct" Text="КАРТА" Margin="20,0" Foreground="White" FontSize="29"></TextBlock>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="AndroidTemplate" TargetType="Button">
+            <Border Background="#48b2cb" Padding="30,45">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="Images/Icons/android-character-symbol.png" Margin="20,0"></Image>
+                    <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" Grid.Column="1" VerticalAlignment="Center" FontFamily="Fonts/#ALS Direct" Text="ПРИЛОЖЕНИЯ" Margin="20,0" Foreground="White" FontSize="29"></TextBlock>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="VideoGuideTemplate" TargetType="Button">
+                <Grid Margin="0,-305,0,0" x:Name="Grid">
+                    <Border Background="#ffb336" Height="150" VerticalAlignment="Bottom"/>
+                    <Border Background="Transparent" Height="150" VerticalAlignment="Bottom">
+                        <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" 
+                                   VerticalAlignment="Center" 
+                                   TextAlignment="Center" 
+                                   FontFamily="Fonts/#ALS Direct" 
+                                   Text="ВИДЕОГИД" 
+                                   Margin="50,45" 
+                                   Foreground="White" 
+                                   FontSize="29"/>
+                    </Border>
+                </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="SearchTemplate" TargetType="Button">
+            <Border Background="#48b2cb" Padding="20,45">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="Images/Icons/magnifying-glass.png" Margin="20,0"></Image>
+                    <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" Grid.Column="1" VerticalAlignment="Center" FontFamily="Fonts/#ALS Direct" Text="ПОИСК" Margin="20,0" Foreground="White" FontSize="29"></TextBlock>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="VideoChattTemplate" TargetType="Button">
+            <Border Background="#48b2cb" Padding="30,45">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="Images/Icons/webcam.png" Margin="20,0"></Image>
+                    <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" Grid.Column="1" VerticalAlignment="Center" FontFamily="Fonts/#ALS Direct" Text="ВИДЕОЧАТ С КОНСУЛЬТАНТОМ" Margin="20,0" Foreground="White" FontSize="29"></TextBlock>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="ChattTemplate" TargetType="Button">
+            <Border Background="#48b2cb" Padding="20,45">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="Images/Icons/chat.png" Margin="20,0"></Image>
+                    <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" Grid.Column="1" VerticalAlignment="Center" FontFamily="Fonts/#ALS Direct" Text="ЧАТ С КОНСУЛЬТАНТОМ" Margin="20,0" Foreground="White" FontSize="29"></TextBlock>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="MasksTemplate" TargetType="Button">
+            <Border Background="#48b2cb" Padding="20,45">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="Images/Icons/party.png" Margin="20,0,20,5"></Image>
+                    <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" Grid.Column="1" VerticalAlignment="Center" FontFamily="Fonts/#ALS Direct" Text="МАСКИ" Margin="20,0" Foreground="White" FontSize="29"></TextBlock>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="InversionTemplate" TargetType="Button">
+            <Border Background="#48b2cb" Padding="20,45">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="Images/Icons/inversion.png" Margin="20,0,20,5"></Image>
+                    <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" Grid.Column="1" VerticalAlignment="Center" FontFamily="Fonts/#ALS Direct" Text="ИНВЕРСИЯ ЦВЕТА" Margin="20,0" Foreground="White" FontSize="29"></TextBlock>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+        <Style x:Key="InversionButton" TargetType="Button">
+            <Setter Property="Width" Value="432"/>
+            <Setter Property="Height" Value="150"/>
+            <Setter Property="Template" Value="{StaticResource InversionTemplate}"/>
+        </Style>
+        <Style x:Key="MasksButton" TargetType="Button">
+            <Setter Property="Width" Value="280"/>
+            <Setter Property="Height" Value="150"/>
+            <Setter Property="Template" Value="{StaticResource MasksTemplate}"/>
+        </Style>
+        <Style x:Key="ChatButton" TargetType="Button">
+            <Setter Property="Width" Value="630"/>
+            <Setter Property="Height" Value="150"/>
+            <Setter Property="Template" Value="{StaticResource ChattTemplate}"/>
+        </Style>
+        <Style x:Key="VideoChatButton" TargetType="Button">
+            <Setter Property="Width" Value="630"/>
+            <Setter Property="Height" Value="150"/>
+            <Setter Property="Template" Value="{StaticResource VideoChattTemplate}"/>
+        </Style>
+        <Style x:Key="SearchButton" TargetType="Button">
+            <Setter Property="Width" Value="280"/>
+            <Setter Property="Height" Value="150"/>
+            <Setter Property="Template" Value="{StaticResource SearchTemplate}"/>
+        </Style>
+        <Style x:Key="InvalidButton" TargetType="Button">
+            <Setter Property="Width" Value="560"/>
+            <Setter Property="Height" Value="150"/>
+            <Setter Property="Template" Value="{StaticResource InvalidTemplate}"/>
+        </Style>
+        <Style x:Key="EarthButton" TargetType="Button">
+            <Setter Property="Width" Value="310"/>
+            <Setter Property="Height" Value="150"/>
+            <Setter Property="Template" Value="{StaticResource WorldTemplate}"/>
+        </Style>
+        <Style x:Key="AppsButton" TargetType="Button">
+            <Setter Property="Width" Value="400"/>
+            <Setter Property="Height" Value="150"/>
+            <Setter Property="Template" Value="{StaticResource AndroidTemplate}"/>
+        </Style>
+        <Style x:Key="VideoGuideButton" TargetType="Button">
+            <Setter Property="Width" Value="400"/>
+            <Setter Property="Height" Value="150"/>
+            <Setter Property="Template" Value="{StaticResource VideoGuideTemplate}"/>
+        </Style>
+        <Style x:Key="AccountHeader" TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+            <Setter Property="FontSize" Value="80"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+        </Style>
+        <Style x:Key="ScrollBarLineButtonStyle" TargetType="{x:Type RepeatButton}">
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RepeatButton}">
+                        <Canvas Height="18">
+                            <Polygon Fill="Transparent" Points="3,15 15,15 9,3"></Polygon>
+                        </Canvas>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ScrollBarLineButtonBottomStyle" TargetType="{x:Type RepeatButton}">
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RepeatButton}">
+                        <Canvas Height="18">
+                            <Polygon Fill="Transparent" Points="3,3 9,15 15,3"></Polygon>
+                        </Canvas>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ScrollBarPageButtonStyle" TargetType="{x:Type RepeatButton}">
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RepeatButton}">
+                        <Border BorderBrush="Transparent"></Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="VerticalScrollBarThumbStyle" TargetType="{x:Type Thumb}">
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Margin" Value="1,0,1,0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Border CornerRadius="0" Background="#ababab" Width="18">
+                            <Rectangle Fill="Transparent" Margin="2"></Rectangle>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="HorizontalScrollBarThumbStyle" TargetType="{x:Type Thumb}">
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Margin" Value="0,1,0,1" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Border CornerRadius="5" Background="#aaaaaaaa" Height="10">
+                            <Rectangle Fill="Transparent" Margin="2"></Rectangle>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <ControlTemplate x:Key="VerticalScrollBar" TargetType="{x:Type ScrollBar}">
+            <Grid Background="#f2f2f2">
+                <Grid.RowDefinitions>
+                    <RowDefinition MaxHeight="18"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition MaxHeight="18"/>
+                </Grid.RowDefinitions>
+
+                <RepeatButton Grid.Row="0" Height="18" 
+                Style="{StaticResource ScrollBarLineButtonStyle}" 
+                Command="ScrollBar.LineUpCommand" >
+                </RepeatButton>
+                <Track Name="PART_Track" Grid.Row="1" 
+                IsDirectionReversed="True">
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton Command="ScrollBar.PageUpCommand" Style="{StaticResource ScrollBarPageButtonStyle}">
+                        </RepeatButton>
+                    </Track.DecreaseRepeatButton>
+                    <Track.Thumb>
+                        <Thumb Style="{StaticResource VerticalScrollBarThumbStyle}">
+                        </Thumb>
+                    </Track.Thumb>
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton Command="ScrollBar.PageDownCommand" Style="{StaticResource ScrollBarPageButtonStyle}">
+                        </RepeatButton>
+                    </Track.IncreaseRepeatButton>
+                </Track>
+                <RepeatButton Grid.Row="2" Height="18" 
+                Style="{StaticResource ScrollBarLineButtonBottomStyle}" 
+                Command="ScrollBar.LineDownCommand">
+                </RepeatButton>
+            </Grid>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="HorizontalScrollBar" TargetType="{x:Type ScrollBar}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MaxWidth="18"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition MaxWidth="18"/>
+                </Grid.ColumnDefinitions>
+
+                <RepeatButton Grid.Column="0" Width="18" 
+                Style="{StaticResource ScrollBarLineButtonStyle}" 
+                Command="ScrollBar.LineLeftCommand" >
+                </RepeatButton>
+                <Track Name="PART_Track" Grid.Column="1" 
+                IsDirectionReversed="False">
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton Command="ScrollBar.PageLeftCommand" Style="{StaticResource ScrollBarPageButtonStyle}">
+                        </RepeatButton>
+                    </Track.DecreaseRepeatButton>
+                    <Track.Thumb>
+                        <Thumb Style="{StaticResource HorizontalScrollBarThumbStyle}">
+                        </Thumb>
+                    </Track.Thumb>
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton Command="ScrollBar.PageRightCommand" Style="{StaticResource ScrollBarPageButtonStyle}">
+                        </RepeatButton>
+                    </Track.IncreaseRepeatButton>
+                </Track>
+                <RepeatButton Grid.Column="2" Width="18" 
+                Style="{StaticResource ScrollBarLineButtonBottomStyle}" 
+                Command="ScrollBar.LineRightCommand">
+                </RepeatButton>
+            </Grid>
+        </ControlTemplate>
+
+        <Style TargetType="{x:Type ScrollBar}">
+            <Setter Property="Template" Value="{StaticResource VerticalScrollBar}"/>
+        </Style>
+
+        <Style x:Key="VerticalScrollBarStyle" TargetType="{x:Type ScrollBar}">
+            <Setter Property="Template" Value="{StaticResource VerticalScrollBar}"/>
+        </Style>
+
+        <Style x:Key="HorizontalScrollBarStyle" TargetType="{x:Type ScrollBar}">
+            <Setter Property="Template" Value="{StaticResource HorizontalScrollBar}"/>
+        </Style>
+
+        <Style TargetType="{x:Type ScrollViewer}">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <ScrollContentPresenter Grid.Column="0"/>
+
+                            <ScrollBar Grid.Column="1" Name="PART_VerticalScrollBar"
+                                   Style="{StaticResource VerticalScrollBarStyle}"
+            Value="{TemplateBinding VerticalOffset}"
+            Maximum="{TemplateBinding ScrollableHeight}"
+            ViewportSize="{TemplateBinding ViewportHeight}"
+            Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"/>
+                            <ScrollBar Name="PART_HorizontalScrollBar"
+                                   Style="{StaticResource HorizontalScrollBarStyle}"
+            Orientation="Horizontal"
+            Grid.Row="1"
+            Grid.Column="1"
+            Value="{TemplateBinding HorizontalOffset}"
+            Maximum="{TemplateBinding ScrollableWidth}"
+            ViewportSize="{TemplateBinding ViewportWidth}"
+            Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"/>
+
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <GeometryGroup x:Key="WorldWeb">
+            <PathGeometry Figures="M436.921,75.079C389.413,27.571 326.51,1.066 259.464,0.18 258.296,0.074 257.137,0 255.999,0 254.861,0 253.702,0.074 252.534,0.18 185.488,1.065 122.585,27.57 75.077,75.078 26.752,123.405 0.138,187.657 0.138,255.999 0.138,324.341 26.752,388.594 75.078,436.92 122.586,484.428 185.488,510.933 252.535,511.818 253.703,511.925 254.862,511.998 255.999,511.998 257.137,511.998 258.296,511.924 259.464,511.818 326.511,510.933 389.414,484.428 436.921,436.92 485.246,388.595 511.86,324.343 511.86,255.999 511.861,187.657 485.247,123.405 436.921,75.079z M96.586,96.587C123.767,69.406 156.672,50.035 192.578,39.569 184.485,48.886 176.618,59.602 169.296,71.477 159.957,86.623 151.871,103.039 145.1,120.396L75.865,120.396C82.165,112.063,89.071,104.102,96.586,96.587z M56.486,150.813L134.859,150.813C126.709,179.335,121.889,209.721,120.698,240.791L31.071,240.791C33.176,208.987,41.865,178.465,56.486,150.813z M56.487,361.186C41.864,333.534,33.175,303.012,31.07,271.208L120.697,271.208C121.888,302.279,126.708,332.665,134.858,361.186L56.487,361.186z M96.587,415.412C89.07,407.897,82.164,399.937,75.865,391.603L145.101,391.603C151.872,408.96 159.957,425.376 169.297,440.522 176.619,452.397 184.486,463.113 192.579,472.43 156.674,461.964 123.769,442.593 96.587,415.412z M240.79,475.322C228.119,467.032 211.105,450.376 195.185,424.558 188.8,414.204 183.061,403.176 177.988,391.604L240.789,391.604 240.789,475.322z M240.79,361.186L166.595,361.186C157.707,333.004,152.432,302.535,151.136,271.208L240.79,271.208 240.79,361.186z M240.79,240.791L151.136,240.791C152.431,209.464,157.706,178.994,166.595,150.813L240.79,150.813 240.79,240.791z M240.79,120.395L177.989,120.395C183.062,108.823 188.801,97.795 195.186,87.441 211.105,61.623 228.12,44.966 240.791,36.677L240.791,120.395z M455.512,150.813C470.135,178.466,478.823,208.987,480.928,240.791L391.3,240.791C390.109,209.72,385.289,179.334,377.139,150.813L455.512,150.813z M415.413,96.587C422.928,104.102,429.834,112.063,436.134,120.396L366.899,120.396C360.128,103.039 352.043,86.623 342.703,71.477 335.381,59.602 327.515,48.886 319.421,39.569 355.326,50.035 388.231,69.406 415.413,96.587z M271.208,36.677C283.879,44.967 300.893,61.623 316.813,87.441 323.198,97.795 328.937,108.823 334.01,120.395L271.209,120.395 271.209,36.677z M271.208,150.813L345.403,150.813C354.292,178.995,359.567,209.466,360.862,240.791L271.208,240.791 271.208,150.813z M360.861,271.208C359.566,302.535,354.291,333.005,345.402,361.186L271.207,361.186 271.207,271.208 360.861,271.208z M271.208,475.322L271.208,391.604 334.009,391.604C328.936,403.176 323.197,414.204 316.812,424.558 300.893,450.377 283.879,467.032 271.208,475.322z M415.413,415.413C388.231,442.594 355.327,461.964 319.421,472.431 327.514,463.114 335.381,452.398 342.703,440.523 352.042,425.377 360.128,408.961 366.899,391.604L436.134,391.604C429.835,399.937,422.928,407.898,415.413,415.413z M455.512,361.186L377.139,361.186C385.289,332.665,390.11,302.279,391.3,271.208L480.927,271.208C478.822,303.012,470.133,333.534,455.512,361.186z"/>
+        </GeometryGroup>
+
+        <GeometryGroup x:Key="Delete">
+            <PathGeometry Figures="M122.825,394.663C140.625,414.063,166.025,425.263,192.325,425.263L409.225,425.263C453.425,425.263,489.425,389.263,489.425,345.063L489.425,144.363C489.425,100.163,453.425,64.1630000000001,409.225,64.1630000000001L192.325,64.1630000000001C165.925,64.1630000000001,140.625,75.263,122.825,94.7630000000001L11.025,216.463C-3.67499999999998,232.563,-3.67499999999998,256.763,11.025,272.863L122.825,394.663z M29.125,233.063L140.925,111.263C154.125,96.863,172.925,88.663,192.425,88.663L409.325,88.663C440.025,88.663,465.025,113.663,465.025,144.363L465.025,344.963C465.025,375.663,440.025,400.663,409.325,400.663L192.325,400.663C172.825,400.663,154.025,392.463,140.825,378.063L29.125,256.263C23.025,249.663,23.025,239.663,29.125,233.063z"/>
+            <PathGeometry Figures="M225.425,309.763C227.825,312.163 230.925,313.363 234.125,313.363 237.325,313.363 240.425,312.163 242.825,309.763L290.625,261.963 338.425,309.763C340.825,312.163 343.925,313.363 347.125,313.363 350.325,313.363 353.425,312.163 355.825,309.763 360.625,304.963 360.625,297.263 355.825,292.463L307.925,244.663 355.725,196.863C360.525,192.063 360.525,184.363 355.725,179.563 350.925,174.763 343.225,174.763 338.425,179.563L290.625,227.363 242.825,179.563C238.025,174.763 230.325,174.763 225.525,179.563 220.725,184.363 220.725,192.063 225.525,196.863L273.325,244.663 225.525,292.463C220.725,297.263,220.725,304.962,225.425,309.763z"/>
+        </GeometryGroup>
+
+        <ControlTemplate x:Key="KeyBoardButton">
+            <Grid>
+                <!--<VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup Name="CommonStates">
+                        <VisualState Name="Normal" />
+                        <VisualState Name="MouseOver" />
+                        <VisualState Name="Pressed">
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetName="Border"
+                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                            To="#959595"
+                                            Duration="0" />
+                                <ColorAnimation Storyboard.TargetName="TextBlock"
+                                            Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)"
+                                            To="White"
+                                            Duration="0" />
+                            </Storyboard>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>-->
+                <Border 
+                    x:Name="Border"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="{TemplateBinding Button.Width}"
+                    MinHeight="88">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Background" Value="White"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsPressed}" Value="True">
+                                    <Setter Property="Background" Value="#959595"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <!--<Border.Style>
+                    -->
+                    <!--<Style TargetType="Border">
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=ChoosedCulture}"
+                                Value="RU-RU">
+                                <Setter Property="MinWidth" Value="74" />
+                            </DataTrigger>
+                            <DataTrigger
+                                Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=ChoosedCulture}"
+                                Value="EN-EN">
+                                <Setter Property="MinWidth" Value="83" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>-->
+                    <!--
+                </Border.Style>-->
+                    <Grid>
+                        <TextBlock Text="{TemplateBinding Button.Content}"
+                               x:Name="TextBlock"
+                               FontSize="{TemplateBinding Button.FontSize}"
+                               FontFamily="{DynamicResource VremenaGodaFont}"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center" >
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="#525252"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsPressed}" Value="True">
+                                            <Setter Property="Foreground" Value="White"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <ContentPresenter Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content}"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center">
+                            <ContentPresenter.Style>
+                                <Style TargetType="ContentPresenter">
+                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger
+                                        Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}"
+                                        Value="pic">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentPresenter.Style>
+                        </ContentPresenter>
+                    </Grid>
+                </Border>
+            </Grid>
+        </ControlTemplate>
+        
+        <GeometryGroup x:Key="EmotionShare">
+            <PathGeometry Figures="M447.106,266.299C447.106,257.804 444.59,249.891 440.277,243.246 442.026,232.296 442.922,221.101 442.922,209.913 442.922,94.167 348.755,0 233.009,0 117.263,0 23.095,94.167 23.095,209.913 23.095,221.107 23.991,232.305 25.741,243.255 21.432,249.898 18.917,257.808 18.917,266.298 18.917,287.446 34.457,305.029 54.716,308.239 65.527,397.021 141.358,466.024 233.011,466.024 324.664,466.024 400.495,397.022 411.306,308.239 431.567,305.03 447.106,287.447 447.106,266.299z M34.918,266.299C34.918,254.492,42.69,244.469,53.385,241.07L53.386,286.4C53.386,288.125 53.416,289.843 53.465,291.556 42.728,288.181 34.918,278.135 34.918,266.299z M233.012,450.024C142.788,450.024,69.387,376.622,69.387,286.399L69.386,203.675C69.386,191.317 75.867,180.384 86.724,174.429 97.474,168.532 110.039,168.93 120.338,175.494 153.975,196.934 192.937,208.267 233.009,208.267 273.083,208.267 312.046,196.934 345.685,175.493 355.982,168.93 368.547,168.53 379.298,174.427 390.154,180.381 396.636,191.315 396.636,203.672L396.638,286.399C396.638,376.622,323.236,450.024,233.012,450.024z M386.991,160.399C371.04,151.649 352.383,152.25 337.085,162.002 306.019,181.803 270.03,192.269 233.008,192.269 195.987,192.269 160,181.803 128.936,162.003 113.637,152.251 94.978,151.653 79.027,160.401 62.97,169.208 53.383,185.385 53.384,203.675L53.384,224.596C48.624,225.507 44.147,227.216 40.091,229.577 39.435,223.061 39.094,216.487 39.094,209.912 39.095,102.989 126.085,16 233.009,16 339.933,16 426.922,102.989 426.922,209.913 426.922,216.486 426.581,223.059 425.925,229.574 421.87,227.214 417.395,225.507 412.637,224.596L412.637,203.673C412.635,185.383,403.049,169.206,386.991,160.399z M412.559,291.556C412.608,289.843,412.638,288.125,412.638,286.4L412.637,241.069C423.334,244.468 431.106,254.492 431.106,266.299 431.106,278.135 423.296,288.181 412.559,291.556z" />
+            <PathGeometry Figures="M284.549,252.357C281.424,255.482 281.424,260.546 284.549,263.671 287.673,266.794 292.738,266.794 295.862,263.671 302.959,256.573 314.506,256.573 321.602,263.671 323.164,265.233 325.211,266.014 327.259,266.014 329.307,266.014 331.354,265.233 332.916,263.671 336.041,260.546 336.041,255.482 332.916,252.357 319.581,239.023 297.884,239.023 284.549,252.357z"  />
+            <PathGeometry Figures="M159.804,242.341C150.669,242.341 142.08,245.899 135.62,252.359 132.496,255.483 132.496,260.548 135.62,263.672 138.744,266.795 143.809,266.796 146.934,263.671 150.372,260.233 154.942,258.341 159.803,258.341 164.665,258.341 169.235,260.234 172.673,263.671 174.236,265.234 176.282,266.015 178.33,266.015 180.377,266.015 182.425,265.234 183.987,263.672 187.111,260.548 187.112,255.483 183.987,252.359 177.529,245.898 168.94,242.341 159.804,242.341z" />
+            <PathGeometry Figures="M265.462,339.836C261.044,339.836 257.462,343.418 257.462,347.836 257.462,361.317 246.494,372.286 233.012,372.286 219.53,372.286 208.561,361.317 208.561,347.836 208.561,343.418 204.979,339.836 200.561,339.836 196.143,339.836 192.561,343.418 192.561,347.836 192.561,370.141 210.707,388.286 233.012,388.286 255.316,388.286 273.462,370.14 273.462,347.836 273.462,343.418 269.88,339.836 265.462,339.836z" />
+        </GeometryGroup>
+        
+        
+        <GeometryGroup x:Key="Camers">
+            <PathGeometry Figures="M502.002,265.831L487.072,265.831C473.326,265.831,462.143,277.014,462.143,290.76L462.143,327.256 395.115,327.256C387.609,317.428,376.349,310.623,363.494,308.988L349.436,284.639 407.289,251.238C412.072,248.477,413.711,242.361,410.949,237.578L397.289,213.917 420.95,200.256C425.733,197.495,427.372,191.379,424.61,186.596L368.627,89.6289999999999C360.212,75.055 344.466,66.0009999999999 327.533,66.0009999999999 319.276,66.0009999999999 311.133,68.183 303.984,72.3099999999999L5.002,244.927C0.218999999999999,247.688,-1.42,253.804,1.342,258.587L20.002,290.908C21.328,293.205,23.512,294.881,26.074,295.567L53.742,302.981 42.324,309.572C40.027,310.898 38.351,313.082 37.665,315.644 36.978,318.206 37.338,320.936 38.664,323.232L75.984,387.871C77.837,391.079 81.197,392.873 84.654,392.873 86.35,392.873 88.07,392.441 89.644,391.532L113.308,377.869 126.97,401.533C128.296,403.83 130.48,405.506 133.042,406.192 133.894,406.42 134.763,406.533 135.63,406.533 137.37,406.533 139.097,406.078 140.63,405.193L299.792,313.3 313.845,337.639C311.48,343.265 310.17,349.439 310.17,355.915 310.17,382.009 331.399,403.237 357.492,403.237 372.819,403.237 386.46,395.907 395.114,384.575L462.142,384.575 462.142,421.071C462.142,434.816,473.325,445.999,487.071,445.999L502.001,445.999C507.524,445.999,512.001,441.522,512.001,435.999L512.001,275.831C512.002,270.308,507.524,265.831,502.002,265.831z M35.251,277.321L23.662,257.247 313.984,89.63C318.096,87.256 322.782,86.001 327.533,86.001 337.343,86.001 346.453,91.223 351.306,99.629L402.289,187.936 180.199,316.159 35.251,277.321z M88.305,369.211L60.985,321.893 75.99,313.23 103.309,360.548 88.305,369.211z M139.291,382.873L100.383,315.479C100.382,315.478,100.383,315.479,100.382,315.478L179.025,336.55C179.409,336.653 179.796,336.724 180.185,336.78 180.301,336.797 180.417,336.807 180.534,336.82 180.821,336.851 181.107,336.87 181.395,336.876 181.467,336.877 181.54,336.89 181.613,336.89 181.658,336.89 181.702,336.882 181.747,336.881 182.131,336.876 182.513,336.855 182.893,336.806 182.901,336.805 182.909,336.805 182.916,336.804 183.303,336.753 183.686,336.673 184.064,336.576 184.175,336.548 184.285,336.514 184.395,336.482 184.675,336.401 184.951,336.308 185.223,336.202 185.331,336.16 185.44,336.121 185.546,336.075 185.909,335.919 186.267,335.749 186.612,335.55L379.968,223.915 388.628,238.916 139.291,382.873z M317.114,303.301L332.116,294.639 341.736,311.301C336.193,313.265,331.127,316.234,326.748,319.986L317.114,303.301z M384.759,357.581C384.751,357.712 384.739,357.842 384.73,357.972 384.697,358.405 384.655,358.838 384.602,359.268 384.585,359.403 384.569,359.538 384.55,359.672 384.483,360.16 384.404,360.646 384.31,361.129 384.299,361.184 384.291,361.239 384.281,361.294 384.174,361.832 384.048,362.365 383.908,362.895 383.874,363.027 383.833,363.158 383.797,363.29 383.692,363.662 383.58,364.033 383.46,364.401 383.395,364.603 383.326,364.804 383.256,365.004 383.154,365.293 383.045,365.577 382.934,365.862 382.844,366.089 382.76,366.318 382.666,366.541 382.63,366.628 382.587,366.712 382.55,366.798 382.274,367.431 381.975,368.051 381.654,368.658 381.58,368.798 381.506,368.938 381.429,369.077 376.771,377.511 367.789,383.238 357.493,383.238 342.428,383.238 330.171,370.981 330.171,355.916 330.171,340.851 342.428,328.594 357.493,328.594 367.787,328.594 376.767,334.319 381.425,342.75 381.504,342.893 381.58,343.038 381.656,343.183 381.813,343.48 381.97,343.777 382.116,344.08 382.308,344.481 382.494,344.885 382.666,345.295 382.76,345.515 382.843,345.74 382.93,345.963 383.043,346.252 383.155,346.541 383.257,346.833 383.326,347.031 383.394,347.23 383.459,347.43 383.58,347.801 383.693,348.174 383.798,348.55 383.834,348.679 383.874,348.807 383.908,348.937 384.048,349.468 384.174,350.002 384.281,350.541 384.292,350.594 384.3,350.648 384.31,350.701 384.404,351.185 384.483,351.673 384.55,352.162 384.569,352.295 384.585,352.43 384.602,352.564 384.655,352.995 384.697,353.427 384.73,353.861 384.74,353.991 384.751,354.12 384.759,354.251 384.793,354.805 384.814,355.359 384.814,355.916 384.814,356.473 384.793,357.027 384.759,357.581z M462.143,364.577L404.016,364.577 404.016,364.576C404.05,364.389 404.075,364.201 404.107,364.014 404.184,363.568 404.26,363.122 404.325,362.672 404.37,362.361 404.406,362.049 404.444,361.738 404.497,361.308 404.552,360.878 404.593,360.444 404.629,360.068 404.653,359.69 404.679,359.312 404.706,358.938 404.74,358.567 404.757,358.191 404.786,357.574 404.798,356.956 404.804,356.337 404.805,356.196 404.815,356.057 404.815,355.915 404.815,355.773 404.805,355.634 404.804,355.493 404.798,354.874 404.787,354.256 404.757,353.639 404.739,353.263 404.706,352.891 404.679,352.517 404.652,352.14 404.629,351.763 404.593,351.387 404.552,350.952 404.496,350.522 404.444,350.091 404.405,349.781 404.37,349.47 404.325,349.161 404.261,348.709 404.184,348.261 404.107,347.814 404.075,347.628 404.05,347.441 404.016,347.256L462.143,347.256 462.143,364.577z M492.002,426L487.072,426C484.4,426,482.143,423.744,482.143,421.072L482.143,290.759C482.143,288.087,484.4,285.83,487.072,285.83L492.002,285.83 492.002,426z"  />
+            <PathGeometry Figures="M268.458,182.897C265.698,178.114,259.582,176.472,254.799,179.234L254.577,179.362C249.794,182.122 248.153,188.238 250.914,193.021 252.766,196.23 256.128,198.024 259.585,198.024 261.28,198.024 262.999,197.592 264.573,196.684L264.795,196.556C269.578,193.796,271.219,187.68,268.458,182.897z" />
+            <PathGeometry Figures="M336.301,143.72C333.54,138.938,327.427,137.298,322.641,140.06L281.396,163.873C276.613,166.634 274.974,172.75 277.736,177.533 279.589,180.74 282.949,182.534 286.406,182.534 288.102,182.534 289.821,182.102 291.396,181.193L332.641,157.38C337.424,154.619,339.063,148.503,336.301,143.72z" />
+            <PathGeometry Figures="M355.406,176.81C352.646,172.026,346.531,170.385,341.747,173.147L341.525,173.275C336.742,176.035 335.101,182.151 337.862,186.934 339.714,190.144 343.076,191.937 346.533,191.937 348.228,191.937 349.947,191.505 351.521,190.597L351.743,190.469C356.526,187.709,358.167,181.593,355.406,176.81z"  />
+            <PathGeometry Figures="M328.58,192.292C325.818,187.51,319.704,185.87,314.92,188.632L273.676,212.445C268.892,215.206 267.254,221.321 270.016,226.104 271.869,229.313 275.229,231.106 278.686,231.106 280.382,231.106 282.102,230.674 283.676,229.765L324.92,205.952C329.703,203.19,331.342,197.075,328.58,192.292z"/>
+        </GeometryGroup>
+    </Application.Resources>
+</Application>

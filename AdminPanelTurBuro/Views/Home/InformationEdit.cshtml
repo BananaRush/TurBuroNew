@@ -1,0 +1,87 @@
+﻿@using ModelData.Model.Database
+@model List<Information>
+
+<div class="page-header row no-gutters py-4">
+    <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+
+    </div>
+</div>
+
+<div class="card card-small mb-4">
+    <div class="card-header border-bottom">
+        <h6 class="m-0">Информация</h6>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item p-0 px-3 pt-3">
+            <nav class="nav" style="margin-top:-18px;">
+                <a class="nav-link active" href="/home/InformationEdit">Текстовая информация</a>
+                <a class="nav-link" href="/home/PresentationEditor">Презентации</a>
+                <a class="nav-link" href="/home/BrowserEditor">Браузерная ссылка</a>
+                <a class="nav-link" href="#">Изображение</a>
+                <a class="nav-link" href="#">Видео ссылка</a>
+                <a class="nav-link" href="#">Секции</a>
+                <a class="nav-link" href="#">Новостная лента</a>
+            </nav>
+        </li>
+        <li class="list-group-item p-0 px-3 pt-3">
+            <div class="col-sm-12 col-md-12 mb-12">
+                <strong class="text-muted d-block my-2">Управление</strong>
+                <button type="button" class="mb-2 btn btn-primary mr-2">Добавить</button>
+            </div>
+        </li>
+        <li class="list-group-item p-0 px-3 pt-3">
+            <div class="col-sm-12 col-md-12 mb-12">
+                <div class="row">
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+
+                            <div class="col-lg-4">
+                                <div class="card card-small card-post mb-4">
+                                    <div class="card-body">
+                                        <h5 class="card-title">@item.Title</h5>
+                                        <p class="card-text text-muted">@item.Info</p>
+                                    </div>
+                                    <div class="card-footer border-top d-flex">
+                                        <div class="card-post__author d-flex">
+                                            <div class="d-flex flex-column justify-content-center ml-3">
+                                                <small class="text-muted">@item.DateTime</small>
+                                            </div>
+                                        </div>
+                                        <div class="my-auto ml-auto">
+                                            <div class="dropdown">
+                                                <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Управление
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                                    <a class="dropdown-item" href="/Editor/AddPage?id=@item.Id">Изменить</a>
+                                                    @using (Html.BeginForm("InfoPublic", "Editor", FormMethod.Post, new { name = "pb-post" }))
+                                                    {
+                                                        <input name="Id" value="@item.Id" hidden />
+
+                                                        @if (item.IsPublick)
+                                                        {
+                                                            <button class="dropdown-item" ifpe="button">Снять с публикации</button>
+                                                        }
+                                                        else
+                                                        {
+
+                                                            <button class="dropdown-item" ifpe="button">Опубликовать</button>
+                                                        }
+                                                    }
+                                                    <button class="dropdown-item" type="button">Удалить</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    }
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

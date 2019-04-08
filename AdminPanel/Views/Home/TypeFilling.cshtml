@@ -1,0 +1,47 @@
+﻿@{ Layout = null; }
+@using ModelData.Models.Database;
+@model Tuple<List<LanguageModel>, List<TerminalsModel>>
+@{
+    string Lang = Model.Item1.FirstOrDefault(r => r.IsActive == true).Name;
+}
+<ul class="navbar-nav border-left flex-row">
+    <li class="nav-item dropdown keep-open">
+        <div class="col-sm-12 col-md-12 mb-12">
+            <strong class="text-muted d-block my-2">Терминалы</strong>
+            <a class="nav-link dropdown-toggle text-nowrap" style="margin-top:-15px;" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <span class="d-none d-md-inline-block">Все терминалы</span>
+            </a>
+            <div class="dropdown-menu" style="padding:5px;">
+                @using (Html.BeginForm("SetTerminal", "Home", FormMethod.Post))
+                {
+                    for (int i = 0; i < Model.Item2.Count; i++)
+                    {
+                    <div class="custom-control custom-checkbox mb-1">
+                        <input type="hidden" name="Item2[@i].Id" value="@Model.Item2[i].Id" />
+                        @Html.CheckBoxFor(x=>x.Item2[i].IsSelect, new { @class = "custom-control-input", @id = Model.Item2[i].Name })
+                        <label class="custom-control-label" for="@Model.Item2[i].Name">@Model.Item2[i].Name</label>
+                    </div>
+                    }
+
+                    <button type="submit" class="mb-2 btn btn-info">Сохранить</button>
+                }
+            </div>
+        </div>
+    </li>
+    <li class="nav-item dropdown" style="border-left: 1px solid #e1e5eb !important;">
+        <div class="col-sm-12 col-md-12 mb-12">
+            <strong class="text-muted d-block my-2">Языковая версия</strong>
+            <a class="nav-link dropdown-toggle text-nowrap" style="margin-top:-15px;" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <span class="d-none d-md-inline-block">@Lang</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-small">
+                @foreach (var item in Model.Item1.Where(r=>r.IsActive == false))
+                {
+                    <a class="dropdown-item" href="/home/SetLang?id=@item.Id">
+                        @item.Name
+                    </a>
+                }
+            </div>
+        </div>
+    </li>
+</ul>

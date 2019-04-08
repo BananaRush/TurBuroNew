@@ -1,0 +1,58 @@
+﻿@{ Layout = null; }
+@using ModelData
+@model IEnumerable<StorageAPI.Models.News>
+<ul class="nav flex-column">
+    <li class="nav-item">
+        <a class="nav-link " href="/home/MenuEditor">
+            <i class="material-icons">vertical_split</i>
+            <span>Редактор Меню</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="/home/InformationEdit">
+            <i class="material-icons">edit</i>
+            <span>Информация</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="/Editor/MainPageEdit">
+            <i class="material-icons">edit</i>
+            <span>Редактор шаблона</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="/home/Survey">
+            <i class="material-icons">edit</i>
+            <span>Опросы</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="/Editor/Slider">
+            <i class="material-icons">edit</i>
+            <span>Слайдер</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="/Editor/VideoGuide">
+            <i class="material-icons">edit</i>
+            <span>Видеогид</span>
+        </a>
+    </li>
+</ul>
+
+<ul class="nav flex-column">
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            string view = "Add" + item.ContentType.GetAttribute<DisplAttribute>().Name;
+
+            <li class="nav-item">
+                <a class="nav-link " href="/Editor/@view?id=@item.Id">
+                    <span>@item.Text</span>
+                </a>
+            </li>
+        }
+    }
+</ul>
+

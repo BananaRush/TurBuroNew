@@ -1,0 +1,34 @@
+﻿<Page x:Class="Client.View.InformationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Client.View"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      xmlns:ViewM="clr-namespace:Client.ViewModel"
+      xmlns:controls="clr-namespace:Client.Controls"
+      xmlns:chrome="clr-namespace:VSHIM.Control.WebControl"
+      mc:Ignorable="d" 
+      Title="InformationPage">
+    <Page.DataContext>
+        <ViewM:InformationPageVM/>
+    </Page.DataContext>
+    <Grid>
+        <controls:PageShallControl Background="White">
+            <chrome:ChromiumBrowser 
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
+                AllowDrop="False"
+                IsManipulationEnabled="True"
+                LoadHtml="{Binding Info, Mode=TwoWay}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Loaded" >
+                        <i:InvokeCommandAction 
+                            Command="{Binding LoadCefSharp}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=chrome:ChromiumBrowser}}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </chrome:ChromiumBrowser>
+        </controls:PageShallControl>
+    </Grid>
+</Page>

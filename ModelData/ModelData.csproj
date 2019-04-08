@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{40F9D765-771E-4F49-9B31-245E2F6D379A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ModelData</RootNamespace>
+    <AssemblyName>ModelData</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attribute.cs" />
+    <Compile Include="DataCom\FileLoaderModel.cs" />
+    <Compile Include="DataCom\FileModel.cs" />
+    <Compile Include="Interface\ILnagModel.cs" />
+    <Compile Include="Models\AccomplishedTestParams.cs" />
+    <Compile Include="Models\AnswerModel.cs" />
+    <Compile Include="Models\Database\Image.cs" />
+    <Compile Include="Models\Database\Information.cs" />
+    <Compile Include="Models\Database\LanguageModel.cs" />
+    <Compile Include="Models\Database\Live.cs" />
+    <Compile Include="Models\Database\NewsModel.cs" />
+    <Compile Include="Models\Database\Section.cs" />
+    <Compile Include="Models\Database\Slider.cs" />
+    <Compile Include="Models\Database\SurveyModel.cs" />
+    <Compile Include="Models\Database\SurveyValueModel.cs" />
+    <Compile Include="Models\Database\TerminalDataModel.cs" />
+    <Compile Include="Models\Database\TerminalsModel.cs" />
+    <Compile Include="Models\Database\Test.cs" />
+    <Compile Include="Models\Database\TourAgencyDataBase.cs" />
+    <Compile Include="Models\Database\UIElementModel.cs" />
+    <Compile Include="Models\Database\UrlInfo.cs" />
+    <Compile Include="Models\Database\User.cs" />
+    <Compile Include="Models\Database\User_Test.cs" />
+    <Compile Include="Models\Database\VideoConnect.cs" />
+    <Compile Include="Models\Database\VideoGuideModel.cs" />
+    <Compile Include="Models\Database\VideoModel.cs" />
+    <Compile Include="Models\DataComModel.cs" />
+    <Compile Include="Models\ExtendedUser.cs" />
+    <Compile Include="Models\FinishedTest.cs" />
+    <Compile Include="Models\News.cs" />
+    <Compile Include="Models\NewsContentType.cs" />
+    <Compile Include="Models\Response.cs" />
+    <Compile Include="Models\Slider.cs" />
+    <Compile Include="Models\SliderContentType.cs" />
+    <Compile Include="Models\Test.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SiteSettings.cs" />
+    <Compile Include="Utilits\ActorComparer.cs" />
+    <Compile Include="Utilits\Config.cs" />
+    <Compile Include="Utilits\HtmlClear.cs" />
+    <Compile Include="Utilits\HtmlEventTemplate.cs" />
+    <Compile Include="Utilits\SaveUrlImage.cs" />
+    <Compile Include="Utilits\SiteSettings.cs" />
+    <Compile Include="Utilits\Utilits.cs" />
+    <Compile Include="WebAPI.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="Client.Controls.LanguageControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.Controls.Language"
+             mc:Ignorable="d">
+    <UserControl.DataContext>
+        <local:LanguageControlVM/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <FontFamily x:Key="ALS Direct" >../Resources/Fonts/#ALS Direct</FontFamily>
+        <Style x:Key="LanguageControlStyle" TargetType="RadioButton">
+            <Style.Setters>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="RadioButton">
+                            <StackPanel Name="Test" Orientation="Horizontal" Background="Transparent">
+                                <Grid>
+                                    <Image Height="45" Width="45" Source="{TemplateBinding Tag}" Stretch="Fill"/>
+                                    <Ellipse Name="StrokeEllipse" Height="47" Width="47" Fill="Transparent" StrokeThickness="4" Stroke="White"
+                                             Visibility="Collapsed" DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}">
+                                    </Ellipse>
+                                </Grid>
+                                <TextBlock Text="{TemplateBinding Content}"
+                                    Margin="0.32cm,0,0,0" Foreground="White"
+                                    FontSize="18" VerticalAlignment="Center" 
+                                    FontFamily="{StaticResource ALS Direct}"/>
+                            </StackPanel>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="true">
+                                    <Setter TargetName="StrokeEllipse" Property="Visibility" Value="Visible"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="#00b3cd" Height="3.67cm" Width="449">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.1cm"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="{Binding LangLanguage, Mode=TwoWay}"
+                   Margin="0.88cm,0,0,0" Foreground="White"
+                   FontSize="25" VerticalAlignment="Bottom" 
+                   FontFamily="{StaticResource ALS Direct}"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0.64cm,0,0,0">
+            <RadioButton 
+                Command="{Binding SetLang}"
+                CommandParameter="RU"
+                IsChecked="True" 
+                Name="RussianLanguage" 
+                GroupName="Language" 
+                Content="Русский"
+                Style="{StaticResource LanguageControlStyle}">
+                <RadioButton.Tag>
+                    <ImageSource>/Image/LanguageIcons/russian-language.png</ImageSource>
+                </RadioButton.Tag>
+            </RadioButton>
+            <RadioButton 
+                Command="{Binding SetLang}"
+                CommandParameter="EN"
+                GroupName="Language"
+                Content="English"
+                Style="{StaticResource LanguageControlStyle}"
+                Margin="0.88cm,0,0,0">
+                <RadioButton.Tag>
+                    <ImageSource>/Image/LanguageIcons/english-language.png</ImageSource>
+                </RadioButton.Tag>
+            </RadioButton>
+            <RadioButton 
+                Command="{Binding SetLang}"
+                CommandParameter="CN"
+                GroupName="Language"
+                Content="中國"
+                Style="{StaticResource LanguageControlStyle}"
+                Margin="0.88cm,0,0,0">
+                <RadioButton.Tag>
+                    <ImageSource>/Image/LanguageIcons/chinese-language.png</ImageSource>
+                </RadioButton.Tag>
+            </RadioButton>
+        </StackPanel>
+    </Grid>
+</UserControl>

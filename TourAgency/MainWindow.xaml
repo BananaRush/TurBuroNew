@@ -1,0 +1,437 @@
+﻿<Window x:Class="TourAgency.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TourAgency"
+        xmlns:viewmodels="clr-namespace:TourAgency.ViewModel"
+        xmlns:controls="clr-namespace:TourAgency.Controls"
+        xmlns:utilities="clr-namespace:TourAgency.Utilities"
+        xmlns:keyboard="clr-namespace:SimpleKeyboard;assembly=SimpleKeyboard"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:controls1="clr-namespace:VremenaGoda.Controls"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        WindowState="Maximized"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="TouchDown">
+            <i:InvokeCommandAction Command="{Binding ResetTimerMainWindowClick}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Window.Resources>
+        <ResourceDictionary>
+            <FontFamily x:Key="MainFont">Fonts/#ALS Direct</FontFamily>
+            <FontFamily x:Key="SPbFixed">Fonts/SPb Fixed/#ALS SPb</FontFamily>
+            <FontFamily x:Key="SPbofficial">Fonts/#ALS SPb</FontFamily>
+            <Storyboard x:Key="ReduceOpacity" TargetProperty="Opacity" TargetName="media">
+                <DoubleAnimation From="1" To="0" Duration="0:0:0.1"></DoubleAnimation>
+            </Storyboard>
+            <Storyboard x:Key="IncreaceOpacity" TargetProperty="Opacity" TargetName="media">
+                <DoubleAnimation From="0" To="1" Duration="0:0:0.1"></DoubleAnimation>
+            </Storyboard>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid x:Name="Grid">
+        <Viewbox Panel.ZIndex="1">
+        <Grid Panel.ZIndex="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Row="0"
+                  Background="Black"
+                      x:Name="InvalidBlock">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDown">
+                        <i:InvokeCommandAction Command="{Binding InvalidButtonCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                    <TextBlock Text="Прикоснитесь для возврата в стандартный режим"
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           FontSize="65"
+                           Visibility="Collapsed"
+                            x:Name="InvalidBlockText"/>
+                </Grid>
+            <Popup PlacementTarget="{Binding ElementName=InvalidBlock}" 
+                       Placement="Top"
+                       HorizontalOffset="-2160"
+                       Width="{Binding ElementName=InvalidBlock, Path=ActualWidth}"
+                       Height="{Binding ElementName=InvalidBlock, Path=ActualHeight}" IsOpen="True"/>
+            <ScrollViewer PanningMode="Both"
+                      VerticalAlignment="Bottom"
+                      CanContentScroll="True"
+                      VerticalScrollBarVisibility="Hidden"
+                          Grid.Row="1"
+                              x:Name="ScrollViewer">
+                <Grid Width="2160" Height="3840" x:Name="ScrollViewerChild">
+                    <Grid.Background>
+                        <ImageBrush Stretch="Fill" ImageSource="Images/page_background.jpg"/>
+                    </Grid.Background>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1050"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="500"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="360"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="370"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition Height="555"/>
+                        </Grid.RowDefinitions>
+                        <Button Grid.RowSpan="2" Command="{Binding SPbCommand}" Margin="0,55,0,0" VerticalAlignment="Top" Height="255" Width="Auto" HorizontalAlignment="Center" Background="Transparent">
+                            <Image Source="Images/Logos/SPbSmall.png"></Image>
+                        </Button>
+                        <Grid Grid.Column="2" Grid.RowSpan="2" Margin="0,75,0,0" VerticalAlignment="Top" Width="330" HorizontalAlignment="Center" Background="Transparent">
+                            <Image Source="Images/Logos/CupSmall.png"></Image>
+                        </Grid>
+                        <Grid Grid.Row="1" Grid.Column="1" Height="145" HorizontalAlignment="Left" Background="White" VerticalAlignment="Bottom">
+                            <TextBlock TouchDown="TextOnTouch" Text="В Петербурге" HorizontalAlignment="Center" utilities:LanguageProperty.TextPropertyConverter="{StaticResource LanguageConverter}" Style="{StaticResource SPb}" FontFamily="{StaticResource SPbFixed}"></TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="1" HorizontalAlignment="Stretch" Margin="0,95,0,-300">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                <StackPanel.Resources>
+                                    <Style TargetType="FrameworkElement">
+                                        <Setter Property="Height" Value="3.67cm"/>
+                                    </Style>
+                                </StackPanel.Resources>
+                                <controls:CurrencyControl VerticalAlignment="Top"/>
+                                <controls:WeatherControl VerticalAlignment="Top" Margin="21,0,0,0"/>
+                                <controls:LanguageControl VerticalAlignment="Top" Margin="21,0,21,0"/>
+                                <controls:TimeControl VerticalAlignment="Top"/>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Grid.Row="2" Grid.ColumnSpan="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid Height="130" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,375,0" Background="White">
+                                <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}"  Text="#информация" Height="165" Style="{StaticResource SPbInfo}" FontFamily="{StaticResource SPbFixed}"></TextBlock>
+                            </Grid>
+                            <!-- Кнопки -->
+                            <Grid Grid.Row="1">
+                                <ItemsControl 
+                                    VerticalAlignment="Bottom"
+                                    ItemsSource="{Binding MenuButton}"
+                                    Margin="100,0">
+                                    <!--ItemTemplate="{StaticResource MainTopButtonsTemplate}"-->
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Frame x:Name="Frame"
+                               Navigating="Frame_OnNavigating"
+                               Navigated="Frame_Navigated"
+                               NavigationUIVisibility="Hidden"></Frame>
+                    </Grid>
+                    <!--Спец возможности-->
+                    <Popup Name="AccessiblePopup" Placement="Top" 
+                               HorizontalOffset="{Binding ElementName=AccessebleButtonGrid, Path=ActualWidth}" 
+                               PlacementTarget="{Binding ElementName=MoreButton}" 
+                               Grid.Row="2" 
+                               Opened="AccessiblePopup_OnOpened"
+                               VerticalOffset="{Binding ElementName=MoreButton, Path=ActualHeight}"
+                               IsOpen="{Binding InvaligToggled, Mode=TwoWay}" 
+                               PlacementRectangle="130, -30, 0, 0"
+                               PopupAnimation="Fade" AllowsTransparency="True">
+                        <Grid x:Name="AccessebleButtonGrid">
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel.Resources>
+                                    <Style TargetType="ToggleButton">
+                                        <Setter Property="Width" Value="400"/>
+                                        <Setter Property="Height" Value="150"/>
+                                        <Setter Property="Margin" Value="34,0,0,0"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate>
+                                                    <Grid Margin="0,-305,0,0" x:Name="Grid">
+                                                        <Border Background="#ffb336" Height="150" VerticalAlignment="Bottom"/>
+                                                        <Border Background="Transparent" Height="150" VerticalAlignment="Bottom">
+                                                            <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" 
+                                                                      VerticalAlignment="Center" 
+                                                                      TextAlignment="Center" 
+                                                                      FontFamily="Fonts/#ALS Direct" 
+                                                                      Text="{TemplateBinding ToggleButton.Content}" 
+                                                                      Margin="50,45" 
+                                                                      Foreground="White" 
+                                                                      FontSize="29"/>
+                                                        </Border>
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </StackPanel.Resources>
+                                <ToggleButton x:Name="InvertionButton" Content="ИНВЕРСИЯ ЦВЕТА" Command="{Binding InverSionTouch}"/>
+                                <ToggleButton x:Name="MonohromeButton" Content="МОНОХРОМ" Command="{Binding MonohromTouch}" CommandParameter="{Binding ElementName=MonohromeButton}"/>
+                                <ToggleButton Content="ОПУСТИТЬ ЭКРАН" Command="{Binding DownScreenTouch}"/>
+                                <ToggleButton x:Name="Magnifier"  Content="ЛУПА" Command="{Binding MAgnifierTouch}"/>
+                            </StackPanel>
+                        </Grid>
+                    </Popup>
+
+                    <!--end-->
+                    <Popup  Placement="Top" 
+                               HorizontalOffset="{Binding ElementName=ExtendButtonsGridChild, Path=ActualWidth}" 
+                               PlacementTarget="{Binding ElementName=MoreButton}" 
+                               Grid.Row="2" 
+                           Opened="ExtendButtonsGrid_OnOpened"
+                               VerticalOffset="{Binding ElementName=MoreButton, Path=ActualHeight}"
+                               IsOpen="{Binding ExtendedPopup}" 
+                               PlacementRectangle="150, -30, 0, 0"
+                               PopupAnimation="Fade" AllowsTransparency="True">
+                        <Grid  Background="Transparent" Name="ExtendButtonsGridChild">
+                            <Grid VerticalAlignment="Bottom" RenderTransformOrigin="0,1" >
+                                <Grid.RenderTransform>
+                                    <ScaleTransform ScaleY="1"></ScaleTransform>
+                                </Grid.RenderTransform>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button 
+                                        HorizontalAlignment="Left"
+                                        Command="{Binding SearchTouch}" 
+                                        Style="{StaticResource SearchButton}" Margin="0,0,0,33"/>
+                                    <Button Margin="33,0,0,33" HorizontalAlignment="Left" Style="{StaticResource MasksButton}" Command="{Binding MaskCommand}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="TouchDown">
+                                                <i:InvokeCommandAction Command="{Binding MaskCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Button>
+                                    <Button TouchDown="CamersTouch" Width="390" Height="150" Margin="33,0,0,33">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="#48b2cb" Padding="20,45">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Viewbox Margin="20,0" >
+                                                            <Path Fill="White" Data="{StaticResource Camers}"/>
+                                                        </Viewbox>
+                                                        <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" 
+                                                                 Grid.Column="1" 
+                                                                 VerticalAlignment="Center" 
+                                                                 FontFamily="Fonts/#ALS Direct" 
+                                                                 Text="ВЕБ-КАМЕРЫ" Margin="20,0" 
+                                                                 Foreground="White" 
+                                                                 FontSize="29"/>
+                                                    </Grid>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                    <Button Margin="33,0,0,33" TouchDown="EmotionShareTouch" HorizontalAlignment="Left" Width="432" Height="150">
+                                        <Button.Template>
+                                            <ControlTemplate>
+                                                <Border Background="#48b2cb" Padding="20,45">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition />
+                                                        </Grid.ColumnDefinitions>
+                                                        <Viewbox Margin="20,0,20,5">
+                                                            <Path Fill="White" Data="{StaticResource EmotionShare}"/>
+                                                        </Viewbox>
+                                                        <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" 
+                                                                   Grid.Column="1" VerticalAlignment="Center" 
+                                                                   FontFamily="Fonts/#ALS Direct" 
+                                                                   Text="EmotionShare" 
+                                                                   Margin="20,0" Foreground="White" FontSize="29"/>
+                                                    </Grid>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <Button Style="{StaticResource VideoChatButton}" Command="{Binding VideoCommand}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="TouchDown">
+                                                <i:InvokeCommandAction Command="{Binding VideoCommand}"></i:InvokeCommandAction>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Button>
+                                    <Button Margin="50,0,0,0" Style="{StaticResource ChatButton}" Command="{Binding ChatCommand}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="TouchDown">
+                                                <i:InvokeCommandAction Command="{Binding ChatCommand}"></i:InvokeCommandAction>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Popup>
+                    <Grid Grid.Row="2" Margin="188,10,201,40">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Button 
+                                Content="ЕЩЕ" 
+                                Command="{Binding Button_Click}"
+                                x:Name="MoreButton" Background="White" 
+                                Height="100"
+                                Style="{StaticResource ButtonFAQ}"
+                                HorizontalAlignment="Left">
+                            </Button>
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="0,0,0,40">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="InvalidButton"
+                                VerticalAlignment="Top"
+                                Command="{Binding InvalidButtonTouch}">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Width" Value="560"/>
+                                        <Setter Property="Height" Value="150"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate>
+                                                    <Border Padding="30,50">
+                                                        <Border.Style>
+                                                            <Style TargetType="Border">
+                                                                <Setter Property="Background" Value="#48b2cb"/>
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding InvaligToggled}" Value="True">
+                                                                        <Setter Property="Background" Value="#0d90af"/>
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Border.Style>
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="Auto"/>
+                                                                <ColumnDefinition />
+                                                            </Grid.ColumnDefinitions>
+                                                            <Image Source="Images/Icons/silhouette-on-wheelchair.png" Margin="20,0"></Image>
+                                                            <TextBlock  utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" Grid.Column="1" VerticalAlignment="Center" FontFamily="Fonts/#ALS Direct" Text="ДОСТУПНАЯ СРЕДА" Margin="20,0" Foreground="White" FontSize="29"></TextBlock>
+                                                        </Grid>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <Button Style="{StaticResource EarthButton}" Command="{Binding MapCommand}" Grid.Column="1" VerticalAlignment="Top">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="TouchDown">
+                                        <i:InvokeCommandAction Command="{Binding MapCommand}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                            <Button Style="{StaticResource AppsButton}" Command="{Binding AppCommand}" Grid.Column="2" VerticalAlignment="Top">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="TouchDown">
+                                        <i:InvokeCommandAction Command="{Binding AppCommand}"></i:InvokeCommandAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                            <Button Name="VideoGuid" Style="{StaticResource VideoGuideButton}" Command="{Binding VideoGuideCommand}" Grid.Column="3" Margin="40,0,0,0" VerticalAlignment="Top"  >
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="TouchDown">
+                                        <i:InvokeCommandAction Command="{Binding VideoGuideCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <Image></Image>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.RowSpan="3" Panel.ZIndex="10000000">
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Source={x:Static utilities:Session.CurrentSession}, Path=IsLoading}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                        <controls:Preloader  VerticalAlignment="Center" />
+                        <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                            <Border.Background>
+                                <SolidColorBrush Color="Black" Opacity=".7"/>
+                            </Border.Background>
+                        </Border>
+                    </Grid>
+                    <Popup Name="popupMedia" Placement="Top" PlacementTarget="{Binding ElementName=VideoGuid}"   VerticalOffset="{Binding ElementName=VideoGuid, Path=ActualHeight}" AllowsTransparency="True">
+                        <Grid Name="medioGrid"  Panel.ZIndex="7" Height="500" ClipToBounds="True" Visibility="Visible" Width="400">
+                            <MediaElement Name="media" Panel.ZIndex="7" Margin="-217,-15,-94,0" Source="Video/Chinese/01.m4v" MediaEnded="MediaElement_MediaEnded"  LoadedBehavior="Manual" Stretch="UniformToFill"></MediaElement>
+                        </Grid>
+                    </Popup>
+                    <Image Grid.RowSpan="3" MouseDown="Splash_OnMouseDown" Visibility="Visible" Stretch="UniformToFill" Source="Images/Zastavka_kopia.jpg" x:Name="Splash"  Style="{StaticResource SplashImage}"/>
+                    <controls:AccountWindow x:Name="account" Visibility="{Binding Source={x:Static utilities:Session.CurrentSession}, Path=VisibilityAccount, Mode=TwoWay}" Grid.RowSpan="3"></controls:AccountWindow>
+                    <controls1:CoolKeyBoard Focusable="False"
+                                            Grid.RowSpan="3" 
+                                            VerticalAlignment="Top" 
+                                            Margin="0,100,0,0" 
+                                            Panel.ZIndex="100" 
+                                            Visibility="{Binding Source={x:Static utilities:Session.CurrentSession}, 
+                                            Path=KeyBoardVisibility}">
+                        <controls1:CoolKeyBoard.Style>
+                            <Style TargetType="controls1:CoolKeyBoard">
+                                <Style.Triggers>
+                                    <Trigger Property="Visibility" Value="Visible">
+                                        <Trigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation From="0" To="1" Duration="0:0:0.3" Storyboard.TargetProperty="Opacity"></DoubleAnimation>
+                                                    <ThicknessAnimation From="0,-100,0,0" To="0,100,0,0" Duration="0:0:0.3" Storyboard.TargetProperty="Margin"></ThicknessAnimation>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </Trigger.EnterActions>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </controls1:CoolKeyBoard.Style>
+                    </controls1:CoolKeyBoard>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+        </Viewbox>
+    </Grid>
+</Window>
+
+
+
+                            
+
+
+
+                            

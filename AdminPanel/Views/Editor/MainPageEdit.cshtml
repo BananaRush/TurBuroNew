@@ -1,0 +1,354 @@
+﻿@using ModelData.Models.Database
+@using StorageAPI.Models.Database;
+@model Tuple<List<UIElementModel>, List<NewsModel>>
+
+<div class="col-lg-12 mb-3">
+    <div class="row">
+        <div class="col-lg-11">
+            <div class="row button-ui" style="padding-top: 8px;">
+                <div class="col-sm-7 col-md-7 mb-7">
+                    <strong class="text-muted d-block my-2">Компоненты</strong>
+                </div>
+                <div class="col-lg-12">
+                    <button type="button" class="mb-2 btn btn-light" onclick="ResetCursor();">Курсор</button>
+                    @if (!Model.Item1.Any(r => r.ElementType == UIElementType.NavigationFrame))
+                    {
+                        <button type="button" ElementType="NavigationFrame" Indify="NavigationFrame" type-elm="elm" class="mb-2 btn btn-warning UIElementAdd">Рамка навигации</button>
+                    }
+                    else
+                    {
+                        <button type="button" ElementType="NavigationFrame" Indify="NavigationFrame" type-elm="elm" class="mb-2 btn btn-warning UIElementAdd" style="display:none;">Рамка навигации</button>
+                    }
+
+                    @if (!Model.Item1.Any(r => r.ElementType == UIElementType.Survey))
+                    {
+                        <button type="button" ElementType="Survey" Indify="Survey" type-elm="elm" class="mb-2 btn btn-info UIElementAdd">Опросы</button>
+                    }
+                    else
+                    {
+                        <button type="button" ElementType="Survey" Indify="Survey" type-elm="elm" class="mb-2 btn btn-info UIElementAdd" style="display:none;">Опросы</button>
+                    }
+
+                    @if (!Model.Item1.Any(r => r.ElementType == UIElementType.Slider))
+                    {
+                        <button type="button" ElementType="Slider" Indify="Slider" type-elm="elm" class="mb-2 btn btn-info UIElementAdd">Слайдер</button>
+                    }
+                    else
+                    {
+                        <button type="button" ElementType="Slider" Indify="Slider" type-elm="elm" class="mb-2 btn btn-info UIElementAdd" style="display:none;">Слайдер</button>
+                    }
+
+                    @if (!Model.Item1.Any(r => r.ElementType == UIElementType.Weather))
+                    {
+                        <button type="button" ElementType="Weather" Indify="Weather" type-elm="elm" class="mb-2 btn btn-info UIElementAdd">Погода</button>
+                    }
+                    else
+                    {
+                        <button type="button" ElementType="Weather" Indify="Weather" type-elm="elm" class="mb-2 btn btn-info UIElementAdd" style="display:none;">Погода</button>
+                    }
+
+                    @if (!Model.Item1.Any(r => r.ElementType == UIElementType.Currency))
+                    {
+                        <button type="button" ElementType="Currency" Indify="Currency" type-elm="elm" class="mb-2 btn btn-info UIElementAdd">Валюты</button>
+                    }
+                    else
+                    {
+                        <button type="button" ElementType="Currency" Indify="Currency" type-elm="elm" class="mb-2 btn btn-info UIElementAdd" style="display:none;">Валюты</button>
+                    }
+
+                    @if (!Model.Item1.Any(r => r.ElementType == UIElementType.Time))
+                    {
+                        <button type="button" ElementType="Time" Indify="Time" type-elm="elm" class="mb-2 btn btn-info UIElementAdd">Время</button>
+                    }
+                    else
+                    {
+                        <button type="button" ElementType="Time" Indify="Time" type-elm="elm" class="mb-2 btn btn-info UIElementAdd" style="display:none;">Время</button>
+                    }
+
+                    @if (!Model.Item1.Any(r => r.ElementType == UIElementType.LiveBroadcast))
+                    {
+                        <button type="button" ElementType="LiveBroadcast" Indify="LiveBroadcast" type-elm="elm" class="mb-2 btn btn-info UIElementAdd">Прямой эфир</button>
+                    }
+                    else
+                    {
+                        <button type="button" ElementType="LiveBroadcast" Indify="LiveBroadcast" type-elm="elm" class="mb-2 btn btn-info UIElementAdd" style="display:none;">Прямой эфир</button>
+                    }
+
+                    @if (!Model.Item1.Any(r => r.ElementType == UIElementType.News))
+                    {
+                        <button type="button" ElementType="News" Indify="News" type-elm="elm" class="mb-2 btn btn-info UIElementAdd">Новости</button>
+                    }
+                    else
+                    {
+                        <button type="button" ElementType="News" Indify="News" type-elm="elm" class="mb-2 btn btn-info UIElementAdd" style="display:none;">Новости</button>
+                    }
+
+                    @if (!Model.Item1.Any(r => r.ElementType == UIElementType.Language))
+                    {
+                        <button type="button" ElementType="Language" Indify="Language" type-elm="elm" class="mb-2 btn btn-info UIElementAdd">Язык</button>
+                    }
+                    else
+                    {
+                        <button type="button" ElementType="Language" Indify="Language" type-elm="elm" class="mb-2 btn btn-info UIElementAdd" style="display:none;">Язык</button>
+                    }
+
+                    @if (!Model.Item1.Any(r => r.ElementType == UIElementType.FeatureModule))
+                    {
+                        <button type="button" ElementType="FeatureModule" Indify="FeatureModule" type-elm="elm" class="mb-2 btn btn-info UIElementAdd">
+                            Модуль спец. возможностей
+                        </button>
+                    }
+                    else
+                    {
+                        <button type="button" ElementType="FeatureModule" Indify="FeatureModule" type-elm="elm" class="mb-2 btn btn-info UIElementAdd" style="display:none;">Модуль спец. возможностей</button>
+                    }
+
+                    @if (!Model.Item1.Any(r => r.ElementType == UIElementType.BackButton))
+                    {
+                        <button type="button" ElementType="BackButton" Indify="BackButton" type-elm="elm" class="mb-2 btn btn-info UIElementAdd">
+                            <img ElementType="Logotype" class="img_source" imgname="" />
+                            <span ElementType="Logotype">Кнопка назад</span>
+                        </button>
+                    }
+                    else
+                    {
+                        <button type="button" ElementType="BackButton" Indify="BackButton" type-elm="elm" class="mb-2 btn btn-info UIElementAdd" style="display:none;">
+                            <img ElementType="Logotype" class="img_source" imgname="" />
+                            <span ElementType="Logotype">Кнопка назад</span>
+                        </button>
+                    }
+
+                    @if (!Model.Item1.Any(r => r.ElementType == UIElementType.VideoGuide))
+                    {
+                        <button type="button" ElementType="VideoGuide" Indify="VideoGuide" type-elm="elm" class="mb-2 btn btn-info UIElementAdd">
+                            Видеогид
+                        </button>
+                    }
+                    else
+                    {
+                        <button type="button" ElementType="VideoGuide" Indify="VideoGuide" type-elm="elm" class="mb-2 btn btn-info UIElementAdd" style="display:none;">Видеогид</button>
+                    }
+
+                    @if (!Model.Item1.Any(r => r.ElementType == UIElementType.VideoGuide))
+                    {
+                        <button type="button" ElementType="Still" Indify="Still" type-elm="elm" class="mb-2 btn btn-info UIElementAdd">
+                            Ещё
+                        </button>
+                    }
+                    else
+                    {
+                        <button type="button" ElementType="Still" Indify="Still" type-elm="elm" class="mb-2 btn btn-info UIElementAdd" style="display:none;">Ещё</button>
+                    }
+
+                    <button type="button" ElementType="Logotype" Indify="com-12" type-elm="elm" class="mb-2 btn btn-primary UIElementAdd">
+                        <img ElementType="Logotype" class="img_source" imgname="" />
+                        <span ElementType="Logotype">Логотип</span>
+                    </button>
+
+                </div>
+                <div class="col-sm-7 col-md-7 mb-7">
+                    <strong class="text-muted d-block my-2">Кнопки навигации</strong>
+                </div>
+                <div class="col-lg-12">
+                    @foreach (var item in Model.Item2)
+                    {
+                        if (!Model.Item1.Any(r => r.ButtonNavId == item.Id))
+                        {
+                            <button type="button" ElementType="ButtonNav" ButtonNavId="@item.Id" Indify="ButtonNav-@item.Id" type-elm="elm" class="mb-2 btn btn-success UIElementAdd">
+                                <span>@item.Text</span>
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="button" ElementType="ButtonNav" ButtonNavId="@item.Id" Indify="ButtonNav-@item.Id" type-elm="elm" class="mb-2 btn btn-success UIElementAdd" style = "display:none;">
+                                <span>@item.Text</span>
+                            </button>
+                        }
+                    }
+                </div>
+            </div>
+            <div>
+                <div style="overflow: auto; display: block;float: left;">
+                    <div id="wapper" class="resize-container">
+                        @foreach (var item in Model.Item1)
+                        {
+                            string left = item.Left + "px";
+                            string top = item.Top + "px";
+                            string width = item.Width + "px;";
+                            string height = item.Height + "px;";
+                            string indify = Enum.GetName(typeof(UIElementType), item.ElementType);
+                            string style = string.Empty;
+
+                            if (item.ElementType == UIElementType.ButtonNav)
+                            {
+                                indify += "-" + item.ButtonNavId?.ToString();
+                                style = AdminPanel.Utilit.CSSButtonStyle.GetStyle(item);
+                            }
+
+                            <div onclick="ResizeDragClick(this);"
+                                 id="@item.Id"
+                                 IsNavVisibility="@item.IsNavVisibility.ToString().ToLower()"
+                                 ButtonNavId="@item.ButtonNavId"
+                                 ElementType="@Enum.GetName(typeof(UIElementType), item.ElementType)"
+                                 Indify="@indify"
+                                 class="resize-drag @Enum.GetName(typeof(UIElementType), item.ElementType)"
+                                 style="transform: translate(@left, @top);width:@width height:@height ; @style"
+                                 data-x="@item.Left"
+                                 data-y="@item.Top">
+
+                                @if(Model.Item2.Any(r=>r.Id == item.ButtonNavId))
+                                {
+                                    string name = Model.Item2.FirstOrDefault(r => r.Id == item.ButtonNavId).Text;
+                                    <span>@name</span>
+                                }
+
+                                @if (!string.IsNullOrEmpty(item.ImageName))
+                                {
+                                    <img style="width:100%; height:100%;" ElementType="Logotype" class="img_source" src="\@item.ImageName"/>
+                                    <span ElementType="Logotype">Логотип</span>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div id="menu-page-edit">
+                    <div id="element-chack-nav" class="custom-control custom-checkbox mb-1">
+                        <input type="checkbox" class="custom-control-input" id="page-edit-visibly">
+                        <label class="custom-control-label" for="page-edit-visibly">Отображать элемент при навигации?</label>
+                    </div>
+                    <strong>Разметка</strong>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Тип</th>
+                                <th scope="col">Значение</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th class="thclass">Ширина</th>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" css="width" class="form-control input-page-edit" value="">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Высота</th>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" css="height" class="form-control input-page-edit" value="">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Top</th>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" css="data-y" class="form-control input-page-edit" value="">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Left</th>
+                                <td>
+                                    <div class="input-group">
+                                        <input type="text" css="data-x" class="form-control input-page-edit" value="">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="registration-div">
+                        <strong>Оформление</strong>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Тип</th>
+                                    <th scope="col">Значение</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th class="thclass">Цвет</th>
+                                    <td>
+                                        <div class="input-group">
+                                            <input type="text" css="background-color" class="form-control input-page-edit" value="">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Цвет рамки</th>
+                                    <td>
+                                        <div class="input-group">
+                                            <input type="text" css="border-color" class="form-control input-page-edit" value="">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Толщина рамки</th>
+                                    <td>
+                                        <div class="input-group">
+                                            <input type="text" css="border" class="form-control input-page-edit" value="">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Цвет текста</th>
+                                    <td>
+                                        <div class="input-group">
+                                            <input type="text" css="color" class="form-control input-page-edit" value="">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Размер текста</th>
+                                    <td>
+                                        <div class="input-group">
+                                            <input type="text" css="font-size" class="form-control input-page-edit" value="">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Шрифт</th>
+                                    <td>
+                                        <div class="input-group">
+                                            <select id="visual-mng-font" class="form-control visual-mng"><option value="academy engraved let" style="font-family: &quot;academy engraved let&quot;;">academy engraved let</option><option value="algerian" style="font-family: algerian;">algerian</option><option value="amaze" style="font-family: amaze;">amaze</option><option value="arial" style="font-family: arial;">arial</option><option value="arial black" style="font-family: &quot;arial black&quot;;">arial black</option><option value="balthazar" style="font-family: balthazar;">balthazar</option><option value="bankgothic lt bt" style="font-family: &quot;bankgothic lt bt&quot;;">bankgothic lt bt</option><option value="bart" style="font-family: bart;">bart</option><option value="bimini" style="font-family: bimini;">bimini</option><option value="book antiqua" style="font-family: &quot;book antiqua&quot;;">book antiqua</option><option value="bookman old style" style="font-family: &quot;bookman old style&quot;;">bookman old style</option><option value="braggadocio" style="font-family: braggadocio;">braggadocio</option><option value="britannic bold" style="font-family: &quot;britannic bold&quot;;">britannic bold</option><option value="brush script mt" style="font-family: &quot;brush script mt&quot;;">brush script mt</option><option value="calibri" style="font-family: calibri;">calibri</option><option value="cambria" style="font-family: cambria;">cambria</option><option value="candara" style="font-family: candara;">candara</option><option value="century gothic" style="font-family: &quot;century gothic&quot;;">century gothic</option><option value="century schoolbook" style="font-family: &quot;century schoolbook&quot;;">century schoolbook</option><option value="chasm" style="font-family: chasm;">chasm</option><option value="chicago" style="font-family: chicago;">chicago</option><option value="colonna mt" style="font-family: &quot;colonna mt&quot;;">colonna mt</option><option value="comic sans ms" style="font-family: &quot;comic sans ms&quot;;">comic sans ms</option><option value="commercialscript bt" style="font-family: &quot;commercialscript bt&quot;;">commercialscript bt</option><option value="consolas" style="font-family: consolas;">consolas</option><option value="constantia" style="font-family: constantia;">constantia</option><option value="coolsville" style="font-family: coolsville;">coolsville</option><option value="corbel" style="font-family: corbel;">corbel</option><option value="courier" style="font-family: courier;">courier</option><option value="courier new" style="font-family: &quot;courier new&quot;;">courier new</option><option value="cursive" style="font-family: cursive;">cursive</option><option value="dayton" style="font-family: dayton;">dayton</option><option value="desdemona" style="font-family: desdemona;">desdemona</option><option value="estrangelo edessa" style="font-family: &quot;estrangelo edessa&quot;;">estrangelo edessa</option><option value="fantasy" style="font-family: fantasy;">fantasy</option><option value="flat brush" style="font-family: &quot;flat brush&quot;;">flat brush</option><option value="footlight mt light" style="font-family: &quot;footlight mt light&quot;;">footlight mt light</option><option value="franklin gothic medium" style="font-family: &quot;franklin gothic medium&quot;;">franklin gothic medium</option><option value="futurablack bt" style="font-family: &quot;futurablack bt&quot;;">futurablack bt</option><option value="futuralight bt" style="font-family: &quot;futuralight bt&quot;;">futuralight bt</option><option value="gabriola" style="font-family: gabriola;">gabriola</option><option value="garamond" style="font-family: garamond;">garamond</option><option value="gautami" style="font-family: gautami;">gautami</option><option value="gaze" style="font-family: gaze;">gaze</option><option value="geneva" style="font-family: geneva;">geneva</option><option value="georgia" style="font-family: georgia;">georgia</option><option value="georgia italic impact" style="font-family: &quot;georgia italic impact&quot;;">georgia italic impact</option><option value="geotype tt" style="font-family: &quot;geotype tt&quot;;">geotype tt</option><option value="helterskelter" style="font-family: helterskelter;">helterskelter</option><option value="helvetica" style="font-family: helvetica;">helvetica</option><option value="herman" style="font-family: herman;">herman</option><option value="highlight let" style="font-family: &quot;highlight let&quot;;">highlight let</option><option value="impact" style="font-family: impact;">impact</option><option value="jester" style="font-family: jester;">jester</option><option value="joan" style="font-family: joan;">joan</option><option value="john handy let" style="font-family: &quot;john handy let&quot;;">john handy let</option><option value="jokerman let" style="font-family: &quot;jokerman let&quot;;">jokerman let</option><option value="kelt" style="font-family: kelt;">kelt</option><option value="kids" style="font-family: kids;">kids</option><option value="kino mt" style="font-family: &quot;kino mt&quot;;">kino mt</option><option value="la bamba let" style="font-family: &quot;la bamba let&quot;;">la bamba let</option><option value="latha" style="font-family: latha;">latha</option><option value="lithograph" style="font-family: lithograph;">lithograph</option><option value="lucida console" style="font-family: &quot;lucida console&quot;;">lucida console</option><option value="lucida sans console" style="font-family: &quot;lucida sans console&quot;;">lucida sans console</option><option value="lucida sans unicode" style="font-family: &quot;lucida sans unicode&quot;;">lucida sans unicode</option><option value="map symbols" style="font-family: &quot;map symbols&quot;;">map symbols</option><option value="marlett" style="font-family: marlett;">marlett</option><option value="matteroffact" style="font-family: matteroffact;">matteroffact</option><option value="matisse itc" style="font-family: &quot;matisse itc&quot;;">matisse itc</option><option value="matura mt script capitals" style="font-family: &quot;matura mt script capitals&quot;;">matura mt script capitals</option><option value="mekanik let" style="font-family: &quot;mekanik let&quot;;">mekanik let</option><option value="modern" style="font-family: modern;">modern</option><option value="modern ms sans serif" style="font-family: &quot;modern ms sans serif&quot;;">modern ms sans serif</option><option value="monaco" style="font-family: monaco;">monaco</option><option value="monospace" style="font-family: monospace;">monospace</option><option value="monotype sorts" style="font-family: &quot;monotype sorts&quot;;">monotype sorts</option><option value="ms linedraw" style="font-family: &quot;ms linedraw&quot;;">ms linedraw</option><option value="ms sans serif" style="font-family: &quot;ms sans serif&quot;;">ms sans serif</option><option value="ms serif" style="font-family: &quot;ms serif&quot;;">ms serif</option><option value="mv boli" style="font-family: &quot;mv boli&quot;;">mv boli</option><option value="new york" style="font-family: &quot;new york&quot;;">new york</option><option value="nyala" style="font-family: nyala;">nyala</option><option value="olddreadfulno7 bt" style="font-family: &quot;olddreadfulno7 bt&quot;;">olddreadfulno7 bt</option><option value="orange let" style="font-family: &quot;orange let&quot;;">orange let</option><option value="palatino" style="font-family: palatino;">palatino</option><option value="palatino linotype" style="font-family: &quot;palatino linotype&quot;;">palatino linotype</option><option value="playbill" style="font-family: playbill;">playbill</option><option value="pump demi bold let" style="font-family: &quot;pump demi bold let&quot;;">pump demi bold let</option><option value="puppylike" style="font-family: puppylike;">puppylike</option><option value="roland" style="font-family: roland;">roland</option><option value="roman" style="font-family: roman;">roman</option><option value="sans-serif" style="font-family: sans-serif;">sans-serif</option><option value="script" style="font-family: script;">script</option><option value="scripts" style="font-family: scripts;">scripts</option><option value="scruff let" style="font-family: &quot;scruff let&quot;;">scruff let</option><option value="segoe print" style="font-family: &quot;segoe print&quot;;">segoe print</option><option value="segoe script" style="font-family: &quot;segoe script&quot;;">segoe script</option><option value="segoe ui" style="font-family: &quot;segoe ui&quot;;">segoe ui</option><option value="serif" style="font-family: serif;">serif</option><option value="short hand" style="font-family: &quot;short hand&quot;;">short hand</option><option value="signs normal" style="font-family: &quot;signs normal&quot;;">signs normal</option><option value="simplex" style="font-family: simplex;">simplex</option><option value="simpson" style="font-family: simpson;">simpson</option><option value="small fonts" style="font-family: &quot;small fonts&quot;;">small fonts</option><option value="stylus bt" style="font-family: &quot;stylus bt&quot;;">stylus bt</option><option value="superfrench" style="font-family: superfrench;">superfrench</option><option value="surfer" style="font-family: surfer;">surfer</option><option value="swis721 bt" style="font-family: &quot;swis721 bt&quot;;">swis721 bt</option><option value="swis721 blkoul bt" style="font-family: &quot;swis721 blkoul bt&quot;;">swis721 blkoul bt</option><option value="symap" style="font-family: symap;">symap</option><option value="symbol" style="font-family: symbol;">symbol</option><option value="tahoma" style="font-family: tahoma;">tahoma</option><option value="technic" style="font-family: technic;">technic</option><option value="tempus sans itc" style="font-family: &quot;tempus sans itc&quot;;">tempus sans itc</option><option value="terk" style="font-family: terk;">terk</option><option value="times" style="font-family: times;">times</option><option value="times new roman" style="font-family: &quot;times new roman&quot;;">times new roman</option><option value="trebuchet ms" style="font-family: &quot;trebuchet ms&quot;;">trebuchet ms</option><option value="trendy" style="font-family: trendy;">trendy</option><option value="txt" style="font-family: txt;">txt</option><option value="tunga" style="font-family: tunga;">tunga</option><option value="verdana" style="font-family: verdana;">verdana</option><option value="victorian let" style="font-family: &quot;victorian let&quot;;">victorian let</option><option value="vineta bt" style="font-family: &quot;vineta bt&quot;;">vineta bt</option><option value="vivian" style="font-family: vivian;">vivian</option><option value="webdings" style="font-family: webdings;">webdings</option><option value="western" style="font-family: western;">western</option><option value="westminster" style="font-family: westminster;">westminster</option><option value="westwood let" style="font-family: &quot;westwood let&quot;;">westwood let</option><option value="wide latin" style="font-family: &quot;wide latin&quot;;">wide latin</option><option value="wingdings" style="font-family: wingdings;">wingdings</option><option value="zapfellipt bt" style="font-family: &quot;zapfellipt bt&quot;;">zapfellipt bt</option></select>
+                                            <input type="text" css="font-family" class="form-control input-page-edit" value="" hidden>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="settings-div" style="display:none;">
+                        <strong>Стили</strong>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Тип</th>
+                                    <th scope="col">Значение</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th class="thclass">Изображение</th>
+                                    <td>
+                                        <div class="input-group">
+                                            <input type="file" name="file_loader" accept="image/x-png,image/jpeg">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button type="button" class="btn btn-success" onclick="ConstructElmSave();">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/interact.js" type="text/javascript"></script>
+<script src="~/Scripts/MainPageEdit.js" type="text/javascript"></script>

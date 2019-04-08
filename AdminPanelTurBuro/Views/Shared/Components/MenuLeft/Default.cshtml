@@ -1,0 +1,38 @@
+﻿@using ModelData
+@model IEnumerable<StorageAPI.Models.News>
+<ul class="nav flex-column">
+    <li class="nav-item">
+        <a class="nav-link " href="/home/MenuEditor">
+            <i class="material-icons">vertical_split</i>
+            <span>Редактор Меню</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="/home/InformationEdit">
+            <i class="material-icons">edit</i>
+            <span>Информация</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " href="/Editor/AddInformation">
+            <i class="material-icons">edit</i>
+            <span>Текстовый редактор тест</span>
+        </a>
+    </li>
+</ul>
+
+<ul class="nav flex-column">
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            string view = "Add" + item.ContentType.GetAttribute<DisplAttribute>().Name;
+
+            <li class="nav-item">
+                <a class="nav-link " href="/Editor/@view?id=@item.Id&idContent=@item.IdContent">
+                    <span>@item.Text</span>
+                </a>
+            </li>
+        }
+    }
+</ul>

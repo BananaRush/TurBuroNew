@@ -1,0 +1,273 @@
+﻿@model Tuple<List<StorageAPI.Models.Database.Slider>, List<string>>
+
+<div class="col-sm-12 col-md-12 mb-12">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1" class=""></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2" class=""></li>
+        </ol>
+        <div class="carousel-inner">
+            @{string actv = "active";}
+            @for (int i = 0; Model.Item1 != null && i < Model.Item1.Count; i++)
+            {
+                if (i > 0)
+                {
+                    actv = string.Empty;
+                }
+            <div class="carousel-item @actv" width="800" height="800">
+                @if (Model.Item1[i].ContentType == StorageAPI.Models.SliderContentType.Image)
+                {
+                    <img class="d-block w-100" width="800" height="800" data-src="holder.js/800x400?auto=no&amp;bg=777&amp;fg=555&amp;" src="/Files/Image/@Path.GetFileName(Model.Item1[i].Content)" data-holder-rendered="true">
+                }
+                @if (Model.Item1[i].ContentType == StorageAPI.Models.SliderContentType.Video)
+                {
+                    <video controls="controls" poster="" codecs="avc1.42E01E, mp4a.40.2"  data-src="holder.js/800x400?auto=no&amp;bg=777&amp;fg=555&amp;">
+                        <source src="/Files/Video/@Path.GetFileName(Model.Item1[i].Content)">
+                    </video>
+                }
+            </div>
+            }
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+
+<div class="col-sm-12 col-md-12 mb-12" style="margin-top:20px;">
+    <div class="btn-group mb-3">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button onclick="AddImageSlider();" class="btn btn-success">Дабавить изображение</button>
+            <button onclick="AddVideoSlider();" class="btn btn-success">Дабавить видео</button>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12 col-md-12 mb-12" style="margin-top:20px;">
+    <div id="slider__list" class="row">
+        @for (int i = 0; Model.Item1 != null && i < Model.Item1.Count; i++)
+        {
+            if (Model.Item1[i].ContentType == StorageAPI.Models.SliderContentType.Image)
+            {
+                <div class="card card-small mb-4 col-sm-12 col-md-12 mb-12">
+                    @using (Html.BeginForm("AddSlider", "Editor", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <input type="text" name="model.Id" value="@Model.Item1[i].Id" hidden="">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item p-3">
+                                <h6 class="m-0">Слайд</h6>
+                            </li>
+                            <li class="list-group-item p-3">
+                                <div class="col-sm-3 col-md-3 mb-3">
+                                    <strong class="text-muted d-block my-2">Время смены слайда (секунды)</strong>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control col-md-2" name="model.Timeout" value="@Model.Item1[i].Timeout" required>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item p-3">
+                                <div class="img__content">
+                                    <div class="form-group">
+                                        <div class="text-xs-center">
+                                            <img class="img-thumbnail" width="353" height="353" src="/Files/Image/@Path.GetFileName(Model.Item1[i].Content)">
+                                        </div>
+                                        <input name="model.Number" type="hidden" value="@Model.Item1[i].Number" />
+                                        <input name="model.ContentType" type="hidden" value="1" />
+                                        <input name="model.Content" type="hidden" value="@Model.Item1[i].Content" />
+                                        <div style="padding-top:15px;">
+                                            <span class="file-input btn btn-success btn-file">
+                                                <input type="file" accept="image/jpeg,image/png,image/gif" class="image_file" onchange="AddImg();" name="image">
+                                            </span>
+                                            <button type="button" class="btn btn-danger delete-link remove" onclick="NewDeleteImg();" name="ImageRemove">
+                                                <span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item p-3">
+                                <button type="submit" class="mb-2 btn btn-success mr-2" name="action" value="Save">Сохранить</button>
+                                <button type="submit" class="mb-2 btn btn-danger mr-2" name="action" value="Delete">Удалить слайд</button>
+                                <button type="submit" class="mb-2 btn btn-primary" name="action" value="Up">Вверх</button>
+                                <button type="submit" class="mb-2 btn btn-primary" name="action" value="Dowen">Вниз</button>
+                            </li>
+                        </ul>
+                    }
+                </div>
+            }
+
+            if (Model.Item1[i].ContentType == StorageAPI.Models.SliderContentType.Video)
+            {
+                <div class="card card-small mb-4 col-sm-12 col-md-12 mb-12">
+                    @using (Html.BeginForm("AddSlider", "Editor", FormMethod.Post))
+                    {
+                        <input type="text" name="model.Id" value="@Model.Item1[i].Id" hidden="">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item p-3">
+                                <h6 class="m-0">Слайд </h6>
+                            </li>
+                            <li class="list-group-item p-3">
+                                <div class="col-sm-3 col-md-3 mb-3">
+                                    <strong class="text-muted d-block my-2">Время смены слайда (секунды)</strong>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control col-md-2" name="model.Timeout" value="@Model.Item1[i].Timeout" required>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item p-3">
+                                <video width="1000" height="700" controls="controls" poster="" codecs="avc1.42E01E, mp4a.40.2">
+                                    <source src="/Files/Video/@Path.GetFileName(Model.Item1[i].Content)">
+                                </video>
+                                <input name="model.Number" type="hidden" value="@Model.Item1[i].Number" />
+                                <input name="model.ContentType" type="hidden" value="2" />
+                                <input class="content__video" name="model.Content" type="hidden" value="@Model.Item1[i].Content" />
+                                <div class="form-group mb-12">
+                                    <label for="title">Список видеофайлов</label>
+                                    <div id="treeview1" class="treeview mb-12" style="max-height:350px; overflow: auto;">
+                                        <ul class="list-group">
+                                            @if (Model != null && Model.Item2 != null)
+                                            {
+                                                for (int j = 0; j < Model.Item2.Count; j++)
+                                                {
+                                                    <li class="list-group-item node-treeview1 node-selected" data-nodeid="0" style="color:undefined;background-color:undefined;">
+                                                        <label class="elm-label" style="color: #428bca; font-size:18px; margin-top:6px;">@Model.Item2[j]</label>
+                                                        <div style="float: right;">
+                                                            <button type="button" onclick="AddSliderVideo(this);" class="btn btn-primary">Выбрать</button>
+                                                        </div>
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item p-3">
+                                <button type="submit" class="mb-2 btn btn-success mr-2" name="action" value="Save">Сохранить</button>
+                                <button type="submit" class="mb-2 btn btn-danger mr-2" name="action" value="Delete">Удалить слайд</button>
+                                <button type="submit" class="mb-2 btn btn-primary" name="action" value="Up">Вверх</button>
+                                <button type="submit" class="mb-2 btn btn-primary" name="action" value="Dowen">Вниз</button>
+                            </li>
+                        </ul>
+                    }
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<script>
+    function AddSliderVideo() {
+        // Получаем ссылку на видео
+        let path = $(event.target).closest("li").find(".elm-label").html();
+        let video = $(event.target).closest(".card-small").find("video").last();
+        $(video).html(`<source src="${location.protocol + "//" + location.host + "/Files/Video/" + path.replace(/^.*[\\\/]/, '')}"></source>`);
+        $(event.target).closest(".card-small").find(".content__video").last().attr("value", path);
+    }
+
+    function AddVideoSlider() {
+        $("#slider__list").append(`<div class="card card-small mb-4 col-sm-12 col-md-12 mb-12">
+    @using (Html.BeginForm("AddSlider", "Editor", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="text" name="model.Id" value="" hidden="">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item p-3">
+                <h6 class="m-0">Слайд </h6>
+            </li>
+            <li class="list-group-item p-3">
+                <div class="col-sm-3 col-md-3 mb-3">
+                    <strong class="text-muted d-block my-2">Время смены слайда (секунды)</strong>
+                    <div class="form-group">
+                        <input type="text" class="form-control col-md-2" name="model.Timeout" value="" required>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item p-3">
+                <video width="1000" height="700" controls="controls" poster="" codecs="avc1.42E01E, mp4a.40.2">
+                    <source>
+                </video>
+                <input name="model.ContentType" type="hidden" value="2" />
+                <input class="content__video" name="model.Content" type="hidden" value="" />
+                <div class="form-group mb-12">
+                    <label for="title">Список видеофайлов</label>
+                    <div id="treeview1" class="treeview mb-12" style="max-height:350px; overflow: auto;">
+                        <ul class="list-group">
+                            @if (Model != null && Model.Item2 != null)
+                            {
+                                for (int i = 0; i < Model.Item2.Count; i++)
+                                {
+                                    <li class="list-group-item node-treeview1 node-selected" data-nodeid="0" style="color:undefined;background-color:undefined;">
+                                        <label class="elm-label" style="color: #428bca; font-size:18px; margin-top:6px;">@Model.Item2[i].Replace(@"\", @"\\")</label>
+                                        <div style="float: right;">
+                                            <button type="button" onclick="AddSliderVideo(this);" class="btn btn-primary">Выбрать</button>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li class="list-group-item p-3">
+                <button type="submit" class="mb-2 btn btn-success mr-2" name="action" value="Save">Сохранить</button>
+                <button type="submit" class="mb-2 btn btn-danger mr-2" name="action" value="Delete">Удалить слайд</button>
+                <button type="submit" class="mb-2 btn btn-primary" name="action" value="Up">Вверх</button>
+                <button type="submit" class="mb-2 btn btn-primary" name="action" value="Dowen">Вниз</button>
+            </li>
+        </ul>
+    }
+</div>`);
+    }
+
+    function AddImageSlider() {
+        $("#slider__list").append(`<div class="card card-small mb-4 col-sm-12 col-md-12 mb-12">
+                    @using (Html.BeginForm("AddSlider", "Editor", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <input type="text" name="model.Id" value="0" hidden="">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item p-3">
+                                <h6 class="m-0">Слайд</h6>
+                            </li>
+                            <li class="list-group-item p-3">
+                                <div class="col-sm-3 col-md-3 mb-3">
+                                    <strong class="text-muted d-block my-2">Время смены слайда (секунды)</strong>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control col-md-2" id="inputAddress" name="model.Timeout">
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item p-3">
+                                <div class="img__content">
+                                    <div class="form-group">
+                                        <div class="text-xs-center">
+                                            <img class="img-thumbnail" width="353" height="353" src="">
+                                        </div>
+                                        <input name="model.ContentType" type="hidden" value="1" />
+                                        <input name="model.Content" type="hidden" value="" />
+                                        <div style="padding-top:15px;">
+                                            <span class="file-input btn btn-success btn-file">
+                                                <input type="file" accept="image/jpeg,image/png,image/gif" class="image_file" onchange="AddImg();" name="image">
+                                            </span>
+                                            <button type="button" class="btn btn-danger delete-link remove" onclick="NewDeleteImg();" name="ImageRemove">
+                                                <span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item p-3">
+                                <button type="submit" class="mb-2 btn btn-success mr-2" name="action" value="Save">Сохранить</button>
+                                <button type="submit" class="mb-2 btn btn-danger mr-2" name="action" value="Delete">Удалить слайд</button>
+                                <button type="submit" class="mb-2 btn btn-primary" name="action" value="Up">Вверх</button>
+                                <button type="submit" class="mb-2 btn btn-primary" name="action" value="Dowen">Вниз</button>
+                            </li>
+                        </ul>
+                    }
+                </div>`);
+    }
+</script>

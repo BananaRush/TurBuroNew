@@ -1,0 +1,30 @@
+﻿<Page x:Class="Client.View.WebBrowserPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      xmlns:local="clr-namespace:Client.View"
+      xmlns:ViewM="clr-namespace:Client.ViewModel"
+      xmlns:controls="clr-namespace:Client.Controls"
+      xmlns:cef="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+      mc:Ignorable="d" 
+      Title="WebBrowserPage">
+    <Page.DataContext>
+        <ViewM:WebBrowserPageVM/>
+    </Page.DataContext>
+    <Grid>
+        <controls:PageShallControl Background="White">
+            <cef:ChromiumWebBrowser
+                Address="{Binding Adrres}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Loaded" >
+                        <i:InvokeCommandAction 
+                            Command="{Binding LoadCefSharp}"
+                            CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=cef:ChromiumWebBrowser}}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </cef:ChromiumWebBrowser>
+        </controls:PageShallControl>
+    </Grid>
+</Page>

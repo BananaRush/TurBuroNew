@@ -1,0 +1,81 @@
+﻿<UserControl x:Class="TourAgency.Controls.SingleNewsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TourAgency.Controls"
+             xmlns:converters="clr-namespace:TourAgency.Converters"
+             xmlns:utilities="clr-namespace:TourAgency.Utilities"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:DomenImageSourceConverter x:Key="DomenImageSourceConverter"/>
+        <converters:HtmlToXamlConverter x:Key="HtmlToXamlConverter"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="0,50,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition ></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="190"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Row="1" Style="{StaticResource ButtonBack}" Content="НАЗАД" TouchDown="BackTouch"/>
+            <Button Padding="10" Grid.Row="1" Style="{StaticResource ButtonFAQ}" Content="НОВОСТИ"  Grid.Column="1"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="190"></ColumnDefinition>
+                <ColumnDefinition ></ColumnDefinition>
+                <ColumnDefinition Width="190"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="1" Name="BrowserContainer" Background="#ffffff">
+ 
+    <ScrollViewer PanningMode="VerticalOnly" HorizontalAlignment="Center" 
+                  Style="{x:Null}"
+                  >
+    <Grid x:Name="Grid" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <!--TODO вставить фотовьюер-->
+        <Image Source="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=SingleNews.image, Converter={StaticResource DomenImageSourceConverter}}"
+               Height="auto"
+               Margin="45"
+               Grid.Row="0"/>
+        <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource LanguageConverter}" FontSize="60"
+                   TextAlignment="Left"
+                   Margin="45,0,45,45"
+                   TextWrapping="Wrap"
+                   Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=SingleNews.title}"
+                   Grid.Row="1"/>
+        <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" FontSize="40"
+                   TextAlignment="Left"
+                   Margin="45,0"
+                   TextWrapping="Wrap"
+                   Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=SingleNews.text, Converter={StaticResource HtmlToXamlConverter}}"
+                   VerticalAlignment="Top"
+                   Grid.Row="2"/>
+        <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" FontSize="40"
+                   TextAlignment="Left"
+                   Margin="45,0"
+                   TextWrapping="Wrap"
+                   Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}, Path=SingleNews.created}"
+                   Grid.Row="3"/>
+    </Grid>
+    </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

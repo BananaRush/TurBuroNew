@@ -1,0 +1,91 @@
+﻿@using ModelData.Model.Database
+@using ModelData.Models.Database
+@model Tuple<List<Information>, List<Section>, int>
+
+@{
+    int IdBtn = 0;
+
+    if (Model != null)
+    {
+
+        IdBtn = Model.Item3;
+    }
+}
+
+<div class="form-group">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="/Editor/ListSectionInfo/@IdBtn">Информация</a></li>
+        <li><a href="/Editor/AddSection/@IdBtn">Секции</a></li>
+    </ul>
+</div>
+
+
+<div class="naf-info col-xs-12">
+    <div class="row">
+        <div class="col-xs-1">
+            <a class="btn btn-primary" href="/Editor/AddInfoSection/@IdBtn">Добавить информацию</a>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12" style="margin-top: 12px;">
+    <div class="row">
+        @if (Model != null && Model.Item1 != null)
+        {
+            for (int i = 0; i < Model.Item1.Count; i++)
+            {
+                <div class="col-lg-4">
+                    <div class="card card-small card-post mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">@Model.Item1[i].Title</h5>
+                            <div class="card-text text-muted">
+                                @Model.Item1[i].Info
+                            </div>
+                        </div>
+                        <div class="card-footer border-top d-flex">
+                            <div class="card-post__author d-flex">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        @if (@Model.Item1[i].IsPublick)
+                                        {
+                                            <i class="material-icons mr-1">visibility</i>
+                                            <small class="text-muted" style="margin-top:2px; margin-left:5px;">@Model.Item1[i].DateTime.ToLongDateString()</small>
+                                        }
+                                        else
+                                        {
+                                            <small class="text-muted" style="margin-top:2px;">@Model.Item1[i].DateTime.ToLongDateString()</small>
+                                        }
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label for="feFirstName" style="margin-top:5px;">Категория: @*@Model.Item2.Where(r=>r.Id == Model.Item1[i].SectionsId).FirstOrDefault().Header*@</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-auto ml-auto">
+                                <div class="dropdown">
+                                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Управление
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                        <a class="dropdown-item" href="/Editor/EditInfoSection?id=@Model.Item1[i].Id&idBtn=@Model.Item3">Изменить</a>
+                                        <input name="Id" value="4" hidden="">
+                                        @if (Model.Item1[i].IsPublick)
+                                        {
+                                            <a href="/Editor/InfoPublicSection?id=@Model.Item1[i].Id&IdBtn=@Model.Item3&flagEdit=true" class="dropdown-item" ifpe="button">Снять с публикации</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="/Editor/InfoPublicSection?id=@Model.Item1[i].Id&IdBtn=@Model.Item3&flagEdit=true" class="dropdown-item" ifpe="button">Опубликовать</a>
+                                        }
+
+                                        <a href="/Editor/DeleteSectionInfo?id=@Model.Item1[i].Id&IdBtn=@Model.Item3" class="dropdown-item">Удалить</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

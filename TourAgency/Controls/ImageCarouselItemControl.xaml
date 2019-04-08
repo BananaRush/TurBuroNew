@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="TourAgency.Controls.ImageCarouselItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TourAgency.Controls"
+             xmlns:utilities="clr-namespace:TourAgency.Utilities"
+             mc:Ignorable="d">
+    <Grid>
+        <Image Source="{Binding PhotoSource, IsAsync=True, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" Stretch="UniformToFill" Width="1780" Height="1000"/>
+        <Rectangle Width="1780" Height="1000" Fill="Black" Opacity=".3"/>
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Margin="76,0">
+            <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource LanguageConverter}" Text="{Binding Heading, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"  TextWrapping="WrapWithOverflow"
+                            Foreground="White"
+                            MaxWidth="1100"
+                            FontSize="93" HorizontalAlignment="Left" 
+                            FontFamily="{StaticResource SPbFixed1}"/>
+            <Path Margin="0,22,0,0" Fill="#00b3cd" Stroke="#00b3cd" HorizontalAlignment="Left" Width="196" Height="38" Stretch="Uniform"  Data="M88.2,25.5C66.5,25.5 62.2,14 44.1,14 25.9,14 21.7,25.5 0,25.5L0,11.5C17.5,11.5 21.9,0 44.1,0 66.3,0 70.6,11.5 88.2,11.5 105.6,11.5 110,0 132.2,0L132.2,14C114.1,14,109.8,25.5,88.2,25.5z"/>
+        </StackPanel>
+
+        <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" Text="{Binding Description, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" MaxWidth="430" TextWrapping="Wrap"
+                            Foreground="White" VerticalAlignment="Center" Margin="0,0,52,0"
+                            FontSize="23" HorizontalAlignment="Right" TextAlignment="Right" 
+                            FontFamily="{StaticResource MainFont1}"/>
+        <TextBlock utilities:LanguageProperty.TextPropertyConverter="{StaticResource  LanguageConverter}" Text="{Binding PostDate, RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}" MaxWidth="430" TextWrapping="WrapWithOverflow"
+                            Foreground="#ffb336" VerticalAlignment="Top" Margin="0,62,62,0"
+                            FontSize="23" HorizontalAlignment="Right" TextAlignment="Right" 
+                            FontFamily="{StaticResource MainFont1}"/>
+    </Grid>
+</UserControl>

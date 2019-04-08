@@ -1,0 +1,86 @@
+﻿@using ModelData.Models.Database
+@model List<SurveyModel>
+
+<div class="col-sm-12 col-md-12 mb-12">
+    <div class="btn-group mb-3">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a href="/home/CreateSurvey" class="btn btn-success">Создать опрос</a>
+        </div>
+    </div>
+</div>
+
+@if (Model != null)
+{
+    for (int i = 0; i < Model.Count; i++)
+    {
+        <div class="col-lg-6 col-md-6" style="margin-bottom:30px;">
+            <div class="card card-small mb-12">
+                <div class="card-header border-bottom">
+                    <div class="row">
+                        <div class="col-9">
+                            <h6 class="m-0">Опрос @(i + 1)</h6>
+                        </div>
+                        <div class="col-3">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <a class="btn btn-danger" href="/Home/DeleteSurvey?Id=@Model[i].Id" onclick="return DeleteAlretMessage();">Удалить опрос</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @using (Html.BeginForm("SaveSurvey", "Home", FormMethod.Post))
+                {
+                    <div class="col-sm-10 col-md-10 mb-10 test123">
+                        <input type="text" name="model.Id" value="@Model[i].Id" hidden/>
+                        <strong class="text-muted d-block my-2">Вопрос опроса</strong>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="inputAddress" name="model.Title" value="@Model[i].Title">
+                        </div>
+                        <hr />
+                        <div class="option">
+                            @for (int j = 0; j < Model[i].ListOption.Count; j++)
+                            {
+                                <div class="input-group mb-3 items">
+                                    <strong class="text-muted d-block my-2">Вариант ответа @(j + 1)</strong>
+                                    <input type="text" style="height:37.45px;" name="model.ListOption[@j].Option" class="form-control" value="@Model[i].ListOption[j].Option">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-danger" type="button" onclick="DeleteOption(this);">Удалить</button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="mb-2 btn btn-success mr-2" onclick="AddOption(this);">Добавить вариант ответа</button>
+                            <button type="submit" class="mb-2 btn btn-primary mr-2" name="action" value="Save">Сохранить</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+}
+
+
+<script>
+    function AddOption(item) {
+        let elm = $(item).closest(".test123").find(".option");
+        let elmCout = elm.children().length;
+        elm.append('<div class="input-group mb-3 items">' +
+            '<strong class= "text-muted d-block my-2">Вариант ответа ' + (elmCout + 1) + '</strong >' +
+            '<input type="text" style="height:37.45px;" name="model.ListOption['+elmCout+'].Option" class="form-control">' +
+            '<div class="input-group-append">' +
+            '<button class="btn btn-danger" type="button" onclick="DeleteOption(this);">Удалить</button>' +
+            '</div>' +
+            '</div>');
+    }
+
+    function DeleteOption(item) {
+        let mainPaenet = $(item).closest(".option");
+        let subParmet = $(item).closest(".items");
+        subParmet.remove();
+        mainPaenet.children().each(function (key, value) {
+            $(value).find(".text-muted").last().text("Вопрос опроса " + (key + 1));
+            let elm = $(value).find("input").last();
+            elm.attr("name", elm.attr("name").replace(/[0-9]/g, `${key}`));
+        });
+    }
+</script>

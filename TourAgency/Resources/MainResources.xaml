@@ -1,0 +1,319 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <FontFamily x:Key="MainFont">../Fonts/#ALS Direct</FontFamily>
+    <FontFamily x:Key="SPbFixed">../Fonts/SPb Fixed/#ALS SPb</FontFamily>
+    <FontFamily x:Key="SPbofficial">../Fonts/#ALS SPb</FontFamily>
+    <Style x:Key="SplashImage" TargetType="Image">
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="MouseDown">
+                
+                    <BeginStoryboard>
+                        <Storyboard Storyboard.TargetProperty="Opacity" >
+                            <DoubleAnimation From="1"  To="0"
+                                    Duration="0:0:1"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+               
+            </EventTrigger>
+            <Trigger Property="Opacity" Value="0">
+                <Setter Property="Visibility" Value="Collapsed"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="ButtonFAQ" TargetType="Button">
+        <Setter Property="Background" Value="#fbfbfb"/>
+        <Setter Property="Foreground" Value="#000000"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" >
+                        <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,20" Foreground="{TemplateBinding Foreground}" Text="{TemplateBinding Content}" FontSize="25" FontFamily="{StaticResource MainFont}" FontWeight="Bold"></TextBlock>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style BasedOn="{StaticResource ButtonFAQ }" x:Key="ButtonBack" TargetType="Button" >
+        <Setter Property="Background" Value="#ecb244"/>
+        <Setter Property="Foreground" Value="#ffffff"/>
+    </Style>
+    <Style x:Key="{x:Type Button}" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}">
+                        <ContentPresenter/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="{x:Type TextBlock}" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource MainFont}"/>
+    </Style>
+    <Style x:Key="SPb" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#000000"/>
+        <Setter Property="Background" Value="#ffffff"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="FontSize" Value="114"/>
+        <Setter Property="Width" Value="845"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="{StaticResource SPbofficial}"/>
+    </Style>
+    <Style x:Key="SPbInfo" TargetType="TextBlock" BasedOn="{StaticResource SPb}">
+        <Setter Property="Width" Value="950"/>
+        <Setter Property="FontSize" Value="116"/>
+        <Setter Property="Foreground" Value="#00adcb"/>
+    </Style>
+    <ControlTemplate x:Key="InvalidTemplate" TargetType="Button">
+        <Border Background="#48b2cb" Padding="30,50">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Image Source="../Images/Icons/silhouette-on-wheelchair.png" Margin="20,0"></Image>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontFamily="../Fonts/#ALS Direct" Text="ОГРАНИЧЕННЫЙ ДОСТУП" Margin="20,0" Foreground="White" FontSize="29"></TextBlock>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    <ControlTemplate x:Key="WorldTemplate" TargetType="Button">
+        <Border Background="#48b2cb" Padding="30,50">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Image Source="../Images/Icons/earth-globe.png" Margin="20,0"></Image>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontFamily="../Fonts/#ALS Direct" Text="КАРТА" Margin="20,0" Foreground="White" FontSize="29"></TextBlock>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    <ControlTemplate x:Key="AndroidTemplate" TargetType="Button">
+        <Border Background="#48b2cb" Padding="30,45">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Image Source="../Images/Icons/android-character-symbol.png" Margin="20,0"></Image>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontFamily="../Fonts/#ALS Direct" Text="ПРИЛОЖЕНИЯ" Margin="20,0" Foreground="White" FontSize="29"></TextBlock>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    <ControlTemplate x:Key="VideoGuideTemplate" TargetType="Button">
+        <Grid Margin="0,-305,0,0">
+            <Border Background="#ffb336" Height="150" VerticalAlignment="Bottom">
+            </Border>
+            <Image Source="../Images/telka_kopia.png" VerticalAlignment="Top" Height="455"></Image>
+            <Border Background="Transparent" Height="150" VerticalAlignment="Bottom">
+                <TextBlock VerticalAlignment="Center" TextAlignment="Center" FontFamily="../Fonts/#ALS Direct" Text="ВИДЕОГИД" Margin="50,45" Foreground="White" FontSize="29"></TextBlock>
+            </Border>
+        </Grid>
+    </ControlTemplate>
+    <ControlTemplate x:Key="SightsTemplate" TargetType="Button">
+        <Border Background="#ffffff" Padding="40,22">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Image Height="45" Source="../Images/MainIcons/009-bank.png"></Image>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontFamily="../Fonts/#ALS SPb" Text="Достопримечательности" Margin="40,0,0,0" Foreground="#000000" FontSize="46"></TextBlock>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    <ControlTemplate x:Key="VokzalTemplate" TargetType="Button">
+        <Border Background="#ffffff" Padding="30,22">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Image Height="45" Source="../Images/MainIcons/008-subway-sign.png"></Image>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontFamily="../Fonts/#ALS SPb" Text="Информация о вокзале" Margin="35,0,0,0" Foreground="#000000" FontSize="46"></TextBlock>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    <ControlTemplate x:Key="EventsTemplate" TargetType="Button">
+        <Border Background="#ffffff" Padding="30,22">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Image Height="45" Source="../Images/MainIcons/007-event.png"></Image>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontFamily="../Fonts/#ALS SPb" Text="События" Margin="35,0,0,0" Foreground="#000000" FontSize="46"></TextBlock>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    <ControlTemplate x:Key="RestaurantsTemplate" TargetType="Button">
+        <Border Background="#ffffff" Padding="40,22">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Image Height="45" Source="../Images/MainIcons/005-take-away.png"></Image>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontFamily="../Fonts/#ALS SPb" Text="Рестораны" Margin="35,0,0,0" Foreground="#000000" FontSize="46"></TextBlock>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    <ControlTemplate x:Key="ShopingTemplate" TargetType="Button">
+        <Border Background="#ffffff" Padding="35,22">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Image Height="40" Source="../Images/MainIcons/004-shopping.png"></Image>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontFamily="../Fonts/#ALS SPb" Text="Шопинг" Margin="35,0,0,0" Foreground="#000000" FontSize="46"></TextBlock>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    <ControlTemplate x:Key="HotelTemplate" TargetType="Button">
+        <Border Background="#ffffff" Padding="40,20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Image Height="50" Source="../Images/MainIcons/003-flip-flops.png"></Image>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontFamily="../Fonts/#ALS SPb" Text="Гостиницы" Margin="35,0,0,0" Foreground="#000000" FontSize="46"></TextBlock>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    <ControlTemplate x:Key="InfoTemplate" TargetType="Button">
+        <Border Background="#ffffff" Padding="40,20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Image Height="45" Source="../Images/MainIcons/002-info.png"></Image>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontFamily="../Fonts/#ALS SPb" Text="Информация" Margin="35,0,0,0" Foreground="#000000" FontSize="46"></TextBlock>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    <ControlTemplate x:Key="TransportTemplate" TargetType="Button">
+        <Border Background="#ffffff" Padding="30,20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Image Height="40" Source="../Images/MainIcons/006-transport.png"></Image>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontFamily="../Fonts/#ALS SPb" Text="Транспорт" Margin="35,0,0,0" Foreground="#000000" FontSize="46"></TextBlock>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    <ControlTemplate x:Key="TouristHelpTemplate" TargetType="Button">
+        <Border Background="#ffffff" Padding="40,20,30,20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Image Height="40" Source="../Images/MainIcons/001-briefcase.png"></Image>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontFamily="../Fonts/#ALS SPb" Text="Помощь туристу" Margin="35,0,0,0" Foreground="#000000" FontSize="46"></TextBlock>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    <ControlTemplate x:Key="AvatarTemplate" TargetType="Button">
+        <Border Background="#ffffff" Padding="40,20,30,20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Image Height="45" Source="../Images/MainIcons/avatar.png"></Image>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" FontFamily="../Fonts/#ALS SPb" Text="Личный кабинет" Margin="35,0,0,0" Foreground="#000000" FontSize="46"></TextBlock>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    <Style x:Key="AvatarButton" TargetType="Button">
+        <Setter Property="Width" Value="545"/>
+        <Setter Property="Margin" Value="4,0,4,8"/>
+        <Setter Property="Height" Value="95"/>
+        <Setter Property="Template" Value="{StaticResource AvatarTemplate}"/>
+    </Style>
+    <Style x:Key="HelpButton" TargetType="Button">
+        <Setter Property="Width" Value="540"/>
+        <Setter Property="Margin" Value="4,0,4,8"/>
+        <Setter Property="Height" Value="95"/>
+        <Setter Property="Template" Value="{StaticResource TouristHelpTemplate}"/>
+    </Style>
+    <Style x:Key="TransportButton" TargetType="Button">
+        <Setter Property="Width" Value="400"/>
+        <Setter Property="Margin" Value="4,0,4,8"/>
+        <Setter Property="Height" Value="95"/>
+        <Setter Property="Template" Value="{StaticResource TransportTemplate}"/>
+    </Style>
+    <Style x:Key="InfoButton" TargetType="Button">
+        <Setter Property="Width" Value="465"/>
+        <Setter Property="Margin" Value="4,0,4,8"/>
+        <Setter Property="Height" Value="95"/>
+        <Setter Property="Template" Value="{StaticResource InfoTemplate}"/>
+    </Style>
+    <Style x:Key="HotelButton" TargetType="Button">
+        <Setter Property="Width" Value="425"/>
+        <Setter Property="Margin" Value="4,0,4,8"/>
+        <Setter Property="Height" Value="95"/>
+        <Setter Property="Template" Value="{StaticResource HotelTemplate}"/>
+    </Style>
+    <Style x:Key="ShopingButton" TargetType="Button">
+        <Setter Property="Width" Value="345"/>
+        <Setter Property="Margin" Value="4,0,4,8"/>
+        <Setter Property="Height" Value="95"/>
+        <Setter Property="Template" Value="{StaticResource ShopingTemplate}"/>
+    </Style>
+    <Style x:Key="RestaurantsButton" TargetType="Button">
+        <Setter Property="Width" Value="410"/>
+        <Setter Property="Margin" Value="4,0,4,8"/>
+        <Setter Property="Height" Value="95"/>
+        <Setter Property="Template" Value="{StaticResource RestaurantsTemplate}"/>
+    </Style>
+    <Style x:Key="EventsButton" TargetType="Button">
+        <Setter Property="Width" Value="345"/>
+        <Setter Property="Margin" Value="4,0,4,8"/>
+        <Setter Property="Height" Value="95"/>
+        <Setter Property="Template" Value="{StaticResource EventsTemplate}"/>
+    </Style>
+    <Style x:Key="VokzalButton" TargetType="Button">
+        <Setter Property="Width" Value="675"/>
+        <Setter Property="Margin" Value="4,0,4,8"/>
+        <Setter Property="Height" Value="95"/>
+        <Setter Property="Template" Value="{StaticResource VokzalTemplate}"/>
+    </Style>
+    <Style x:Key="SightsButton" TargetType="Button">
+        <Setter Property="Width" Value="755"/>
+        <Setter Property="Margin" Value="4,0,4,8"/>
+        <Setter Property="Height" Value="95"/>
+        <Setter Property="Template" Value="{StaticResource SightsTemplate}"/>
+    </Style>
+    <Style x:Key="InvalidButton" TargetType="Button">
+        <Setter Property="Width" Value="560"/>
+        <Setter Property="Height" Value="150"/>
+        <Setter Property="Template" Value="{StaticResource InvalidTemplate}"/>
+    </Style>
+    <Style x:Key="EarthButton" TargetType="Button">
+        <Setter Property="Width" Value="310"/>
+        <Setter Property="Height" Value="150"/>
+        <Setter Property="Template" Value="{StaticResource WorldTemplate}"/>
+    </Style>
+    <Style x:Key="AppsButton" TargetType="Button">
+        <Setter Property="Width" Value="400"/>
+        <Setter Property="Height" Value="150"/>
+        <Setter Property="Template" Value="{StaticResource AndroidTemplate}"/>
+    </Style>
+    <Style x:Key="VideoGuideButton" TargetType="Button">
+        <Setter Property="Width" Value="400"/>
+        <Setter Property="Height" Value="150"/>
+        <Setter Property="Template" Value="{StaticResource VideoGuideTemplate}"/>
+    </Style>
+    <!-- 
+    использовать InvalidButton, EarthButton, AppsButton, VideoGuideButton для нижних
+    SightsButton, SightsButton, EventsButton, RestaurantsButton, ShopingButton, HotelButton, InfoButton, TransportButton, HelpButton для верхних
+    -->
+</ResourceDictionary>

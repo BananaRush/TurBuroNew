@@ -1,0 +1,504 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\CefSharp.Wpf.69.0.0\build\CefSharp.Wpf.props" Condition="Exists('..\packages\CefSharp.Wpf.69.0.0\build\CefSharp.Wpf.props')" />
+  <Import Project="..\packages\CefSharp.Common.69.0.0\build\CefSharp.Common.props" Condition="Exists('..\packages\CefSharp.Common.69.0.0\build\CefSharp.Common.props')" />
+  <Import Project="..\packages\cef.redist.x86.3.3497.1841\build\cef.redist.x86.props" Condition="Exists('..\packages\cef.redist.x86.3.3497.1841\build\cef.redist.x86.props')" />
+  <Import Project="..\packages\cef.redist.x64.3.3497.1841\build\cef.redist.x64.props" Condition="Exists('..\packages\cef.redist.x64.3.3497.1841\build\cef.redist.x64.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{51826167-EA89-486F-B6A2-81E39DB65F5E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Client</RootNamespace>
+    <AssemblyName>Client</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AForge, Version=2.2.5.0, Culture=neutral, PublicKeyToken=c1db6ff4eaa06aeb, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.2.2.5\lib\AForge.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video, Version=2.2.5.0, Culture=neutral, PublicKeyToken=cbfb6e07d173c401, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Video.2.2.5\lib\AForge.Video.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video.DirectShow, Version=2.2.5.0, Culture=neutral, PublicKeyToken=61ea4348d43881b7, processorArchitecture=MSIL">
+      <HintPath>..\packages\AForge.Video.DirectShow.2.2.5\lib\AForge.Video.DirectShow.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Client.2.4.0\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.4.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Controls\Carousel\CarouselControl.xaml.cs">
+      <DependentUpon>CarouselControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Carousel\CarouselControlVM.cs" />
+    <Compile Include="Controls\Events\EventsControl.xaml.cs">
+      <DependentUpon>EventsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Events\EventsControlVM.cs" />
+    <Compile Include="Controls\Events\FullEventsPage.xaml.cs">
+      <DependentUpon>FullEventsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FeatureModule\FeatureControl.xaml.cs">
+      <DependentUpon>FeatureControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FeatureModule\FeatureControlVM.cs" />
+    <Compile Include="Controls\FeatureModule\FeatureModule.cs" />
+    <Compile Include="Controls\FeatureModule\InversionColor.cs" />
+    <Compile Include="Controls\Language\LanguageControl.xaml.cs">
+      <DependentUpon>LanguageControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Language\LanguageControlVM.cs" />
+    <Compile Include="Controls\Still\StillControlVM.cs" />
+    <Compile Include="Controls\Still\StillControl.xaml.cs">
+      <DependentUpon>StillControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Testing\TestingControl.xaml.cs">
+      <DependentUpon>TestingControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Testing\TestingControlVM.cs" />
+    <Compile Include="Controls\VideoGuide\VideoGuideControl.xaml.cs">
+      <DependentUpon>VideoGuideControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\VideoGuide\VideoGuideControlVM.cs" />
+    <Compile Include="Controls\WebControl\BrowserRequestHandler.cs" />
+    <Compile Include="Controls\WebControl\ChromiumBrowser.cs" />
+    <Compile Include="Controls\WebControl\CustomMenuHandler.cs" />
+    <Compile Include="Controls\WebControl\SampleLifeSpanHandler.cs" />
+    <Compile Include="Controls\WebControl\UrlParse.cs" />
+    <Compile Include="Controls\WebControl\WebBrowserConfig.cs" />
+    <Compile Include="Controls\WebControl\WebBrowserUrl.cs" />
+    <Compile Include="Converters\ClearHtmlTegConverter.cs" />
+    <Compile Include="Converters\WidthConver.cs" />
+    <Compile Include="Explorer.cs" />
+    <Compile Include="Model\TagElement.cs" />
+    <Compile Include="Model\UIElm.cs" />
+    <Compile Include="Timout.cs" />
+    <Compile Include="Utilits\CreateButtons.cs" />
+    <Compile Include="Utilits\EmailManager.cs" />
+    <Compile Include="Utilits\FileLoader.cs" />
+    <Compile Include="Utilits\LanguageProperty.cs" />
+    <Compile Include="Utilits\Language\ClientLang.cs" />
+    <Compile Include="Utilits\Language\IClientWord.cs" />
+    <Compile Include="Utilits\Language\LangWord.cs" />
+    <Compile Include="Utilits\SignalR\BaseHubClient.cs" />
+    <Compile Include="Utilits\SignalR\SignalRVideoManager.cs" />
+    <Compile Include="Utilits\VideoTranslation.cs" />
+    <Compile Include="Utilits\VideoTranslationManager.cs" />
+    <Compile Include="Utilits\ViewManager.cs" />
+    <Compile Include="Utilits\XmlSerializable.cs" />
+    <Compile Include="ViewModel\ImageViewerWindowsVM.cs" />
+    <Compile Include="ViewModel\InformationListPageVM.cs" />
+    <Compile Include="ViewModel\InformationPageVM.cs" />
+    <Compile Include="ViewModel\PassagePageVM.cs" />
+    <Compile Include="ViewModel\PersonalAccountsWindowVM.cs" />
+    <Compile Include="ViewModel\PhotoPageVM.cs" />
+    <Compile Include="ViewModel\SectionPageVM.cs" />
+    <Compile Include="ViewModel\VideoTerminalListPageVM.cs" />
+    <Compile Include="ViewModel\VideoTerminalTranslationPageVM.cs" />
+    <Compile Include="ViewModel\WebBrowserPageVM.cs" />
+    <Compile Include="View\ImageViewerWindows.xaml.cs">
+      <DependentUpon>ImageViewerWindows.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\InformationListPage.xaml.cs">
+      <DependentUpon>InformationListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\InformationPage.xaml.cs">
+      <DependentUpon>InformationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PassagePage.xaml.cs">
+      <DependentUpon>PassagePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PersonalAccountsWindow.xaml.cs">
+      <DependentUpon>PersonalAccountsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PhotoPage.xaml.cs">
+      <DependentUpon>PhotoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SectionPage.xaml.cs">
+      <DependentUpon>SectionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\VideoTerminalListPage.xaml.cs">
+      <DependentUpon>VideoTerminalListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\VideoTerminalTranslationPage.xaml.cs">
+      <DependentUpon>VideoTerminalTranslationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\WebBrowserPage.xaml.cs">
+      <DependentUpon>WebBrowserPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\_NonPage.xaml.cs">
+      <DependentUpon>_NonPage.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Controls\Carousel\CarouselControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
+    </Page>
+    <Page Include="Controls\Currency\CurrencyControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Events\EventsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Events\FullEventsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\FeatureModule\FeatureControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Language\LanguageControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PageShall\PageShallControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Still\StillControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Testing\TestingControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Time\TimeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\VideoGuide\VideoGuideControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Weather\WeatherControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Style\MainStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ImageViewerWindows.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\InformationListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\InformationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\Currency\CurrencyControl.xaml.cs">
+      <DependentUpon>CurrencyControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Currency\CurrencyControlVM.cs" />
+    <Compile Include="Controls\Currency\Model\CurrencyModel.cs" />
+    <Compile Include="Controls\Currency\Model\ValCursModel.cs" />
+    <Compile Include="Controls\Currency\Model\ValCursValuteModel.cs" />
+    <Compile Include="Controls\PageShall\PageShallControl.xaml.cs">
+      <DependentUpon>PageShallControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Time\TimeControl.xaml.cs">
+      <DependentUpon>TimeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Time\TimeControlVM.cs" />
+    <Compile Include="Controls\Time\TimeModel.cs" />
+    <Compile Include="Controls\Weather\WeatherControl.xaml.cs">
+      <DependentUpon>WeatherControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Weather\WeatherControlVM.cs" />
+    <Compile Include="Controls\Weather\WeatherModel.cs" />
+    <Compile Include="Converters\WeatherNumbersConverter.cs" />
+    <Compile Include="Interface\IMainFrame.cs" />
+    <Compile Include="Interface\IPageShell.cs" />
+    <Compile Include="Utilits\Bandel.cs" />
+    <Compile Include="Utilits\RelayCommand.cs" />
+    <Compile Include="ViewModel\MainWindowVM.cs" />
+    <Compile Include="View\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="View\PassagePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PersonalAccountsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PhotoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SectionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\VideoTerminalListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\VideoTerminalTranslationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WebBrowserPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\_NonPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Resource Include="Fonts\ALS_Direct_Bold.otf" />
+    <Resource Include="Fonts\ALS_Direct_Italic.otf" />
+    <Resource Include="Fonts\ALS_Direct_Regular.otf" />
+    <Resource Include="Fonts\ALS_SPb_fixed.otf" />
+    <Resource Include="Fonts\ALS_SPb_official.ttf" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\page_background.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\zastavka.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\Weather\Image\White\broken-clouds.png" />
+    <Resource Include="Controls\Weather\Image\White\clear-night.png" />
+    <Resource Include="Controls\Weather\Image\White\clouds.png" />
+    <Resource Include="Controls\Weather\Image\White\few-clouds.png" />
+    <Resource Include="Controls\Weather\Image\White\mist.png" />
+    <Resource Include="Controls\Weather\Image\White\rain.png" />
+    <Resource Include="Controls\Weather\Image\White\snow.png" />
+    <Resource Include="Controls\Weather\Image\White\sunny-day.png" />
+    <Resource Include="Controls\Weather\Image\White\thunder-rain.png" />
+    <Resource Include="Controls\Weather\Image\White\thunder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\Weather\Image\broken-clouds.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\Weather\Image\clear-night.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\Weather\Image\clouds.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\Weather\Image\few-clouds.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\Weather\Image\mist.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\Weather\Image\rain.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\Weather\Image\snow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\Weather\Image\sunny-day.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\Weather\Image\thunder-rain.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\Weather\Image\thunder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ModelData\ModelData.csproj">
+      <Project>{40f9d765-771e-4f49-9b31-245e2f6d379a}</Project>
+      <Name>ModelData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VisitAPI\VisitAPI.csproj">
+      <Project>{188b5d67-ad61-4603-a444-eafebdde3e37}</Project>
+      <Name>VisitAPI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Frame 2.10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Frame 2.7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Frame 2.9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\Language\Image\LanguageIcons\chinese-language.png" />
+    <Resource Include="Controls\Language\Image\LanguageIcons\english-language.png" />
+    <Resource Include="Controls\Language\Image\LanguageIcons\russian-language.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\LanguageIcons\chinese-language.png" />
+    <Resource Include="Image\LanguageIcons\english-language.png" />
+    <Resource Include="Image\LanguageIcons\russian-language.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\down_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\down_next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\FeatureModule\Image\silhouette-on-wheelchair.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Language\RU.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\dotcam.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\send-foto.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\cef.redist.x64.3.3497.1841\build\cef.redist.x64.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x64.3.3497.1841\build\cef.redist.x64.props'))" />
+    <Error Condition="!Exists('..\packages\cef.redist.x86.3.3497.1841\build\cef.redist.x86.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x86.3.3497.1841\build\cef.redist.x86.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.69.0.0\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.69.0.0\build\CefSharp.Common.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.69.0.0\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.69.0.0\build\CefSharp.Common.targets'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Wpf.69.0.0\build\CefSharp.Wpf.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Wpf.69.0.0\build\CefSharp.Wpf.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Wpf.69.0.0\build\CefSharp.Wpf.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Wpf.69.0.0\build\CefSharp.Wpf.targets'))" />
+  </Target>
+  <Import Project="..\packages\CefSharp.Common.69.0.0\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.69.0.0\build\CefSharp.Common.targets')" />
+  <Import Project="..\packages\CefSharp.Wpf.69.0.0\build\CefSharp.Wpf.targets" Condition="Exists('..\packages\CefSharp.Wpf.69.0.0\build\CefSharp.Wpf.targets')" />
+</Project>

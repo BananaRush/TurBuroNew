@@ -1,0 +1,147 @@
+﻿@using ModelData.Model.Database
+@model Tuple<Information, int>
+@{ 
+    int Id = 0;
+    int IdBtn = 0;
+    string Title = string.Empty;
+    string Info = string.Empty;
+    bool IsPublick = false;
+    string datatime = string.Empty;
+    string status = "Опубликовать";
+    if (Model != null)
+    {
+        if (Model.Item1 != null)
+        {
+            Id = Model.Item1.Id;
+            Title = Model.Item1.Title;
+            Info = Model.Item1.Info;
+            IsPublick = Model.Item1.IsPublick;
+            datatime = Model.Item1.DateTime.ToLongDateString();
+        }
+
+        IdBtn = Model.Item2;
+    }
+}
+<script type="text/javascript" src="~/lib/ckeditor/ckeditor.js"></script>
+<script>
+    function SendForm() {
+        $('form[name=bb-post]').submit();
+    }
+
+    function SendFormPublick() {
+        $('form[name=pb-post]').submit();
+    }
+</script>
+<div class="page-header row no-gutters py-4">
+    <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+        <span class="text-uppercase page-subtitle">Редактор текста</span>
+        <h3 class="page-title">Добавление информации</h3>
+    </div>
+</div>
+<div class="row">
+
+        <div class="col-lg-9 col-md-12">
+            <div class="card card-small mb-3">
+                <div class="card-body">
+                    @using (Html.BeginForm("InfoPublic", "Editor", FormMethod.Post, new { name = "pb-post" }))
+                    {
+                        <input name="Id" value="@Id" hidden />
+                    }
+
+                    @using (Html.BeginForm("AddInfo", "Editor", FormMethod.Post, new { name = "bb-post" }))
+                    {
+                        <input name="model.Id" value="@Id" hidden />
+                        <input name="IdBtn" value="@IdBtn" hidden />
+
+                        <input class="form-control form-control-lg mb-3" type="text" name="model.Title" placeholder="Укажите заголовок" value="@Title">
+                        <textarea id="description" name="model.Info" rows="16" required="required">@Info</textarea>
+
+                        <script>
+                            CKEDITOR.replace('model.Info', {
+                                filebrowserWindowWidth: 1200,
+                                filebrowserWindowHeight: 800
+                            });
+                        </script>
+                    }
+                </div>
+            </div>
+            <!-- / Add New Post Form -->
+        </div>
+
+        <div class="col-lg-3 col-md-12">
+            <!-- Post Overview -->
+            <div class="card card-small mb-3">
+                <div class="card-header border-bottom">
+                    <h6 class="m-0">Опции</h6>
+                </div>
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item p-3">
+                            <span class="d-flex mb-2">
+                                <i class="material-icons mr-1">flag</i>
+                                <strong class="mr-1">Дата:</strong> @datatime
+                            </span>
+                            <span class="d-flex mb-2">
+                                <i class="material-icons mr-1">visibility</i>
+                                <strong class="mr-1">Видимость:</strong>
+                                @if (IsPublick)
+                                {
+                                    <strong class="text-success">Да</strong>
+                                }
+                                else
+                                {
+                                    <strong class="text-success">Нет</strong>
+                                }
+                            </span>
+                        </li>
+                        <li class="list-group-item d-flex px-3">
+                            <button type="submit" class="btn btn-sm btn-outline-accent" onclick="SendForm()">
+                                <i class="material-icons">save</i> Сохранить
+                            </button>
+
+                            <button type="submit" class="btn btn-sm btn-accent ml-auto" onclick="SendFormPublick()">
+
+                                @if (IsPublick)
+                                {
+                                    status = "Снять с публикации";
+                                }
+
+                                <i class="material-icons">file_copy</i> @status
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card card-small mb-3">
+                <div class="card-header border-bottom">
+                    <h6 class="m-0">Доступные категории</h6>
+                </div>
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item px-3 pb-2">
+                            <div class="custom-control custom-checkbox mb-1">
+                                <input type="checkbox" class="custom-control-input" id="category1" checked="">
+                                <label class="custom-control-label" for="category1">Категория 1</label>
+                            </div>
+                            <div class="custom-control custom-checkbox mb-1">
+                                <input type="checkbox" class="custom-control-input" id="category2" checked="">
+                                <label class="custom-control-label" for="category2">Категория 2</label>
+                            </div>
+                            <div class="custom-control custom-checkbox mb-1">
+                                <input type="checkbox" class="custom-control-input" id="category3">
+                                <label class="custom-control-label" for="category3">Категория 3</label>
+                            </div>
+                            <div class="custom-control custom-checkbox mb-1">
+                                <input type="checkbox" class="custom-control-input" id="category4">
+                                <label class="custom-control-label" for="category4">Категория 4</label>
+                            </div>
+                            <div class="custom-control custom-checkbox mb-1">
+                                <input type="checkbox" class="custom-control-input" id="category5">
+                                <label class="custom-control-label" for="category5">Категория 5</label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
