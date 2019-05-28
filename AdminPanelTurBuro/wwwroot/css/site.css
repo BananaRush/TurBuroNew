@@ -1,9 +1,0 @@
-﻿.text-brek {
-    padding: 5px;
-    border: 1px solid black;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 90px;
-    text-align: justify;
-}

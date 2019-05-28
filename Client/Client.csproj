@@ -445,10 +445,6 @@
       <Project>{40f9d765-771e-4f49-9b31-245e2f6d379a}</Project>
       <Name>ModelData</Name>
     </ProjectReference>
-    <ProjectReference Include="..\VisitAPI\VisitAPI.csproj">
-      <Project>{188b5d67-ad61-4603-a444-eafebdde3e37}</Project>
-      <Name>VisitAPI</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\Frame 2.10.png" />
